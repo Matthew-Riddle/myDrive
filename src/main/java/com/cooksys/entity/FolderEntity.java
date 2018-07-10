@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class FolderEntity {
@@ -15,7 +16,9 @@ public class FolderEntity {
 
 	private String location;
 	private String name;
-	private boolean deleted;
+	private boolean is_deleted;
+	
+	@OneToMany
 	private ArrayList<FileEntity> files;
 
 	public Long getId() {
@@ -43,11 +46,11 @@ public class FolderEntity {
 	}
 
 	public boolean isDeleted() {
-		return deleted;
+		return is_deleted;
 	}
 
 	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+		this.is_deleted = deleted;
 	}
 
 	public ArrayList<FileEntity> getFiles() {
@@ -66,7 +69,7 @@ public class FolderEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (deleted ? 1231 : 1237);
+		result = prime * result + (is_deleted ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -82,7 +85,7 @@ public class FolderEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		FolderEntity other = (FolderEntity) obj;
-		if (deleted != other.deleted)
+		if (is_deleted != other.is_deleted)
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -101,4 +104,6 @@ public class FolderEntity {
 			return false;
 		return true;
 	}
+	
+	
 }
