@@ -1,7 +1,8 @@
 package com.cooksys.service;
 
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -33,14 +34,14 @@ public class FileService {
 		return mapper.toDto(repo.findById(id).get());
 	}
 	
-	public ArrayList<FileDto> getFiles() {
+	public List<FileDto> getFiles() {
 		
-		return null;	
+		return repo.findAll().stream().map(mapper::toDto).collect(Collectors.toList());	
 	}
 	
-	public FileDto updateFileById(Long id) {
-		
-		return null;	
+	public FileDto updateFileById(FileDto file, Long id) {
+		file.setFile_id(id);
+		return return repo.save(mapper.toFile(file));	
 	}
 	
 	public FileDto deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
