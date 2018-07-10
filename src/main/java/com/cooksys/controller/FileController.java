@@ -1,6 +1,6 @@
 package com.cooksys.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ public class FileController {
 	}
 	
 	@GetMapping
-	public ArrayList<FileDto> getAll() {
+	public List<FileDto> getAll() {
 		return fileService.getFiles();
 	}
 	
