@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cooksys.dto.FileDto;
 import com.cooksys.dto.FolderDto;
 import com.cooksys.service.FolderService;
 
@@ -40,13 +41,13 @@ public class FolderController {
 	}
 	
 	@PutMapping("{id}")
-	public FolderDto updateFolder(@RequestBody FolderDto folder, @PathVariable Long id) {
-		return fileService.updateFolder(folder, id);
+	public FolderDto updateFolder(@RequestBody List<FileDto> file, @PathVariable Long id) {
+		return folderService.updateFolder(file, id);
 	}
 	
 	@DeleteMapping("{id}")
 	public FolderDto deleteFolder(@PathVariable Long id) {
-		return fileService.deleteFolder(id);
+		return folderService.deleteFolder(id);
 	}
 
 }
