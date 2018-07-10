@@ -1,5 +1,9 @@
 package com.cooksys.repository;
 
-public class FileRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cooksys.entity.FileEntity;
+
+public interface FileRepository extends JpaRepository<FileEntity, Long>{
 
 }
