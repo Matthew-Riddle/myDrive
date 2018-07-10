@@ -1,6 +1,7 @@
 package com.cooksys.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +20,10 @@ public class FolderEntity {
 	private boolean is_deleted;
 	
 	@OneToMany
-	private ArrayList<FileEntity> files;
-
+	private List<FileEntity> files;
+	FolderEntity(){
+		this.files = new ArrayList<FileEntity>();
+	}
 	public Long getId() {
 		return id;
 	}
@@ -53,11 +56,11 @@ public class FolderEntity {
 		this.is_deleted = deleted;
 	}
 
-	public ArrayList<FileEntity> getFiles() {
+	public List<FileEntity> getFiles() {
 		return files;
 	}
 
-	public void setFiles(ArrayList<FileEntity> files) {
+	public void setFiles(List<FileEntity> files) {
 		this.files = files;
 	}
 	
@@ -104,6 +107,6 @@ public class FolderEntity {
 			return false;
 		return true;
 	}
-	
+
 	
 }
