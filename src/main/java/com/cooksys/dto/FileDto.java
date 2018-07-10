@@ -84,6 +84,4 @@ public class FileDto {
 			return false;
 		return true;
 	}
-	
-	
 }
