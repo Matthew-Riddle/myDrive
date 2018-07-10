@@ -19,12 +19,12 @@ public class FileEntity {
 	@ManyToOne
 	private FolderEntity folder;
 
-	public Long getId() {
-		return id;
+	public Long getFile_id() {
+		return file_id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setFile_id(Long file_id) {
+		this.file_id = file_id;
 	}
 
 	public String getLocation() {
@@ -43,12 +43,12 @@ public class FileEntity {
 		this.name = name;
 	}
 
-	public boolean isDeleted() {
-		return isDeleted;
+	public boolean isIs_deleted() {
+		return is_deleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setIs_deleted(boolean is_deleted) {
+		this.is_deleted = is_deleted;
 	}
 
 	public FolderEntity getFolder() {
@@ -63,7 +63,7 @@ public class FileEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
 		return result;
 	}
 
@@ -76,15 +76,12 @@ public class FileEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		FileEntity other = (FileEntity) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (file_id == null) {
+			if (other.file_id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!file_id.equals(other.file_id))
 			return false;
 		return true;
 	}
-	
-	
-	
 	
 }
