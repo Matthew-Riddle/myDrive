@@ -22,11 +22,11 @@ public class FileService {
 		
 	}
 	
-	public FileDto createFile(FileEntity file){//saves file then returns the saved file
+	public FileDto createFile(FileDto file){//saves file then returns the saved file
 		
 		
-		
-		return repo.save(mapper.toFile(file));	
+		file.setFile_id(null); // Database will handle auto-incrementation
+		return mapper.toDto(repo.save(mapper.toFile(file)));	
 	}
 	
 	public FileDto getFileById(Long id) {
@@ -41,7 +41,7 @@ public class FileService {
 	
 	public FileDto updateFileById(FileDto file, Long id) {
 		file.setFile_id(id);
-		return repo.save(mapper.toFile(file));	
+		return mapper.toDto(repo.save(mapper.toFile(file)));	
 	}
 	
 	public FileDto deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
