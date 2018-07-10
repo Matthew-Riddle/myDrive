@@ -1,7 +1,5 @@
 package com.cooksys.service;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -31,7 +29,7 @@ public class FolderService {
 	}
 
 	public FolderDto createFolder(FolderDto folderDto) {
-		folderDto.setId(null);
+		folderDto.setFolder_id(null);
 		Long reID = folderRepository.save(folderMapper.toFolder(folderDto)).getId();
 		return folderMapper.toDto(folderRepository.getOne(reID));
 	}
@@ -58,7 +56,7 @@ public class FolderService {
 	public FolderDto deleteFolder(Long id) {
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		for(FileEntity containedFile : deletedFolder.getFiles()) {
-			containedFile.setDeleted(true);
+			containedFile.setIs_deleted(true);
 			fileRepository.save(containedFile);
 		}
 		deletedFolder.setDeleted(true);
