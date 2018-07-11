@@ -28,13 +28,45 @@ public class FileService {
 	
 	public FileDto createFile(MultipartFile file, String location){//saves file then returns the saved file
 		
-		Path path = Paths.get("/storage/" + location + "/" + file.getOriginalFilename());		
+		Path path = Paths.get("/storage", location);
+		
+		if(!Files.exists(path.toAbsolutePath())) {
+			System.out.println(path);
+			try {
+				Files.createDirectories(path);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		path = Paths.get(path.toString(), file.getOriginalFilename());
+		
 		try {
 			Files.write(path, file.getBytes());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
+		
+		
+		
+//		if(!Files.exists(path.toAbsolutePath())) {
+//			try {
+//				Files.createFile(path.toAbsolutePath());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		
+		
+//		try {
+//			Files.write(path.toAbsolutePath(), file.getBytes());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}		
 		FileDto tmp = new FileDto();
 		return mapper.toDto(repo.save(mapper.toFile(tmp)));	
 	}
