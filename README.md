@@ -1,10 +1,5 @@
 # mydrive
 
----
-
-## Description
-
-
 A file sharing service created with [Spring Boot](https://spring.io/projects/spring-boot) and [ReactJS](https://reactjs.org/)
 
 ## Contributing
@@ -32,3 +27,9 @@ git flow feature finish File_Controller
 * [Entity-Relationship Diagram + API endpoints](https://www.lucidchart.com/documents/edit/2e22884c-06f7-470d-a12e-ba6e028b9a74?shared=true&)
 
 * [Component mockup](https://projects.invisionapp.com/freehand/document/fAKfkOXIf)
+
+## Release v0.1.0
+
+* Implements basic CRUD endpoints for /folder and /files via Spring Boot
+
+* Bootstrap front-end with Create-React-App
