@@ -1,13 +1,17 @@
 package com.cooksys.mydrive.service;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cooksys.mydrive.dto.FileDto;
-import com.cooksys.mydrive.entity.FileEntity;
 import com.cooksys.mydrive.mapper.FileMapper;
 import com.cooksys.mydrive.repository.FileRepository;
 
@@ -22,11 +26,17 @@ public class FileService {
 		
 	}
 	
-	public FileDto createFile(FileDto file){//saves file then returns the saved file
+	public FileDto createFile(MultipartFile file, String location){//saves file then returns the saved file
 		
-		
-		file.setId(null); // Database will handle auto-incrementation
-		return mapper.toDto(repo.save(mapper.toFile(file)));	
+		Path path = Paths.get("/storage/" + location + "/" + file.getOriginalFilename());		
+		try {
+			Files.write(path, file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		FileDto tmp = new FileDto();
+		return mapper.toDto(repo.save(mapper.toFile(tmp)));	
 	}
 	
 	public FileDto getFileById(Long id) {

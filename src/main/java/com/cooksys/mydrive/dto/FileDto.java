@@ -63,9 +63,7 @@ public class FileDto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Arrays.hashCode(contents);
 		result = prime * result + (deleted ? 1231 : 1237);
-		result = prime * result + (empty ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -81,11 +79,7 @@ public class FileDto {
 		if (getClass() != obj.getClass())
 			return false;
 		FileDto other = (FileDto) obj;
-		if (!Arrays.equals(contents, other.contents))
-			return false;
 		if (deleted != other.deleted)
-			return false;
-		if (empty != other.empty)
 			return false;
 		if (id == null) {
 			if (other.id != null)

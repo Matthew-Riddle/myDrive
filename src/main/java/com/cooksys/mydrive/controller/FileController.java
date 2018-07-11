@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cooksys.mydrive.dto.FileDto;
 import com.cooksys.mydrive.service.FileService;
@@ -35,8 +37,8 @@ public class FileController {
 	}
 	
 	@PostMapping
-	public FileDto createNewFile(@RequestBody FileDto file) {
-		return fileService.createFile(file);
+	public FileDto createNewFile(@RequestBody MultipartFile file, @RequestParam(required = false) String location) {
+		return fileService.createFile(file, location);
 	}
 	
 	@PutMapping("{id}")
