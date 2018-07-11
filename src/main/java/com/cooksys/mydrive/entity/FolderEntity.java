@@ -17,7 +17,7 @@ public class FolderEntity {
 
 	private String location;
 	private String name;
-	private Boolean deleted;
+	private boolean deleted;
 	
 	@OneToMany
 	private List<FileEntity> files;
@@ -50,11 +50,11 @@ public class FolderEntity {
 		this.name = name;
 	}
 
-	public Boolean isDeleted() {
+	public boolean isDeleted() {
 		return deleted;
 	}
 
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
 
