@@ -25,7 +25,7 @@ public class FileService {
 	public FileDto createFile(FileDto file){//saves file then returns the saved file
 		
 		
-		file.setFile_id(null); // Database will handle auto-incrementation
+		file.setId(null); // Database will handle auto-incrementation
 		return mapper.toDto(repo.save(mapper.toFile(file)));	
 	}
 	
@@ -40,7 +40,7 @@ public class FileService {
 	}
 	
 	public FileDto updateFileById(FileDto file, Long id) {
-		file.setFile_id(id);
+		file.setId(id);
 		return mapper.toDto(repo.save(mapper.toFile(file)));	
 	}
 	

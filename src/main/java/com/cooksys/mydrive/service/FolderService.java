@@ -29,7 +29,8 @@ public class FolderService {
 	}
 
 	public FolderDto createFolder(FolderDto folderDto) {
-		folderDto.setFolder_id(null);
+		folderDto.setId(null);
+		folderDto.setDeleted(false);
 		Long reID = folderRepository.save(folderMapper.toFolder(folderDto)).getId();
 		return folderMapper.toDto(folderRepository.getOne(reID));
 	}
@@ -56,7 +57,7 @@ public class FolderService {
 	public FolderDto deleteFolder(Long id) {
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		for(FileEntity containedFile : deletedFolder.getFiles()) {
-			containedFile.setIs_deleted(true);
+			containedFile.setDeleted(true);
 			fileRepository.save(containedFile);
 		}
 		deletedFolder.setDeleted(true);

@@ -17,7 +17,7 @@ public class FolderEntity {
 
 	private String location;
 	private String name;
-	private boolean is_deleted;
+	private Boolean deleted;
 	
 	@OneToMany
 	private List<FileEntity> files;
@@ -50,12 +50,12 @@ public class FolderEntity {
 		this.name = name;
 	}
 
-	public boolean isDeleted() {
-		return is_deleted;
+	public Boolean isDeleted() {
+		return deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.is_deleted = deleted;
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public List<FileEntity> getFiles() {
@@ -74,7 +74,7 @@ public class FolderEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (is_deleted ? 1231 : 1237);
+		result = prime * result + (deleted ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -90,7 +90,7 @@ public class FolderEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		FolderEntity other = (FolderEntity) obj;
-		if (is_deleted != other.is_deleted)
+		if (deleted != other.deleted)
 			return false;
 		if (id == null) {
 			if (other.id != null)
