@@ -30,6 +30,15 @@ public class FileService {
 		
 		Path path = Paths.get("/storage", location);
 		
+		FileDto tmp = new FileDto();
+		
+		tmp.setName(file.getOriginalFilename());
+		tmp.setId(null);
+		tmp.setLocation(path.toString());
+		tmp.setDeleted(false);
+		tmp.setFileSize(file.getSize());
+		tmp.setContentType(file.getContentType());
+		
 		if(!Files.exists(path.toAbsolutePath())) {
 			System.out.println(path);
 			try {
@@ -42,6 +51,9 @@ public class FileService {
 		
 		path = Paths.get(path.toString(), file.getOriginalFilename());
 		
+		if(Files.exists(path))
+			return null;//file name already exhists
+		
 		try {
 			Files.write(path, file.getBytes());
 		} catch (IOException e) {
@@ -50,24 +62,7 @@ public class FileService {
 		}
 		
 		
-		
-//		if(!Files.exists(path.toAbsolutePath())) {
-//			try {
-//				Files.createFile(path.toAbsolutePath());
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-		
-//		try {
-//			Files.write(path.toAbsolutePath(), file.getBytes());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}		
-		FileDto tmp = new FileDto();
+
 		return mapper.toDto(repo.save(mapper.toFile(tmp)));	
 	}
 	
