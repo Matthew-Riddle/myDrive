@@ -1,9 +1,9 @@
-package com.cooksys.mapper;
+package com.cooksys.mydrive.mapper;
 
 import org.mapstruct.Mapper;
 
-import com.cooksys.dto.FolderDto;
-import com.cooksys.entity.FolderEntity;
+import com.cooksys.mydrive.dto.FolderDto;
+import com.cooksys.mydrive.entity.FolderEntity;
 
 @Mapper(componentModel = "spring")
 public interface FolderMapper {

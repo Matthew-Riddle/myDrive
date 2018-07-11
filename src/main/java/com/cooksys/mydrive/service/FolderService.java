@@ -1,17 +1,17 @@
-package com.cooksys.service;
+package com.cooksys.mydrive.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.cooksys.dto.FolderDto;
-import com.cooksys.dto.FileDto;
-import com.cooksys.entity.FolderEntity;
-import com.cooksys.entity.FileEntity;
-import com.cooksys.repository.FileRepository;
-import com.cooksys.repository.FolderRepository;
-import com.cooksys.mapper.FolderMapper;
-import com.cooksys.mapper.FileMapper;
+import com.cooksys.mydrive.dto.FileDto;
+import com.cooksys.mydrive.dto.FolderDto;
+import com.cooksys.mydrive.entity.FileEntity;
+import com.cooksys.mydrive.entity.FolderEntity;
+import com.cooksys.mydrive.mapper.FileMapper;
+import com.cooksys.mydrive.mapper.FolderMapper;
+import com.cooksys.mydrive.repository.FileRepository;
+import com.cooksys.mydrive.repository.FolderRepository;
 
 
 @Service

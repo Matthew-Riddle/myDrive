@@ -1,4 +1,4 @@
-package com.cooksys.entity;
+package com.cooksys.mydrive.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,11 @@ public class FolderEntity {
 	
 	@OneToMany
 	private List<FileEntity> files;
-	FolderEntity(){
+
+	public FolderEntity(){
 		this.files = new ArrayList<FileEntity>();
 	}
+
 	public Long getId() {
 		return id;
 	}

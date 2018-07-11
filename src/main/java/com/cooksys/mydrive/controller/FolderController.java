@@ -1,4 +1,4 @@
-package com.cooksys.controller;
+package com.cooksys.mydrive.controller;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cooksys.dto.FileDto;
-import com.cooksys.dto.FolderDto;
-import com.cooksys.service.FolderService;
+import com.cooksys.mydrive.dto.FileDto;
+import com.cooksys.mydrive.dto.FolderDto;
+import com.cooksys.mydrive.service.FolderService;
 
 @RestController
 @RequestMapping("folder")

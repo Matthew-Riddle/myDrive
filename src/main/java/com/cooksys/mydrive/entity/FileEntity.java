@@ -1,4 +1,4 @@
-package com.cooksys.entity;
+package com.cooksys.mydrive.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
