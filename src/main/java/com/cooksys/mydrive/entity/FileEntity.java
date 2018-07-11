@@ -1,30 +1,55 @@
 package com.cooksys.mydrive.entity;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class FileEntity {
 
 	@Id
 	@GeneratedValue
-	private Long file_id;
-	
-	private String location;
-	private String name;
-	private boolean is_deleted;
-	
+	private Long id;
 	@ManyToOne
 	private FolderEntity folder;
+	private String location;
+	private String name;
+	private boolean deleted;
+	
+	private long fileSize;
+	private String contentType;
 
-	public Long getFile_id() {
-		return file_id;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	
+	public String getContentType() {
+		return contentType;
+	}
+	
+	public long getFileSize() {
+		return fileSize;
 	}
 
-	public void setFile_id(Long file_id) {
-		this.file_id = file_id;
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getLocation() {
@@ -43,12 +68,12 @@ public class FileEntity {
 		this.name = name;
 	}
 
-	public boolean isIs_deleted() {
-		return is_deleted;
+	public boolean getDeleted() {
+		return deleted;
 	}
 
-	public void setIs_deleted(boolean is_deleted) {
-		this.is_deleted = is_deleted;
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public FolderEntity getFolder() {
@@ -63,7 +88,7 @@ public class FileEntity {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((file_id == null) ? 0 : file_id.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -76,10 +101,10 @@ public class FileEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		FileEntity other = (FileEntity) obj;
-		if (file_id == null) {
-			if (other.file_id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!file_id.equals(other.file_id))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

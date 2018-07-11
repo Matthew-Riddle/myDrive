@@ -36,9 +36,6 @@ public class FileService {
 			e.printStackTrace();
 		}		
 		FileDto tmp = new FileDto();
-		
-		
-
 		return mapper.toDto(repo.save(mapper.toFile(tmp)));	
 	}
 	
@@ -53,7 +50,7 @@ public class FileService {
 	}
 	
 	public FileDto updateFileById(FileDto file, Long id) {
-		file.setFile_id(id);
+		file.setId(id);
 		return mapper.toDto(repo.save(mapper.toFile(file)));	
 	}
 	
