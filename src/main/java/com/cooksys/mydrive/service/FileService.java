@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cooksys.mydrive.dto.FileDto;
 import com.cooksys.mydrive.entity.FileEntity;
@@ -22,7 +23,7 @@ public class FileService {
 		
 	}
 	
-	public FileDto createFile(FileDto file){//saves file then returns the saved file
+	public FileDto createFile(MultipartFile file, String location){//saves file then returns the saved file
 		
 		
 		file.setFile_id(null); // Database will handle auto-incrementation
