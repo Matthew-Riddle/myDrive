@@ -22,19 +22,17 @@ public class FileEntity {
 	private FolderEntity folder;
 	private String location;
 	private String name;
-	private byte[] contents;
 	private boolean deleted;
 	
-
-	private boolean empty;
 	private long fileSize;
 	private String contentType;
-	public void setEmpty(boolean empty) {
-		this.empty = empty;
-	}
 
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	
+	public String getContentType() {
+		return contentType;
 	}
 	
 	public long getFileSize() {
@@ -45,13 +43,6 @@ public class FileEntity {
 		this.fileSize = fileSize;
 	}
 	
-	public byte[] getContents() {
-		return contents;
-	}
-
-	public void setContents(byte[] contents) {
-		this.contents = contents;
-	}
 
 	public Long getId() {
 		return id;
@@ -116,26 +107,6 @@ public class FileEntity {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public byte[] getBytes(){
-		return contents;
-	}
-
-	public String getContentType() {
-		return contentType;
-	}
-
-	public String getOriginalFilename() {
-		return name;
-	}
-	
-	public long getSize() {
-		return fileSize;
-	}
-	
-	public boolean isEmpty() {
-		return empty;
 	}
 	
 }
