@@ -1,8 +1,8 @@
-package com.cooksys.repository;
+package com.cooksys.mydrive.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cooksys.entity.FileEntity;
+import com.cooksys.mydrive.entity.FileEntity;
 
 public interface FileRepository extends JpaRepository<FileEntity, Long>{
 
