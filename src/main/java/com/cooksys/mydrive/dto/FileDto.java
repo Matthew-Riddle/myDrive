@@ -6,14 +6,17 @@ public class FileDto {
 	private Long id;
 	private String location;
 	private String name;
-	private byte[] contents;
 	private boolean deleted;
-	private boolean empty;
+
 	private long fileSize;
 	private String contentType;
 	
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+
+	public String getContentType() {
+		return contentType;
 	}
 
 	public long getFileSize() {
@@ -24,26 +27,10 @@ public class FileDto {
 		this.fileSize = fileSize;
 	}
 
-	public byte[] getContents() {
-		return contents;
-	}
-
-	public void setContents(byte[] contents) {
-		this.contents = contents;
-	}
-
 	public boolean getDeleted() {
 		return deleted;
 	}
 
-	public boolean getEmpty() {
-		return empty;
-	}
-
-	public void setEmpty(boolean empty) {
-		this.empty = empty;
-	}
-	
 	public Long getId() {
 		return id;
 	}
@@ -116,14 +103,6 @@ public class FileDto {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-
-	public byte[] getBytes(){
-		return contents;
-	}
-
-	public String getContentType() {
-		return contentType;
 	}
 
 	
