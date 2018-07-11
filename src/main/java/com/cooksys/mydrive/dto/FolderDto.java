@@ -6,7 +6,7 @@ public class FolderDto {
 	
 	private String location;
 	private String name;
-	private Boolean deleted;
+	private boolean deleted;
 	public Long getId() {
 		return id;
 	}
@@ -35,7 +35,7 @@ public class FolderDto {
 		return deleted;
 	}
 
-	public void setDeleted(Boolean deleted) {
+	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
 	@Override
