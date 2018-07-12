@@ -30,44 +30,43 @@ public class FileService {
 		
 		Path path = null;
 		if(location == null)
-			Paths.get("/storage");
+			path = Paths.get("/storage");//if location is not passed save in root
 		else
-			Paths.get("/storage", location);
+			path = Paths.get("/storage", location); //if a location is given add it to the directory path
 		
-		FileDto tmp = new FileDto();
+		FileDto tmp = new FileDto();//make a temp to send to the database
 		
-		tmp.setName(file.getOriginalFilename());
+		tmp.setName(file.getOriginalFilename());//fill the temp with info from the multi
 		tmp.setId(null);
 		tmp.setLocation(path.toString());
 		tmp.setDeleted(false);
 		tmp.setFileSize(file.getSize());
 		tmp.setContentType(file.getContentType());
 		
-		if(!Files.exists(path.toAbsolutePath())) {
-			System.out.println(path);
+		if(!Files.exists(path.toAbsolutePath())) {//check to see if there is already a folder path setup
 			try {
-				Files.createDirectories(path);
+				Files.createDirectories(path); // if not create folder structure
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
 		
-		path = Paths.get(path.toString(), file.getOriginalFilename());
+		path = Paths.get(path.toString(), file.getOriginalFilename());//add the file to the folder path
 		
-		if(Files.exists(path))
+		if(Files.exists(path))//see if it already exhists if it does error
 			return null;//file name already exhists
 		
 		try {
-			Files.write(path, file.getBytes());
+			Files.write(path, file.getBytes());//finally write to file
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
 		
 
-		return mapper.toDto(repo.save(mapper.toFile(tmp)));	
+		return mapper.toDto(repo.save(mapper.toFile(tmp)));	//save data to database
 	}
 	
 	public FileDto getFileById(Long id) {
