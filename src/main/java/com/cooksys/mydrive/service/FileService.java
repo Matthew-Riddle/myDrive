@@ -44,7 +44,7 @@ public class FileService {
 		
 		tmp.setName(file.getOriginalFilename());//fill the temp with info from the multi
 		tmp.setId(null);
-		tmp.setLocation(path.toString());
+		tmp.setLocation(location != null ? path.toString() : null);
 		tmp.setDeleted(false);
 		tmp.setFileSize(file.getSize());
 		tmp.setContentType(file.getContentType());
@@ -90,16 +90,37 @@ public class FileService {
 	
 	public FileDto deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
 		
+		
 		FileEntity tmp = null;//temp for returning
 		
 		if(fileRepo.findById(id) == null) //if id is not there return null for failed
 			return mapper.toDto(tmp);
 		
 		tmp = fileRepo.findById(id).get();//get the entry to return
-//		FolderEntity folder = folderRepository.getByLocation(tmp.getLocation());
-		fileRepo.deleteById(id);//delete the entry
 		
-		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
+		if(!tmp.getDeleted()) {
+			
+			System.out.println("set trule");
+			tmp.setDeleted(true);
+			fileRepo.save(tmp);
+			return mapper.toDto(tmp);
+		}
+		
+		System.out.println(tmp.getLocation());
+		
+		if(tmp.getLocation() != null) {
+			FolderEntity folder = folderRepository.getByLocation(tmp.getLocation());
+			folder.deleteFile(id);
+			folderRepository.save(folder);
+		}
+		
+		Path path = null;
+		
+		fileRepo.deleteById(id);//delete the entry
+		if(tmp.getLocation() == null) 
+			path = Paths.get("./storage", tmp.getName());
+		else 
+			path = Paths.get(tmp.getLocation(), tmp.getName());
 		
 		try {
 			Files.delete(path);
@@ -107,7 +128,6 @@ public class FileService {
 			e.printStackTrace();
 		}
 		
-		System.out.println(path.toString());
 		return mapper.toDto(tmp);//return deleted entry
 		
 	}
