@@ -3,4 +3,4 @@ import { storiesOf } from '@storybook/react'
 
 import NavButton from './NavButton'
 
-storiesOf('NavButton', module).add('with Trash', () => <NavButton />)
+storiesOf('NavButton', module).add('with Menu', () => <NavButton />)
