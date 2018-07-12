@@ -109,6 +109,4 @@ public class FolderEntity {
 			return false;
 		return true;
 	}
-
-	
 }

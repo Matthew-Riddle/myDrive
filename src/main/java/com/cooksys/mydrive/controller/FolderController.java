@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cooksys.mydrive.mapper.FileMapper;
-import com.cooksys.mydrive.mapper.FolderMapper;
-import com.cooksys.mydrive.repository.FileRepository;
-import com.cooksys.mydrive.repository.FolderRepository;
-import com.cooksys.mydrive.dto.FileDto;
 import com.cooksys.mydrive.dto.FolderDto;
 import com.cooksys.mydrive.mapper.FolderMapper;
 import com.cooksys.mydrive.service.FolderService;
@@ -25,7 +20,7 @@ import com.cooksys.mydrive.service.FolderService;
 public class FolderController {
 	private FolderMapper folderMapper;
 	private FolderService folderService;
-	
+
 	public FolderController(FolderService folderService, FolderMapper folderMapper) {
 		this.folderService = folderService;
 		this.folderMapper = folderMapper;
@@ -47,8 +42,8 @@ public class FolderController {
 	}
 	
 	@PutMapping("{id}")
-	public FolderDto updateFolder(@RequestBody List<FileDto> file, @PathVariable Long id) {
-		return folderService.updateFolder(file, id);
+	public FolderDto updateFolder(@RequestBody FolderDto changeFolder, @PathVariable Long id) {
+		return folderService.updateFolder(changeFolder, id);
 	}
 	
 	@DeleteMapping("{id}")

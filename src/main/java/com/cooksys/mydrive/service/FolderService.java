@@ -16,19 +16,20 @@ import com.cooksys.mydrive.mapper.FolderMapper;
 import com.cooksys.mydrive.repository.FileRepository;
 import com.cooksys.mydrive.repository.FolderRepository;
 
-
 @Service
 public class FolderService {
 	private FolderRepository folderRepository;
 	private FolderMapper folderMapper;
 	private FileRepository fileRepository;
 	private FileMapper fileMapper;
+	private FileService fileService;
 	
-	public FolderService(FolderRepository folderRepository, FolderMapper folderMapper, FileRepository fileRepository, FileMapper fileMapper) {// 
+	public FolderService(FolderRepository folderRepository, FolderMapper folderMapper, FileRepository fileRepository, FileMapper fileMapper, FileService fileService) {// 
 		this.folderRepository = folderRepository;
 		this.folderMapper = folderMapper;
 		this.fileRepository = fileRepository;
 		this.fileMapper = fileMapper;
+		this.fileService = fileService;
 	}
 	
 	public FolderDto createFolder(FolderEntity theFolder) {
@@ -63,13 +64,26 @@ public class FolderService {
 		folderRepository.save(myFolder);
 		return folderId;
 	}
-	
-	public FolderDto updateFolder(List<FileDto> updateFiles, Long id) {
+	public FolderDto getFolderBy(String name) {
+		List<FolderEntity> workingList = folderRepository.findByName();
+		if(!workingList.isEmpty()) {
+			return folderMapper.toDto(workingList.get(0));
+		}
+		else {
+			return null;
+		}
+	}
+	public FolderDto updateFolder(FolderDto updateFolder, Long id) {
 		// TODO: Add functionality for updating file system when called.
-		List<FileEntity> theFiles = updateFiles.stream().map(fileMapper::toFile).collect(Collectors.toList());
-		fileRepository.saveAll(theFiles);
-		folderRepository.getOne(id).setFiles(theFiles);
-		return folderMapper.toDto(folderRepository.getOne(id));
+		updateFolder.setId(id);
+		folderRepository.save(folderMapper.toFolder(updateFolder));
+		//List<FileEntity> theFiles = updateFiles.stream().map(fileMapper::toFile).collect(Collectors.toList());
+		//fileRepository.saveAll(theFiles);
+		//FolderEntity myFolder = folderRepository.getOne(id);
+		//myFolder.setFiles(theFiles);
+		//folderRepository.save(myFolder);
+		//folderRepository.getOne(id).setFiles(theFiles);
+		return updateFolder;
 	}
 	
 	public List<FileDto> getFilesOfFolder(Long id) {
@@ -77,10 +91,11 @@ public class FolderService {
 	}
 	
 	public FolderDto deleteFolder(Long id) {
+		// TODO: Add functionality for updating file system when called.
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		if(deletedFolder.isDeleted()) {	
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
-					fileRepository.deleteById(containedFile.getId());
+					fileService.deleteFileById(containedFile.getId());
 			}
 			folderRepository.deleteById(deletedFolder.getId());
 			return null;
