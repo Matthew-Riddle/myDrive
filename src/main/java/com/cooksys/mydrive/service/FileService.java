@@ -96,6 +96,7 @@ public class FileService {
 			return mapper.toDto(tmp);
 		
 		tmp = fileRepo.findById(id).get();//get the entry to return
+//		FolderEntity folder = folderRepository.getByLocation(tmp.getLocation());
 		fileRepo.deleteById(id);//delete the entry
 		
 		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
