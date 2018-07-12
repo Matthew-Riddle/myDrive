@@ -1,0 +1,15 @@
+.Folder {
+    align-items: center;
+    display: flex;
+    max-width: 100px;
+    justify-content: center;
+}
+
+.FolderIcon {
+    color: grey;
+    padding: 0 3px;
+}
+
+.FolderName {
+    font-size: 0.65rem !important;
+}
