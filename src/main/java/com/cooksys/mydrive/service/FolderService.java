@@ -1,6 +1,7 @@
 package com.cooksys.mydrive.service;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +25,7 @@ public class FolderService {
 	}
 	
 	public FolderEntity createFolder(FolderEntity theFolder) {
+		
 		Path path = Paths.get("./storage", theFolder.getName());		
 		if(!Files.exists(path.toAbsolutePath())) {
 			try {
@@ -35,6 +37,8 @@ public class FolderService {
 		}
 		theFolder.setId(null);
 		theFolder.setDeleted(false);
+		theFolder.setLocation(path.toString());
+		
 		Long reID = folderRepository.save(theFolder).getId();
 		return folderRepository.getOne(reID);
 	}
@@ -78,14 +82,25 @@ public class FolderService {
 	}
 	
 	public FolderEntity deleteFolder(Long id) {
+		
 		// TODO: Add functionality for updating file system when called.
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		if(deletedFolder.isDeleted()) {	
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
 					this.deleteFileById(containedFile.getId());
 			}
+			
 			folderRepository.deleteById(deletedFolder.getId());
-			return null;
+			Path path = Paths.get(deletedFolder.getLocation()//, tmp.getName()
+					).toAbsolutePath();
+			try {
+				//Files.delete(path);
+				FolderService.deleteDirectory(path.toFile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			deletedFolder.setName(deletedFolder.getName() + " was deleted.");
+			return deletedFolder;
 		}
 		else {
 			deletedFolder.setDeleted(true);
@@ -98,7 +113,20 @@ public class FolderService {
 		}
 		
 	}
-
+    
+	public static boolean deleteDirectory(File dir) throws IOException {
+        if (dir.isDirectory()) {
+            File[] children = dir.listFiles();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDirectory(children[i]);
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        return dir.delete();
+    }
+    
 	public FileEntity deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
 		FileEntity tmp = null;//temp for returning
 		if(fileRepository.findById(id) == null) //if id is not there return null for failed
