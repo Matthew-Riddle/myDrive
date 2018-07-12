@@ -21,9 +21,9 @@ public class FolderController {
 	private FolderMapper folderMapper;
 	private FolderService folderService;
 
-	public FolderController(FolderMapper folderMapper, FolderService folderService) {// 
-		this.folderMapper = folderMapper;
+	public FolderController(FolderService folderService, FolderMapper folderMapper) {
 		this.folderService = folderService;
+		this.folderMapper = folderMapper;
 	}
 	
 	@GetMapping
