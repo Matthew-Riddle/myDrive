@@ -1,0 +1,26 @@
+.FileCard {
+    display: flex;
+    flex-direction: column;
+    max-width: 100px;
+}
+
+.FileIconContainer {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.FileIcon {
+    color: grey;
+    font-size: 3em !important;
+}
+
+.FileContentContainer {
+    max-height: 40px;
+    padding: 4px !important;
+    text-align: center;
+}
+
+.FileContent {
+    font-size: 0.65rem !important;    
+}
