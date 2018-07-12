@@ -28,7 +28,11 @@ public class FileService {
 	
 	public FileDto createFile(MultipartFile file, String location){//saves file then returns the saved file
 		
-		Path path = Paths.get("/storage", location);
+		Path path = null;
+		if(location == null)
+			Paths.get("/storage");
+		else
+			Paths.get("/storage", location);
 		
 		FileDto tmp = new FileDto();
 		
