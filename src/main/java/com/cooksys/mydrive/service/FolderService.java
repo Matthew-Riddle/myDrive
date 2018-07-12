@@ -65,7 +65,7 @@ public class FolderService {
 		return folderId;
 	}
 	public FolderDto getFolderBy(String name) {
-		List<FolderEntity> workingList = folderRepository.findByName();
+		List<FolderEntity> workingList = folderRepository.findByName(name);
 		if(!workingList.isEmpty()) {
 			return folderMapper.toDto(workingList.get(0));
 		}
