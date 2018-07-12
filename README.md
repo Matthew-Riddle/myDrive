@@ -32,6 +32,8 @@ When finishing a feature, bug, etc. through git-flow, the convention is to add `
 
 * [Component mockup](https://projects.invisionapp.com/freehand/document/fAKfkOXIf)
 
+* [Provided MyDrive prototype](https://projects.invisionapp.com/prototype/MyDrive-cjhm3jumn003qjq01qvx47vds)
+
 ## Release v0.1.0
 
 * Implements basic CRUD endpoints for /folder and /files via Spring Boot
