@@ -31,6 +31,7 @@ class NavButton extends Component {
           aria-haspopup='true'
           onClick={this.handleClick}
           className='button'
+          fullWidth
         >
           <AddIcon className='addIcon' />
           Add
