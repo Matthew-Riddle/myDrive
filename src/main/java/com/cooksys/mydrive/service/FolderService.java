@@ -32,7 +32,7 @@ public class FolderService {
 	}
 	
 	public FolderDto createFolder(FolderEntity theFolder) {
-		Path path = Paths.get("/storage", theFolder.getName());		
+		Path path = Paths.get("./storage", theFolder.getName());		
 		if(!Files.exists(path.toAbsolutePath())) {
 			try {
 				Files.createDirectories(path);
