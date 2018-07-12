@@ -1,7 +1,10 @@
 package com.cooksys.mydrive.service;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.mydrive.dto.FileDto;
@@ -27,11 +30,20 @@ public class FolderService {
 		this.fileRepository = fileRepository;
 		this.fileMapper = fileMapper;
 	}
-
-	public FolderDto createFolder(FolderDto folderDto) {
-		folderDto.setId(null);
-		folderDto.setDeleted(false);
-		Long reID = folderRepository.save(folderMapper.toFolder(folderDto)).getId();
+	
+	public FolderDto createFolder(FolderEntity theFolder) {
+		Path path = Paths.get("/storage", theFolder.getName());		
+		if(!Files.exists(path.toAbsolutePath())) {
+			try {
+				Files.createDirectories(path);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		theFolder.setId(null);
+		theFolder.setDeleted(false);
+		Long reID = folderRepository.save(theFolder).getId();
 		return folderMapper.toDto(folderRepository.getOne(reID));
 	}
 	
@@ -43,7 +55,17 @@ public class FolderService {
 		return folderMapper.toDto(folderRepository.getOne(id));
 	}
 	
+	public Long addFileToFolder(Long fileId, Long folderId) {
+		FolderEntity myFolder = folderRepository.getOne(folderId);
+		List<FileEntity> newFiles = myFolder.getFiles();
+		newFiles.add(fileRepository.getOne(fileId));
+		myFolder.setFiles(newFiles);
+		folderRepository.save(myFolder);
+		return folderId;
+	}
+	
 	public FolderDto updateFolder(List<FileDto> updateFiles, Long id) {
+		// TODO: Add functionality for updating file system when called.
 		List<FileEntity> theFiles = updateFiles.stream().map(fileMapper::toFile).collect(Collectors.toList());
 		fileRepository.saveAll(theFiles);
 		folderRepository.getOne(id).setFiles(theFiles);
@@ -56,15 +78,22 @@ public class FolderService {
 	
 	public FolderDto deleteFolder(Long id) {
 		FolderEntity deletedFolder = folderRepository.getOne(id);
-		for(FileEntity containedFile : deletedFolder.getFiles()) {
-			containedFile.setDeleted(true);
-			fileRepository.save(containedFile);
+		if(deletedFolder.isDeleted()) {	
+			for(FileEntity containedFile : deletedFolder.getFiles()) {
+					fileRepository.deleteById(containedFile.getId());
+			}
+			folderRepository.deleteById(deletedFolder.getId());
+			return null;
 		}
-		deletedFolder.setDeleted(true);
-		folderRepository.save(deletedFolder);
-		return folderMapper.toDto(deletedFolder);
+		else {
+			deletedFolder.setDeleted(true);
+			for(FileEntity containedFile : deletedFolder.getFiles()) {
+					containedFile.setDeleted(true);
+					fileRepository.save(containedFile);			
+			}
+			folderRepository.save(deletedFolder);
+			return folderMapper.toDto(deletedFolder);
+		}
+		
 	}
-	//public List<FolderDto> getFoldersOfFolder(Long id) {
-	//	return folderRepository.getOne(id).getFolders().stream().map(folderMapper::toDto).collect(Collectors.toList());
-	//}
 }
