@@ -24,11 +24,7 @@ import com.cooksys.mydrive.service.FolderService;
 @RequestMapping("folder")
 public class FolderController {
 	private FolderMapper folderMapper;
-	public FolderController(FolderMapper folderMapper) {// 
-		this.folderMapper = folderMapper;
-	}
 	private FolderService folderService;
-	private FolderMapper folderMapper;
 	
 	public FolderController(FolderService folderService, FolderMapper folderMapper) {
 		this.folderService = folderService;

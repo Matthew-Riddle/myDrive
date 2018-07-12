@@ -8,12 +8,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.tomcat.jni.File;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cooksys.mydrive.dto.FileDto;
-import com.cooksys.mydrive.dto.FolderDto;
 import com.cooksys.mydrive.entity.FileEntity;
 import com.cooksys.mydrive.entity.FolderEntity;
 import com.cooksys.mydrive.mapper.FileMapper;
@@ -48,29 +46,25 @@ public class FileService {
 		tmp.setFileSize(file.getSize());
 		tmp.setContentType(file.getContentType());
 		
-		if(!Files.exists(path) && !Files.exists(Paths.get(path.toString(), file.getOriginalFilename()))) {//check to see if there is already a folder path setup
-			try {
-				FolderEntity folder = new FolderEntity();
-				
-				folder.setDeleted(false);
-				folder.setId(null);
-				folder.setLocation(location);
-				folder.setName(location);
-				folder.addFile(tmp);
-				
-				folderService.createFolder(folder);//create a new folder 
-				
-				Files.createDirectories(path); // if not create folder structure
-				
-				Files.write(Paths.get(path.toString(), file.getOriginalFilename()), file.getBytes());
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-		}
-		else if (Files.exists(Paths.get(path.toString(), file.getOriginalFilename()))){
+
+		
+		
+		if(!Files.exists(path) || Files.exists(Paths.get(path.toString(), file.getOriginalFilename()))){			
 			return null;
 		}
+
+		
+		
+		
+		
+		System.out.println("here");
+		try {
+			Files.write(Paths.get(path.toString(), file.getOriginalFilename()), file.getBytes());
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
 
 		
