@@ -43,7 +43,7 @@ public class FolderController {
 	
 	@PutMapping("{id}")
 	public FolderDto updateFolder(@RequestBody FolderDto changeFolder, @PathVariable Long id) {
-		return folderService.updateFolder(changeFolder, id);
+		return folderService.updateFolder(folderMapper.toFolder(changeFolder), id);
 	}
 	
 	@DeleteMapping("{id}")

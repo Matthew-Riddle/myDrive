@@ -73,17 +73,17 @@ public class FolderService {
 			return null;
 		}
 	}
-	public FolderDto updateFolder(FolderDto updateFolder, Long id) {
+	public FolderDto updateFolder(FolderEntity updateFolder, Long id) {
 		// TODO: Add functionality for updating file system when called.
 		updateFolder.setId(id);
-		folderRepository.save(folderMapper.toFolder(updateFolder));
+		folderRepository.save(updateFolder);
 		//List<FileEntity> theFiles = updateFiles.stream().map(fileMapper::toFile).collect(Collectors.toList());
 		//fileRepository.saveAll(theFiles);
 		//FolderEntity myFolder = folderRepository.getOne(id);
 		//myFolder.setFiles(theFiles);
 		//folderRepository.save(myFolder);
 		//folderRepository.getOne(id).setFiles(theFiles);
-		return updateFolder;
+		return folderMapper.toDto(updateFolder);
 	}
 	
 	public List<FileDto> getFilesOfFolder(Long id) {
