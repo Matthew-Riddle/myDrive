@@ -1,16 +1,9 @@
 package com.cooksys.mydrive.entity;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class FileEntity {
