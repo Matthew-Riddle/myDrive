@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cooksys.mydrive.dto.FileDto;
 import com.cooksys.mydrive.dto.FolderDto;
+import com.cooksys.mydrive.mapper.FolderMapper;
 import com.cooksys.mydrive.service.FolderService;
 
 @RestController
@@ -20,9 +21,11 @@ import com.cooksys.mydrive.service.FolderService;
 public class FolderController {
 	
 	private FolderService folderService;
+	private FolderMapper folderMapper;
 	
-	public FolderController(FolderService folderService) {
+	public FolderController(FolderService folderService, FolderMapper folderMapper) {
 		this.folderService = folderService;
+		this.folderMapper = folderMapper;
 	}
 	
 	@GetMapping
@@ -37,7 +40,7 @@ public class FolderController {
 	
 	@PostMapping
 	public FolderDto createNewFolder(@RequestBody FolderDto folder) {
-		return folderService.createFolder(folder);
+		return folderService.createFolder(folderMapper.toFolder(folder));
 	}
 	
 	@PutMapping("{id}")

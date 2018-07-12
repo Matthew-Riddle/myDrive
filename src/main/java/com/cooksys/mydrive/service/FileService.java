@@ -8,10 +8,14 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.tomcat.jni.File;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cooksys.mydrive.dto.FileDto;
+import com.cooksys.mydrive.dto.FolderDto;
+import com.cooksys.mydrive.entity.FileEntity;
+import com.cooksys.mydrive.entity.FolderEntity;
 import com.cooksys.mydrive.mapper.FileMapper;
 import com.cooksys.mydrive.repository.FileRepository;
 
@@ -19,22 +23,23 @@ import com.cooksys.mydrive.repository.FileRepository;
 public class FileService {
 	FileRepository repo;
 	FileMapper mapper;
+	FolderService folderService;
 	
-	public FileService(FileRepository fileRepo, FileMapper fileMapper) {
+	public FileService(FileRepository fileRepo, FileMapper fileMapper, FolderService folderService) {
 		repo = fileRepo;
 		mapper = fileMapper;
-		
+		this.folderService = folderService;
 	}
 	
 	public FileDto createFile(MultipartFile file, String location){//saves file then returns the saved file
 		
 		Path path = null;
 		if(location == null)
-			path = Paths.get("/storage");//if location is not passed save in root
+			path = Paths.get("./storage");//if location is not passed save in root
 		else
-			path = Paths.get("/storage", location); //if a location is given add it to the directory path
+			path = Paths.get("./storage", location); //if a location is given add it to the directory path
 		
-		FileDto tmp = new FileDto();//make a temp to send to the database
+		FileEntity tmp = new FileEntity();//make a temp to send to the database
 		
 		tmp.setName(file.getOriginalFilename());//fill the temp with info from the multi
 		tmp.setId(null);
@@ -43,30 +48,36 @@ public class FileService {
 		tmp.setFileSize(file.getSize());
 		tmp.setContentType(file.getContentType());
 		
-		if(!Files.exists(path.toAbsolutePath())) {//check to see if there is already a folder path setup
+		if(!Files.exists(path) && !Files.exists(Paths.get(path.toString(), file.getOriginalFilename()))) {//check to see if there is already a folder path setup
 			try {
+				FolderEntity folder = new FolderEntity();
+				
+				folder.setDeleted(false);
+				folder.setId(null);
+				folder.setLocation(location);
+				folder.setName(location);
+				folder.addFile(tmp);
+				
+				folderService.createFolder(folder);//create a new folder 
+				
 				Files.createDirectories(path); // if not create folder structure
+				
+				Files.write(Paths.get(path.toString(), file.getOriginalFilename()), file.getBytes());
 			} catch (IOException e) {
 				
 				e.printStackTrace();
 			}
 		}
-		
-		path = Paths.get(path.toString(), file.getOriginalFilename());//add the file to the folder path
-		
-		if(Files.exists(path))//see if it already exhists if it does error
-			return null;//file name already exhists
-		
-		try {
-			Files.write(path, file.getBytes());//finally write to file
-		} catch (IOException e) {
-			
-			e.printStackTrace();
+		else if (Files.exists(Paths.get(path.toString(), file.getOriginalFilename()))){
+			return null;
 		}
+		
+
+		
 		
 		
 
-		return mapper.toDto(repo.save(mapper.toFile(tmp)));	//save data to database
+		return mapper.toDto(repo.save(tmp));	//save data to database
 	}
 	
 	public FileDto getFileById(Long id) {
@@ -94,6 +105,15 @@ public class FileService {
 		tmp = mapper.toDto(repo.findById(id).get());//get the entry to return
 		repo.deleteById(id);//delete the entry
 		
+		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
+		
+		try {
+			Files.delete(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(path.toString());
 		return tmp;//return deleted entry
 		
 	}

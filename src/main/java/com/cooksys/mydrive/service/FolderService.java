@@ -28,10 +28,10 @@ public class FolderService {
 		this.fileMapper = fileMapper;
 	}
 
-	public FolderDto createFolder(FolderDto folderDto) {
-		folderDto.setId(null);
-		folderDto.setDeleted(false);
-		Long reID = folderRepository.save(folderMapper.toFolder(folderDto)).getId();
+	public FolderDto createFolder(FolderEntity folder) {
+		folder.setId(null);
+		folder.setDeleted(false);
+		Long reID = folderRepository.save(folder).getId();
 		return folderMapper.toDto(folderRepository.getOne(reID));
 	}
 	
