@@ -7,32 +7,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.springframework.stereotype.Service;
 
-import com.cooksys.mydrive.dto.FileDto;
-import com.cooksys.mydrive.dto.FolderDto;
+//import com.cooksys.mydrive.dto.FileDto;
 import com.cooksys.mydrive.entity.FileEntity;
 import com.cooksys.mydrive.entity.FolderEntity;
 import com.cooksys.mydrive.mapper.FileMapper;
-import com.cooksys.mydrive.mapper.FolderMapper;
 import com.cooksys.mydrive.repository.FileRepository;
 import com.cooksys.mydrive.repository.FolderRepository;
 
 @Service
 public class FolderService {
 	private FolderRepository folderRepository;
-	private FolderMapper folderMapper;
 	private FileRepository fileRepository;
-	private FileMapper fileMapper;
-	private FileService fileService;
-	
-	public FolderService(FolderRepository folderRepository, FolderMapper folderMapper, FileRepository fileRepository, FileMapper fileMapper, FileService fileService) {// 
+	public FolderService(FolderRepository folderRepository, FileRepository fileRepository, FileMapper fileMapper) {// 
 		this.folderRepository = folderRepository;
-		this.folderMapper = folderMapper;
 		this.fileRepository = fileRepository;
-		this.fileMapper = fileMapper;
-		this.fileService = fileService;
 	}
 	
-	public FolderDto createFolder(FolderEntity theFolder) {
+	public FolderEntity createFolder(FolderEntity theFolder) {
 		Path path = Paths.get("./storage", theFolder.getName());		
 		if(!Files.exists(path.toAbsolutePath())) {
 			try {
@@ -45,15 +36,15 @@ public class FolderService {
 		theFolder.setId(null);
 		theFolder.setDeleted(false);
 		Long reID = folderRepository.save(theFolder).getId();
-		return folderMapper.toDto(folderRepository.getOne(reID));
+		return folderRepository.getOne(reID);
 	}
 	
-	public List<FolderDto> getFolders() {
-		return folderRepository.findAll().stream().map(folderMapper::toDto).collect(Collectors.toList());
+	public List<FolderEntity> getFolders() { //.map(folderMapper::toDto)
+		return folderRepository.findAll().stream().collect(Collectors.toList());
 	}
 	
-	public FolderDto getFolderById(Long id) {
-		return folderMapper.toDto(folderRepository.getOne(id));
+	public FolderEntity getFolderById(Long id) {
+		return folderRepository.getOne(id);
 	}
 	
 	public Long addFileToFolder(Long fileId, Long folderId) {
@@ -64,38 +55,34 @@ public class FolderService {
 		folderRepository.save(myFolder);
 		return folderId;
 	}
-	public FolderDto getFolderBy(String name) {
-		List<FolderEntity> workingList = folderRepository.findByName();
+	
+	public FolderEntity getFolderByName(String name) {
+		List<FolderEntity> workingList = folderRepository.findByName(name);
 		if(!workingList.isEmpty()) {
-			return folderMapper.toDto(workingList.get(0));
+			return workingList.get(0);
 		}
 		else {
 			return null;
 		}
 	}
-	public FolderDto updateFolder(FolderEntity updateFolder, Long id) {
+	
+	public FolderEntity updateFolder(FolderEntity updateFolder, Long id) {
 		// TODO: Add functionality for updating file system when called.
 		updateFolder.setId(id);
 		folderRepository.save(updateFolder);
-		//List<FileEntity> theFiles = updateFiles.stream().map(fileMapper::toFile).collect(Collectors.toList());
-		//fileRepository.saveAll(theFiles);
-		//FolderEntity myFolder = folderRepository.getOne(id);
-		//myFolder.setFiles(theFiles);
-		//folderRepository.save(myFolder);
-		//folderRepository.getOne(id).setFiles(theFiles);
-		return folderMapper.toDto(updateFolder);
+		return updateFolder;
 	}
 	
-	public List<FileDto> getFilesOfFolder(Long id) {
-		return folderRepository.getOne(id).getFiles().stream().map(fileMapper::toDto).collect(Collectors.toList());
+	public List<FileEntity> getFilesOfFolder(Long id) {
+		return folderRepository.getOne(id).getFiles().stream().collect(Collectors.toList());
 	}
 	
-	public FolderDto deleteFolder(Long id) {
+	public FolderEntity deleteFolder(Long id) {
 		// TODO: Add functionality for updating file system when called.
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		if(deletedFolder.isDeleted()) {	
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
-					fileService.deleteFileById(containedFile.getId());
+					this.deleteFileById(containedFile.getId());
 			}
 			folderRepository.deleteById(deletedFolder.getId());
 			return null;
@@ -107,8 +94,24 @@ public class FolderService {
 					fileRepository.save(containedFile);			
 			}
 			folderRepository.save(deletedFolder);
-			return folderMapper.toDto(deletedFolder);
+			return deletedFolder;
 		}
 		
+	}
+
+	public FileEntity deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
+		FileEntity tmp = null;//temp for returning
+		if(fileRepository.findById(id) == null) //if id is not there return null for failed
+			return tmp;
+		tmp = fileRepository.findById(id).get();//get the entry to return
+		fileRepository.deleteById(id);//delete the entry
+		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
+		try {
+			Files.delete(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(path.toString());
+		return tmp;//return deleted entry
 	}
 }
