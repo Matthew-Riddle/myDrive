@@ -7,12 +7,14 @@ import ViewActions from './ViewActions/ViewActions'
 const ViewHeader = () => (
   <AppBar
     className='view-header'
-    position='static'
+    position='fixed'
     color='white'
     style={{
       display: 'flex',
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      margin: '0px',
+      padding: '0px'
     }}
   >
     <Toolbar>
