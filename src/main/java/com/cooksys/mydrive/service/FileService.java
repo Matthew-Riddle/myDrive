@@ -44,7 +44,7 @@ public class FileService {
 		
 		tmp.setName(file.getOriginalFilename());//fill the temp with info from the multi
 		tmp.setId(null);
-		tmp.setLocation(path.toString());
+		tmp.setLocation(location != null ? location : null);
 		tmp.setDeleted(false);
 		tmp.setFileSize(file.getSize());
 		tmp.setContentType(file.getContentType());
@@ -90,25 +90,43 @@ public class FileService {
 	
 	public FileDto deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
 		
+		
 		FileEntity tmp = null;//temp for returning
 		
 		if(fileRepo.findById(id) == null) //if id is not there return null for failed
 			return mapper.toDto(tmp);
 		
 		tmp = fileRepo.findById(id).get();//get the entry to return
-//		FolderEntity folder = folderRepository.getByLocation(tmp.getLocation());
-		fileRepo.deleteById(id);//delete the entry
 		
-		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
+		if(!tmp.getDeleted()) {//checks if file has been deleted once if not set deleted to true save and return			
+
+			tmp.setDeleted(true);
+			fileRepo.save(tmp);
+			return mapper.toDto(tmp);
+		}
+		
+
+		if(tmp.getLocation() != null) {//if the location is null then its in root if its not null then get the folder info that its in
+			FolderEntity folder = folderRepository.getByLocation(tmp.getLocation());//use get by location
+			folder.deleteFile(id);//delete the file from the list of files
+			folderRepository.save(folder);//save it
+		}
+		
+		Path path = null;
+		
+		fileRepo.deleteById(id);//delete the file
+		if(tmp.getLocation() == null) //set up the path to the file on the file system
+			path = Paths.get("./storage", tmp.getName());
+		else 
+			path = Paths.get("./storage", tmp.getLocation(), tmp.getName());
 		
 		try {
-			Files.delete(path);
+			Files.delete(path);//delete the file
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(path.toString());
-		return mapper.toDto(tmp);//return deleted entry
+		return mapper.toDto(tmp);//return the file deleted
 		
 	}
 	
