@@ -1,6 +1,7 @@
 .FileCard {
     display: flex;
     flex-direction: column;
+    margin: 1px;
     max-width: 100px;
 }
 

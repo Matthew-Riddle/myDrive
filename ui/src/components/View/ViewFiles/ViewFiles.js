@@ -3,9 +3,9 @@ import './ViewFiles.css'
 import File from './File/File'
 import { GridList, GridListTile } from '@material-ui/core'
 const ViewFiles = props => {
-  const fileWidth = 55
+  const fileWidth = 110
   return (
-    <GridList cols='auto' cellHeight='auto' spacing={10}>
+    <GridList cols='auto' cellHeight='auto' spacing={20}>
       {props.Files.map(slime => (
         <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
           <File name={slime} />
