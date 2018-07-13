@@ -9,7 +9,12 @@ class DownloadAction extends Component {
     return (
       <div className='DownloadAction'>
 
-        <Button variant='text' aria-label='download' className='button Color'>
+        <Button
+          variant='text'
+          size='small'
+          aria-label='download'
+          className='button Color'
+        >
           <DownloadIcon className='DownloadIcon' />
         </Button>
       </div>
