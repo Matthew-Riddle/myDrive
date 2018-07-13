@@ -3,8 +3,10 @@ package com.cooksys.mydrive.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -21,7 +23,7 @@ public class FolderEntity {
 	private String name;
 	private boolean deleted;
 	
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "folder", cascade = CascadeType.ALL)
 	private List<FileEntity> files;
 
 	public FolderEntity(){
