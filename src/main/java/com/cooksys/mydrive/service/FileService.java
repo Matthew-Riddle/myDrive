@@ -157,7 +157,7 @@ public class FileService {
 		    return ResponseEntity.ok()
 		            .headers(headers)
 		            .contentLength(file.getFileSize())
-		            .contentType(MediaType.parseMediaType("application/octet-stream"))
+		            .contentType(MediaType.parseMediaType(file.getContentType()))
 		            .body(resource);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
