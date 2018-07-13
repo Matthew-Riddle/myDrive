@@ -1,13 +1,22 @@
 package com.cooksys.mydrive.service;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -129,6 +138,36 @@ public class FileService {
 		return mapper.toDto(tmp);//return the file deleted
 		
 	}
+
+	public ResponseEntity<Resource> downloadById(Long id) {
+		FileEntity file = fileRepo.findById(id).get();
+		Path path = null;
+		HttpHeaders headers = new HttpHeaders();
+		if(file.getLocation() == null)
+			path = Paths.get("./storage", file.getName());
+		else
+			path = Paths.get("./storage", file.getLocation(), file.getName());
+
+	
+		   InputStreamResource resource;
+		try {
+			resource = new InputStreamResource(new FileInputStream(path.toString()));
+		    return ResponseEntity.ok()
+		            .headers(headers)
+		            .contentLength(file.getFileSize())
+		            .contentType(MediaType.parseMediaType("application/octet-stream"))
+		            .body(resource);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return null;
+		
+	
+	}
+	
 	
 	
 	
