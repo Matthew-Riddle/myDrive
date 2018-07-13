@@ -71,6 +71,14 @@ public class FolderEntity {
 	public void addFile(FileEntity file) {
 		this.files.add(file);
 	}
+	public void deleteFile(Long id) {
+		for(int i = 0; i < files.size(); i++) {
+			if(id == files.get(i).getId()) {
+				files.remove(i);
+				return;
+			}
+		}
+	}
 
 	@Override
 	public int hashCode() {
