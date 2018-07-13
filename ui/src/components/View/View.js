@@ -11,17 +11,37 @@ import ViewHeader from './ViewHeader/ViewHeader'
 
 const View = props => (
   <CssBaseline>
-    <div className='view'>
+    <div>
       <ViewHeader />
-      <Typography style={{ width: '100%', marginTop: '69px' }}>
-        <p style={{ fontWeight: 'bold', margin: '5px 0px' }}>Folders</p>
+      <div className='view'>
+        <Typography
+          style={{
+            width: '100%',
+            marginTop: '69px',
+            fontWeight: 'bold',
+            margin: '5px',
+            textAlign: 'left'
+          }}
+        >
+          Folders
+        </Typography>
         <Divider light style={{ margin: '5px 0px' }} />
         <ViewFolders folders={props.folders} />
         <Divider style={{ margin: '5px 0px' }} />
-        <p style={{ fontWeight: 'bold', margin: '5px 0px' }}>Files</p>
+        <Typography
+          style={{
+            width: '100%',
+            marginTop: '69px',
+            fontWeight: 'bold',
+            margin: '5px',
+            textAlign: 'left'
+          }}
+        >
+          Files
+        </Typography>
         <Divider light style={{ margin: '5px 0px' }} />
         <ViewFiles files={props.files} />
-      </Typography>
+      </div>
     </div>
   </CssBaseline>
 )

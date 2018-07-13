@@ -14,7 +14,8 @@ const ViewHeader = () => (
       flexDirection: 'row',
       justifyContent: 'space-between',
       margin: '0px',
-      padding: '0px'
+      padding: '0px',
+      left: '184.11px'
     }}
   >
     <Toolbar>

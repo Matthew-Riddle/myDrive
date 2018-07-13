@@ -1,4 +1,4 @@
-import axios from '../../axios-instance'
+import axios from '../../axiosInstance'
 
 export const GET_FILE = 'GET_FILE'
 export const GET_FILES = 'GET_FILES'
