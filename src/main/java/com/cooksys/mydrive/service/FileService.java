@@ -44,8 +44,16 @@ public class FileService {
 	public FileDto createFile(MultipartFile file, String location){//saves file then returns the saved file
 		
 		Path path = null;
-		if(location == null)
+		if(location == null) {
 			path = Paths.get("./storage");//if location is not passed save in root
+			if(!Files.exists(path))
+				try {
+					Files.createDirectories(path);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 		else
 			path = Paths.get("./storage", location); //if a location is given add it to the directory path
 		
