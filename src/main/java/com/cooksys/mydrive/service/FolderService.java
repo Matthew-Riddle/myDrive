@@ -36,7 +36,7 @@ public class FolderService {
 		}
 		theFolder.setId(null);
 		theFolder.setDeleted(false);
-		theFolder.setLocation(Paths.get("./storage").toString());
+		theFolder.setLocation(theFolder.getName());
 		
 		Long reID = folderRepository.save(theFolder).getId();
 		return folderRepository.getOne(reID);
@@ -74,10 +74,13 @@ public class FolderService {
 		updateFolder.setId(id);
 		if(!updateFolder.getFiles().isEmpty()) {
 			FolderEntity tempFolder = folderRepository.getOne(id);
-			Path path = Paths.get(tempFolder.getLocation(), tempFolder.getName()).toAbsolutePath();
+			Path path = Paths.get("./storage", tempFolder.getLocation()).toAbsolutePath();	
+			//Path path = Paths.get(tempFolder.getLocation()).toAbsolutePath();
 			File origDir = path.toFile();
 			File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
 			origDir.renameTo(newDir);
+			updateFolder.setLocation(updateFolder.getName());
+			updateFolder.setFiles(tempFolder.getFiles());
 			try {
 				//Files.delete(path);
 				FolderService.deleteDirectory(path.toFile());
@@ -105,7 +108,7 @@ public class FolderService {
 			}
 			
 			folderRepository.deleteById(deletedFolder.getId());
-			Path path = Paths.get(deletedFolder.getLocation(), deletedFolder.getName()).toAbsolutePath();
+			Path path = Paths.get("./storage", deletedFolder.getLocation()).toAbsolutePath();
 			try {
 				FolderService.deleteDirectory(path.toFile());
 			} catch (IOException e) {
@@ -145,7 +148,7 @@ public class FolderService {
 			return tmp;
 		tmp = fileRepository.findById(id).get();//get the entry to return
 		fileRepository.deleteById(id);//delete the entry
-		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
+		Path path = Paths.get("./storage", tmp.getLocation()).toAbsolutePath();
 		try {
 			Files.delete(path);
 		} catch (IOException e) {
