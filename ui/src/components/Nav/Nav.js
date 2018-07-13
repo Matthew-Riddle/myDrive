@@ -1,10 +1,11 @@
 import React from 'react'
-import './Nav.css'
+import { NavLink as Link } from 'react-router-dom'
 import Drawer from '@material-ui/core/Drawer'
 import Divider from '@material-ui/core/Divider'
 import NavBrand from './NavBrand/NavBrand'
 import NavLink from './NavLink/NavLink'
 import NavButton from './NavButton/NavButton'
+import './Nav.css'
 
 const Nav = () => (
   <Drawer variant='permanent'>
@@ -12,9 +13,13 @@ const Nav = () => (
     <Divider className='NavDivider' />
     <NavButton />
     <Divider className='NavDivider' />
-    <NavLink />
+    <Link name='myDrive' to='/myDrive' exact className='LinkText'>
+      <NavLink />
+    </Link>
     <Divider inset className='NavDivider' />
-    <NavLink delete />
+    <Link name='deleted' to='/deleted' exact className='LinkText'>
+      <NavLink delete />
+    </Link>
   </Drawer>
 )
 
