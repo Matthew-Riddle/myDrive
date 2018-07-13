@@ -58,7 +58,7 @@ public class FolderService {
 		folderRepository.save(myFolder);
 		return folderId;
 	}
-	
+
 	public FolderEntity getFolderByName(String name) {
 		List<FolderEntity> workingList = folderRepository.findByName(name);
 		if(!workingList.isEmpty()) {

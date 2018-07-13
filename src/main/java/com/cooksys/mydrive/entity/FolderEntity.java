@@ -3,6 +3,7 @@ package com.cooksys.mydrive.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class FolderEntity {
 	@GeneratedValue
 	private Long id;
 
+	@Column(unique=true)
 	private String location;
 	private String name;
 	private boolean deleted;
@@ -68,6 +70,14 @@ public class FolderEntity {
 	
 	public void addFile(FileEntity file) {
 		this.files.add(file);
+	}
+	public void deleteFile(Long id) {
+		for(int i = 0; i < files.size(); i++) {
+			if(id == files.get(i).getId()) {
+				files.remove(i);
+				return;
+			}
+		}
 	}
 
 	@Override
