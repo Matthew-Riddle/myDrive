@@ -23,4 +23,7 @@
 
 .FileContent {
     font-size: 0.65rem !important;    
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
