@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.springframework.stereotype.Service;
 
-//import com.cooksys.mydrive.dto.FileDto;
 import com.cooksys.mydrive.entity.FileEntity;
 import com.cooksys.mydrive.entity.FolderEntity;
 import com.cooksys.mydrive.mapper.FileMapper;
@@ -26,17 +25,16 @@ public class FolderService {
 	
 	public FolderEntity createFolder(FolderEntity theFolder) {
 		Path path = Paths.get("./storage", theFolder.getName());		
-		if(!Files.exists(path.toAbsolutePath())) {
+		if(!Files.exists(path)) {
 			try {
 				Files.createDirectories(path);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		theFolder.setId(null);
 		theFolder.setDeleted(false);
-		theFolder.setLocation(Paths.get("./storage").toString());
+		theFolder.setLocation(theFolder.getName());
 		
 		Long reID = folderRepository.save(theFolder).getId();
 		return folderRepository.getOne(reID);
@@ -70,23 +68,22 @@ public class FolderService {
 	}
 	
 	public FolderEntity updateFolder(FolderEntity updateFolder, Long id) {
-		// TODO: Add functionality for updating file system when called.
 		updateFolder.setId(id);
-		if(!updateFolder.getFiles().isEmpty()) {
-			FolderEntity tempFolder = folderRepository.getOne(id);
-			Path path = Paths.get(tempFolder.getLocation(), tempFolder.getName()).toAbsolutePath();
-			File origDir = path.toFile();
-			File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
-			origDir.renameTo(newDir);
-			try {
-				//Files.delete(path);
-				FolderService.deleteDirectory(path.toFile());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		FolderEntity tempFolder = folderRepository.getOne(id);
+		folderRepository.deleteById(id);
+		Path path = Paths.get("./storage", tempFolder.getLocation());
+		File origDir = path.toFile();
+		File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
+		origDir.renameTo(newDir);
+		updateFolder.setLocation(updateFolder.getName());
+		updateFolder.setFiles(tempFolder.getFiles());
+		for(FileEntity workingFile : updateFolder.getFiles()) {
+			workingFile.setFolder(updateFolder);
 		}
-		else {
-			
+		try {
+			FolderService.deleteDirectory(path.toFile());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		folderRepository.save(updateFolder);
 		return updateFolder;
@@ -97,7 +94,6 @@ public class FolderService {
 	}
 	
 	public FolderEntity deleteFolder(Long id) {		
-		// TODO: Add functionality for updating file system when called.
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		if(deletedFolder.isDeleted()) {	
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
@@ -105,7 +101,7 @@ public class FolderService {
 			}
 			
 			folderRepository.deleteById(deletedFolder.getId());
-			Path path = Paths.get(deletedFolder.getLocation(), deletedFolder.getName()).toAbsolutePath();
+			Path path = Paths.get("./storage", deletedFolder.getLocation());
 			try {
 				FolderService.deleteDirectory(path.toFile());
 			} catch (IOException e) {
@@ -145,7 +141,7 @@ public class FolderService {
 			return tmp;
 		tmp = fileRepository.findById(id).get();//get the entry to return
 		fileRepository.deleteById(id);//delete the entry
-		Path path = Paths.get(tmp.getLocation(), tmp.getName()).toAbsolutePath();
+		Path path = Paths.get("./storage", tmp.getLocation());//.toAbsolutePath();
 		try {
 			Files.delete(path);
 		} catch (IOException e) {

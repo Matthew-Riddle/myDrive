@@ -16,7 +16,7 @@ const Nav = () => (
     <Link name='myDrive' to='/myDrive' exact className='LinkText'>
       <NavLink />
     </Link>
-    <Divider inset className='NavDivider' />
+    <Divider light className='NavDivider' />
     <Link name='deleted' to='/deleted' exact className='LinkText'>
       <NavLink delete />
     </Link>
