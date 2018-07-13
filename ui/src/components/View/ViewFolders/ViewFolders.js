@@ -8,7 +8,7 @@ class ViewFolders extends Component {
   render () {
     return (
       <Typography>
-        <GridList cols='auto' cellHeight='auto' spacing={10}>
+        <GridList cols='auto' cellHeight='auto' spacing={0}>
           {this.props.folders.map(folder => (
             <GridListTile
               cols={1}
