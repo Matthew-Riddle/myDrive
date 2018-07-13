@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
+import DeleteIcon from '@material-ui/icons/Delete'
 import './TrashAction.css'
 
-const TrashAction = () => <div className='TrashAction' />
+class TrashAction extends Component {
+  render () {
+    return (
+      <div className='TrashActionContainer'>
+        <DeleteIcon className='TrashActionIcon' />
+      </div>
+    )
+  }
+}
 
 export default TrashAction

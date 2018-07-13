@@ -25,7 +25,6 @@ public class FolderService {
 	}
 	
 	public FolderEntity createFolder(FolderEntity theFolder) {
-		
 		Path path = Paths.get("./storage", theFolder.getName());		
 		if(!Files.exists(path.toAbsolutePath())) {
 			try {
@@ -37,7 +36,7 @@ public class FolderService {
 		}
 		theFolder.setId(null);
 		theFolder.setDeleted(false);
-		theFolder.setLocation(path.toString());
+		theFolder.setLocation(Paths.get("./storage").toString());
 		
 		Long reID = folderRepository.save(theFolder).getId();
 		return folderRepository.getOne(reID);
@@ -59,8 +58,12 @@ public class FolderService {
 		folderRepository.save(myFolder);
 		return folderId;
 	}
+<<<<<<< HEAD
+	public FolderDto getFolderBy(String name) {
+=======
 	
 	public FolderEntity getFolderByName(String name) {
+>>>>>>> 0baabead6dbe3531af9fc661bb47623c9900f765
 		List<FolderEntity> workingList = folderRepository.findByName(name);
 		if(!workingList.isEmpty()) {
 			return workingList.get(0);
@@ -73,6 +76,22 @@ public class FolderService {
 	public FolderEntity updateFolder(FolderEntity updateFolder, Long id) {
 		// TODO: Add functionality for updating file system when called.
 		updateFolder.setId(id);
+		if(!updateFolder.getFiles().isEmpty()) {
+			FolderEntity tempFolder = folderRepository.getOne(id);
+			Path path = Paths.get(tempFolder.getLocation(), tempFolder.getName()).toAbsolutePath();
+			File origDir = path.toFile();
+			File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
+			origDir.renameTo(newDir);
+			try {
+				//Files.delete(path);
+				FolderService.deleteDirectory(path.toFile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			
+		}
 		folderRepository.save(updateFolder);
 		return updateFolder;
 	}
@@ -81,8 +100,7 @@ public class FolderService {
 		return folderRepository.getOne(id).getFiles().stream().collect(Collectors.toList());
 	}
 	
-	public FolderEntity deleteFolder(Long id) {
-		
+	public FolderEntity deleteFolder(Long id) {		
 		// TODO: Add functionality for updating file system when called.
 		FolderEntity deletedFolder = folderRepository.getOne(id);
 		if(deletedFolder.isDeleted()) {	
@@ -91,10 +109,8 @@ public class FolderService {
 			}
 			
 			folderRepository.deleteById(deletedFolder.getId());
-			Path path = Paths.get(deletedFolder.getLocation()//, tmp.getName()
-					).toAbsolutePath();
+			Path path = Paths.get(deletedFolder.getLocation(), deletedFolder.getName()).toAbsolutePath();
 			try {
-				//Files.delete(path);
 				FolderService.deleteDirectory(path.toFile());
 			} catch (IOException e) {
 				e.printStackTrace();
