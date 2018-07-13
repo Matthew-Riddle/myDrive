@@ -59,8 +59,10 @@ public class FileService {
 		tmp.setContentType(file.getContentType());
 		
 
-		if(!Files.exists(path))
+		if(!Files.exists(path) || Files.exists(Paths.get(path.toString(), file.getOriginalFilename())) ) {
+			System.out.println("error");
 			return null;//errors if it does not exhist
+		}
 		
 		if(location != null) {
 			FolderEntity asdf = folderRepository.getByLocation(location);	
