@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,31 +29,37 @@ public class FileController {
 		this.fileService = fileService;
 	}
 	
+	@CrossOrigin
 	@GetMapping
 	public List<FileDto> getAll() {
 		return fileService.getFiles();
 	}
 	
+	@CrossOrigin
 	@GetMapping("{id}")
 	public FileDto get(@PathVariable Long id) {
 		return fileService.getFileById(id);
 	}
 	
+	@CrossOrigin
 	@GetMapping("/download/{id}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
 		return fileService.downloadById(id);
 	}
 	
+	@CrossOrigin
 	@PostMapping
 	public FileDto createNewFile(@RequestBody MultipartFile file, @RequestParam(required = false) String location) {
 		return fileService.createFile(file, location);
 	}
 	
+	@CrossOrigin
 	@PutMapping("{id}")
 	public FileDto updateFile(@RequestBody FileDto file, @PathVariable Long id) {
 		return fileService.updateFileById(file, id);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("{id}")
 	public FileDto deleteFile(@PathVariable Long id) {
 		return fileService.deleteFileById(id);
