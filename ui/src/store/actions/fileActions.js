@@ -12,7 +12,7 @@ const getFile = file => ({
 })
 
 export const getFileAsync = () => dispatch => {
-  axios.get('/index.json').then(response => {
+  axios.get('/files').then(response => {
     dispatch(getFile(response))
   })
 }
@@ -23,7 +23,7 @@ const getFiles = files => ({
 })
 
 export const getFilesAsync = () => dispatch => {
-  axios.get('/index.json').then(response => {
+  axios.get('/files').then(response => {
     dispatch(getFiles(response))
   })
 }
@@ -34,7 +34,7 @@ const updateFile = file => ({
 })
 
 export const updateFileAsync = () => dispatch => {
-  axios.get('/index.json').then(response => {
+  axios.get('/files/{id}').then(response => {
     dispatch(updateFile(response))
   })
 }
@@ -45,7 +45,7 @@ const createFile = file => ({
 })
 
 export const createFileAsync = () => dispatch => {
-  axios.get('/index.json').then(response => {
+  axios.get('/files').then(response => {
     dispatch(createFile(response))
   })
 }
@@ -56,7 +56,7 @@ const deleteFile = file => ({
 })
 
 export const deleteFileAsync = () => dispatch => {
-  axios.get('/index.json').then(response => {
+  axios.get('/files/{id}').then(response => {
     dispatch(deleteFile(response))
   })
 }
