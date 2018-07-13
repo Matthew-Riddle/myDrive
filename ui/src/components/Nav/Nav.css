@@ -6,3 +6,7 @@
 .NavDivider {
     margin: 10px 0 !important;
 }
+
+.LinkText {
+    text-decoration: none;
+}
