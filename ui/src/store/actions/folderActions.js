@@ -13,7 +13,7 @@ const getFolder = folder => ({
 
 export const getFolderAsync = () => dispatch => {
   axios.get('/folder/{id}').then(response => {
-    dispatch(getFolder(response))
+    dispatch(getFolder(response.data))
   })
 }
 
@@ -24,7 +24,7 @@ const getFolders = folders => ({
 
 export const getFoldersAsync = () => dispatch => {
   axios.get('/folder').then(response => {
-    dispatch(getFolders(response))
+    dispatch(getFolders(response.data))
   })
 }
 
@@ -35,7 +35,7 @@ const updateFolder = folder => ({
 
 export const updateFolderAsync = () => dispatch => {
   axios.get('/folder/{id}').then(response => {
-    dispatch(updateFolder(response))
+    dispatch(updateFolder(response.data))
   })
 }
 
@@ -46,7 +46,7 @@ const createFolder = folder => ({
 
 export const createFolderAsync = () => dispatch => {
   axios.get('/folder').then(response => {
-    dispatch(createFolder(response))
+    dispatch(createFolder(response.data))
   })
 }
 
@@ -57,6 +57,6 @@ const deleteFolder = folder => ({
 
 export const deleteFolderAsync = () => dispatch => {
   axios.get('/folder/id').then(response => {
-    dispatch(deleteFolder(response))
+    dispatch(deleteFolder(response.data))
   })
 }
