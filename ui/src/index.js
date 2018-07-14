@@ -2,14 +2,23 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'thunk'
-import './index.css'
+import thunk from 'redux-thunk'
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux'
+import fileReducer from './store/reducers/fileReducer'
+import folderReducer from './store/reducers/folderReducer'
 import App from './App'
-import fileReducer from './store/Reducers/fileReducer'
-import folderReducer from './store/Reducers/folderReducer'
+import './index.css'
+
+const rootReducer = combineReducers({
+  files: fileReducer,
+  folders: folderReducer
+})
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  <BrowserRouter><App /></BrowserRouter>,
+  <Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,
   document.getElementById('root')
 )

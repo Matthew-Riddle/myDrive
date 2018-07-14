@@ -1,8 +1,7 @@
-import * as actionTypes from '../actions/'
+import * as actionTypes from '../actions'
 
 const initialState = {
-  files: [],
-  file: {}
+  files: []
 }
 
 const fileReducer = (state = initialState, action) => {
@@ -10,7 +9,7 @@ const fileReducer = (state = initialState, action) => {
     case actionTypes.GET_FILE:
       return {
         ...state,
-        file: action.file
+        files: action.file
       }
     case actionTypes.GET_FILES:
       return {
@@ -20,17 +19,17 @@ const fileReducer = (state = initialState, action) => {
     case actionTypes.UPDATE_FILE:
       return {
         ...state,
-        file: action.file
+        files: action.files
       }
     case actionTypes.CREATE_FILE:
       return {
         ...state,
-        file: action.file
+        files: action.files
       }
     case actionTypes.DELETE_FILE:
       return {
         ...state,
-        file: action.file
+        files: action.files
       }
     default:
       return state

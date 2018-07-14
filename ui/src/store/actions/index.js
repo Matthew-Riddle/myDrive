@@ -19,4 +19,4 @@ export {
   updateFolderAsync,
   createFolderAsync,
   deleteFolderAsync
-} from './FolderActions'
+} from './folderActions'

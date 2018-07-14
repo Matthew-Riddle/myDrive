@@ -1,8 +1,7 @@
-import * as actionTypes from '../actions/'
+import * as actionTypes from '../actions'
 
 const initialState = {
-  folders: [],
-  folder: {}
+  folders: []
 }
 
 const folderReducer = (state = initialState, action) => {
@@ -10,27 +9,27 @@ const folderReducer = (state = initialState, action) => {
     case actionTypes.GET_FOLDER:
       return {
         ...state,
-        folder: action.folder
+        folders: action.folder
       }
     case actionTypes.GET_FOLDERS:
       return {
         ...state,
-        files: [...state.folders, ...action.folders]
+        folders: [...state.folders, ...action.folders]
       }
     case actionTypes.UPDATE_FOLDER:
       return {
         ...state,
-        folder: action.folder
+        folders: action.folders
       }
     case actionTypes.CREATE_FOLDER:
       return {
         ...state,
-        files: [...state.folders, ...action.folders]
+        folders: [...state.folders, ...action.folders]
       }
     case actionTypes.DELETE_FOLDER:
       return {
         ...state,
-        folder: action.folder
+        folders: action.folders
       }
     default:
       return state
