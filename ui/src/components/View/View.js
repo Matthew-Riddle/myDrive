@@ -32,7 +32,7 @@ class View extends Component {
             Folders
           </Typography>
           <Divider light style={{ margin: '5px 0px' }} />
-          {this.props.deleted
+          {this.props.deleted === 'deleted'
             ? <ViewFolders
               deleted
               folderHandler={this.folderHandler}
@@ -55,9 +55,15 @@ class View extends Component {
             Files
           </Typography>
           <Divider light style={{ margin: '5px 0px' }} />
-          {this.props.deleted
-            ? <ViewFiles deleted currentFolder={this.state.currentFolder} />
-            : <ViewFiles currentFolder={this.state.currentFolder} />}
+          {this.props.deleted === 'deleted'
+            ? <ViewFiles
+              deleted='deleted'
+              currentFolder={this.state.currentFolder}
+              />
+            : <ViewFiles
+              deleted='not deleted'
+              currentFolder={this.state.currentFolder}
+              />}
         </div>
       </div>
     )

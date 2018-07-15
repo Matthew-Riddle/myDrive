@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import * as actionCreators from './store/actions'
 import View from './components/View/View'
 import Nav from './components/Nav/Nav'
@@ -33,8 +34,12 @@ class App extends Component {
         <div className='App' onClick={this.handleAppClick}>
           <Nav />
           <Switch>
-            <Route exact path='/' render={() => <View />} />
-            <Route exact path='/deleted' render={() => <View deleted />} />
+            <Route
+              exact
+              path='/'
+              render={() => <View deleted='not deleted' />}
+            />
+            <Route path='/deleted' render={() => <View deleted='deleted' />} />
           </Switch>
         </div>
       </React.Fragment>
@@ -46,4 +51,4 @@ const mapDispatchToProps = dispatch => ({
   getNoneSelected: () => dispatch(actionCreators.getNoneSelectedAsync())
 })
 
-export default connect(null, mapDispatchToProps)(App)
+export default withRouter(connect(null, mapDispatchToProps)(App))
