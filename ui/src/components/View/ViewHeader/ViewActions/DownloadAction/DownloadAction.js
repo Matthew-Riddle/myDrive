@@ -4,12 +4,18 @@ import './DownloadAction.css'
 import Button from '@material-ui/core/Button'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import { connect } from 'react-redux'
-import axios from 'axios'
+import axios from '../../../../../axiosInstance'
 
 class DownloadAction extends Component {
   state = {}
 
-  downloadFile = () => {
+  componentDidUpdate (prevProps) {
+    if (this.props.file !== prevProps.file) {
+      this.getBlob()
+    }
+  }
+
+  getBlob = () => {
     axios({
       url: `http://localhost:8080/files/download/${this.props.file.id}`,
       method: 'GET',
@@ -24,13 +30,12 @@ class DownloadAction extends Component {
   render () {
     return (
       <div className='DownloadAction'>
-        {this.props.file
+        {this.props.file.name
           ? <Button
             variant='text'
             size='small'
             aria-label='download'
             className='button Color'
-            onClick={this.downloadFile}
             href={this.state.url}
             download={this.props.file.name}
             >
@@ -42,7 +47,6 @@ class DownloadAction extends Component {
     )
   }
 }
-
 const mapStateToProps = state => ({
   file: state.selected
 })
