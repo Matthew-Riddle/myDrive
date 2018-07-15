@@ -6,12 +6,14 @@ import thunk from 'redux-thunk'
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux'
 import fileReducer from './store/reducers/fileReducer'
 import folderReducer from './store/reducers/folderReducer'
+import selectReducer from './store/reducers/selectReducer'
 import App from './App'
 import './index.css'
 
 const rootReducer = combineReducers({
   files: fileReducer,
-  folders: folderReducer
+  folders: folderReducer,
+  selected: selectReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

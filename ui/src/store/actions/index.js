@@ -20,3 +20,4 @@ export {
   createFolderAsync,
   deleteFolderAsync
 } from './folderActions'
+export { GET_FILE_SELECTED, getFileSelectedAsync } from './selectActions'
