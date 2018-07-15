@@ -3,27 +3,32 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input'
 import Modal from '@material-ui/core/Modal'
+import Typography from '@material-ui/core/Typography'
 
 const styles = {
   folderModal: {
-    position: 'fixed',
-    zIndex: 1,
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    overflow: 'auto',
-    backgroundColor: 'white',
-    width: '600px',
-    maxWidth: '100%',
-    height: '400px',
-    maxHeight: '100%'
-  },
-  modalContent: {
     alignItems: 'center',
     display: 'flex',
     height: '100%',
+    left: '50%',
+    overflow: 'auto',
     justifyContent: 'center',
-    width: '100%'
+    position: 'fixed',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
+    zIndex: 1
+  },
+  modalContent: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: '3px',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '200px',
+    outline: 'none',
+    justifyContent: 'space-evenly',
+    width: '400px'
   },
   button: {
     marginLeft: '8px'
@@ -34,25 +39,28 @@ const FolderModal = props => (
   <Modal
     className={props.classes.folderModal}
     disableAutoFocus
-    hideBackdrop
+    disableEnforceFocus
     open={props.folderModalOpen}
     onClose={props.handleFolderModalClose}
   >
     <div style={styles.modalContent}>
-      <Input
-        type='text'
-        placeholder='Folder name'
-        title='Input folder name.'
-        onChange={props.handleFolderChange}
-      />
-      <Button
-        variant='contained'
-        color='grey'
-        style={styles.button}
-        onClick={props.addFolder}
-      >
-        Create
-      </Button>
+      <Typography variant='title'>
+        Create a folder
+      </Typography>
+      <div className='inputWrap'>
+        <Input
+          type='text'
+          placeholder='Folder name'
+          onChange={props.handleFolderChange}
+        />
+        <Button
+          variant='contained'
+          style={styles.button}
+          onClick={props.addFolder}
+        >
+          Create
+        </Button>
+      </div>
     </div>
   </Modal>
 )
