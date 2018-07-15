@@ -28,3 +28,30 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+@keyframes pulse {
+    /* from {background-color: rgb(255, 255, 255)}
+    to {background-color: rgb(213, 234, 246)} */
+
+    /* 0% { margin: inherit; background-color: rgb(213, 234, 246); }
+    33% { margin: 3px; background-color: rgb(235, 244, 250); transform: rotate(1deg)  }
+    40% { transform: rotate(-1deg)}
+    66% { margin: -3px; background-color: rgb(223, 239, 248); transform: rotate(1deg)}
+    70% { transform: rotate(-1deg)}
+    100% { margin: inherit; background-color: rgb(213, 234, 246); } */
+
+    0% { margin: inherit; background-color: rgb(213, 234, 246) }
+    33% { margin: 2px; background-color: rgb(235, 244, 250) }
+    66% { margin: -2px; background-color: rgb(223, 239, 248) }
+    100% { margin: inherit; background-color: rgb(213, 234, 246) }
+}
+
+.Active {
+    background-color: rgb(213, 234, 246) !important;
+    animation-name: pulse;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.7,2.0,1.0,.7);
+    /* animation-direction: alternate; */
+}
+
