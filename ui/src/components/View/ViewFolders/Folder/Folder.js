@@ -7,13 +7,14 @@ import * as actionCreators from '../../../../store/actions'
 import { Typography } from '@material-ui/core'
 import './Folder.css'
 class Folder extends Component {
-  handleCardClick = () => {
+  handleCardClick = e => {
+    e.stopPropagation()
     this.props.getFolderSelected({ id: this.props.id, name: this.props.name })
   }
-  handleFolderDoubleClick = () => {
+  handleFolderDoubleClick = e => {
+    e.stopPropagation()
     this.props.folderHandler(this.props.name)
   }
-  // this.props.getFolderSelected({ id: this.props.id, name: this.props.name })
 
   render () {
     return (
@@ -29,7 +30,6 @@ class Folder extends Component {
     )
   }
 }
-// const Folder = props => (
 
 const mapDispatchToProps = dispatch => ({
   getFolderSelected: folder =>

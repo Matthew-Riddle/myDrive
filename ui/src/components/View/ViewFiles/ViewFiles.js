@@ -20,13 +20,21 @@ class ViewFiles extends Component {
           this.props.files.map(file => {
             return this.props.deleted
               ? file.deleted
-                  ? <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
+                  ? <GridListTile
+                    cols={1}
+                    style={{ width: `${fileWidth}px` }}
+                    className='File'
+                    >
                     <File name={file.name} id={file.id} key={file.id} />
                   </GridListTile>
                   : ''
               : file.deleted || file.location !== this.props.currentFolder
                   ? ''
-                  : <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
+                  : <GridListTile
+                    cols={1}
+                    style={{ width: `${fileWidth}px` }}
+                    className='File'
+                    >
                     <File name={file.name} id={file.id} key={file.id} />
                   </GridListTile>
           })}

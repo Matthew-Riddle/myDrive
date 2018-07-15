@@ -10,7 +10,7 @@ class DownloadAction extends Component {
   state = {}
 
   componentDidUpdate (prevProps) {
-    if (this.props.file !== prevProps.file) {
+    if (this.props.file !== prevProps.file && this.props.file.type === 'file') {
       this.getBlob()
     }
   }

@@ -9,9 +9,11 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 
 class File extends Component {
-  handleCardClick = () => {
+  handleCardClick = e => {
+    e.stopPropagation()
     this.props.getFileSelected({ id: this.props.id, name: this.props.name })
   }
+
   render () {
     return (
       <Button
@@ -25,19 +27,14 @@ class File extends Component {
           className={`FileCard ${this.props.selected.id === this.props.id ? 'Active' : ''}`}
           onClick={this.handleCardClick}
         >
-
           <div className='FileIconContainer'>
             <FileIcon className='FileIcon' />
           </div>
-
           <CardContent className='FileContentContainer'>
-
             <Typography className='FileContent'>
               {this.props.name}
             </Typography>
-
           </CardContent>
-
         </Card>
       </Button>
     )
