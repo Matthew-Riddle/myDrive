@@ -13,48 +13,50 @@ class ViewFolders extends Component {
 
   render () {
     return (
-        <GridList cols='auto' cellHeight='auto' spacing={0}>
-          {this.props.folders
-            ? this.props.folders.map(
-                folder =>
-                  (this.props.deleted
-                    ? folder.deleted
-                        ? <GridListTile
-                          cols={1}
-                          style={{
-                            width: '110px',
-                            textOverflow: 'ellipsis',
-                            padding: '0px'
-                          }}
-                          >
-                          <Folder
-                            name={folder.name}
-                            id={folder.id}
-                            key={folder.id}
-                            folderHandler={this.props.folderHandler}
-                            />
-                        </GridListTile>
-                        : ''
-                    : folder.deleted
-                        ? ''
-                        : <GridListTile
-                          cols={1}
-                          style={{
-                            width: '110px',
-                            textOverflow: 'ellipsis',
-                            padding: '0px'
-                          }}
-                          >
-                          <Folder
-                            name={folder.name}
-                            id={folder.id}
-                            key={folder.id}
-                            folderHandler={this.props.folderHandler}
-                            />
-                        </GridListTile>)
-              )
-            : ''}
-        </GridList>
+      <GridList cellHeight='auto' spacing={0}>
+        {this.props.folders
+          ? this.props.folders.map(
+              folder =>
+                (this.props.deleted
+                  ? folder.deleted
+                      ? <GridListTile
+                        key={folder.id}
+                        cols={1}
+                        style={{
+                          width: '110px',
+                          textOverflow: 'ellipsis',
+                          padding: '0px'
+                        }}
+                        >
+                        <Folder
+                          name={folder.name}
+                          id={folder.id}
+                          key={folder.id}
+                          folderHandler={this.props.folderHandler}
+                          />
+                      </GridListTile>
+                      : ''
+                  : folder.deleted
+                      ? ''
+                      : <GridListTile
+                        key={folder.id}
+                        cols={1}
+                        style={{
+                          width: '110px',
+                          textOverflow: 'ellipsis',
+                          padding: '0px'
+                        }}
+                        >
+                        <Folder
+                          name={folder.name}
+                          id={folder.id}
+                          key={folder.id}
+                          folderHandler={this.props.folderHandler}
+                          />
+                      </GridListTile>)
+            )
+          : ''}
+      </GridList>
     )
   }
 }

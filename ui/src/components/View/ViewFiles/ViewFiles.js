@@ -12,14 +12,14 @@ class ViewFiles extends Component {
 
   render () {
     const fileWidth = 110
-    console.log(this.props.deleted)
     return (
       <GridList cellHeight='auto' spacing={0}>
         {this.props.files &&
           this.props.files.map(file => {
-            return this.props.deleted === 'deleted'
+            return this.props.deleted
               ? file.deleted
                   ? <GridListTile
+                    key={file.id}
                     cols={1}
                     style={{ width: `${fileWidth}px` }}
                     className='File'
@@ -30,6 +30,7 @@ class ViewFiles extends Component {
               : file.deleted || file.location !== this.props.currentFolder
                   ? ''
                   : <GridListTile
+                    key={file.id}
                     cols={1}
                     style={{ width: `${fileWidth}px` }}
                     className='File'

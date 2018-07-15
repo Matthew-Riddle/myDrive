@@ -16,8 +16,6 @@ const NavBrand = props => {
       color: theme.palette.secondary.main
     }
   }
-  console.log(...styles)
-  console.log(theme)
   return (
     <div className='nav-brand'>
       <Avatar style={styles.avatar}>

@@ -18,11 +18,11 @@ const Nav = props => {
         <Divider className='NavDivider' />
         <NavButton />
         <Divider className='NavDivider' />
-        <Link name='myDrive' to='/myDrive' exact className='LinkText'>
+        <Link name='myDrive' to='/' className='LinkText'>
           <NavLink />
         </Link>
         <Divider light className='NavDivider' />
-        <Link name='deleted' to='/deleted' exact className='LinkText'>
+        <Link name='deleted' to='/deleted' className='LinkText'>
           <NavLink delete />
         </Link>
       </Drawer>
