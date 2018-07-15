@@ -43,7 +43,7 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <React.Fragment>
           <CssBaseline />
-          <div className='App'>
+          <div className='App' onClick={this.handleAppClick}>
             <Nav />
             <Switch>
               <Route exact path='/' render={() => <View />} />

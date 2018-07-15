@@ -24,7 +24,8 @@ const ViewHeader = props => (
         color='inherit'
         onClick={() => props.folderHandler(null)}
       />
-      <Typography variant='title' color='inherit'>
+      <Typography variant='title' color='inherit' />
+      <Typography>
         My Drive {props.currentFolder ? `> ${props.currentFolder}` : ''}
       </Typography>
     </Toolbar>
