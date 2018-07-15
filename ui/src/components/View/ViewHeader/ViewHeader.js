@@ -15,7 +15,8 @@ const ViewHeader = () => (
       justifyContent: 'space-between',
       margin: '0px',
       padding: '0px',
-      left: '184.11px'
+      left: '184.11px',
+      width: 'auto'
     }}
   >
     <Toolbar>

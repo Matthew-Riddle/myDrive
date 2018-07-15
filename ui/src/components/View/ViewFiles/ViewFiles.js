@@ -17,7 +17,7 @@ class ViewFiles extends Component {
         {this.props.files &&
           this.props.files.map(file => (
             <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
-              <File name={file.name} />
+              <File name={file.name} id={file.id} key={file.id} />
             </GridListTile>
           ))}
       </GridList>
