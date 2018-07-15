@@ -7,10 +7,15 @@ import { connect } from 'react-redux'
 import axios from '../../../../../axiosInstance'
 
 class DownloadAction extends Component {
+  // TODO: Add Download option for folder
   state = {}
 
   componentDidUpdate (prevProps) {
-    if (this.props.file !== prevProps.file) {
+    console.log(this.props.file)
+    if (
+      this.props.file !== prevProps.file &&
+      this.props.file.type !== 'folder'
+    ) {
       this.getBlob()
     }
   }

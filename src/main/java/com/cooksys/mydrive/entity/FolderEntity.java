@@ -23,7 +23,7 @@ public class FolderEntity {
 	private String name;
 	private boolean deleted;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "folder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "folder", fetch = FetchType.EAGER)
 	private List<FileEntity> files;
 
 	public FolderEntity(){

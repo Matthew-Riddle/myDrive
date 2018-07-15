@@ -2,10 +2,25 @@ package com.cooksys.mydrive.service;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.*;
+import java.nio.file.*;
+import java.util.zip.*;
+import java.io.*;
+import java.nio.file.*;
+import java.util.zip.*;
+import java.nio.file.attribute.*;
+
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.mydrive.entity.FileEntity;
@@ -16,6 +31,54 @@ import com.cooksys.mydrive.repository.FolderRepository;
 
 @Service
 public class FolderService {
+	public static class ZipDir extends SimpleFileVisitor<Path> {
+		 
+	    private static ZipOutputStream zos;
+	 
+	    private Path sourceDir;
+	 
+	    public ZipDir(Path sourceDir) {
+	        this.sourceDir = sourceDir;
+	    }
+	 
+	    @Override
+	    public FileVisitResult visitFile(Path file,
+	            BasicFileAttributes attributes) {
+	 
+	        try {
+	            Path targetFile = sourceDir.relativize(file);
+	            System.out.println(targetFile.toString());
+	            zos.putNextEntry(new ZipEntry(targetFile.toString()));
+	 
+	            byte[] bytes = Files.readAllBytes(file);
+	            System.out.println(bytes.length);
+	            zos.write(bytes, 0, bytes.length);
+	            zos.closeEntry();
+	 
+	        } catch (IOException ex) {
+	            System.err.println(ex);
+	        }
+	 
+	        return FileVisitResult.CONTINUE;
+	    }
+	 
+	    public static long lame(String[] args) {
+	        String dirPath = args[0];
+	        Path sourceDir = Paths.get(dirPath);
+	 
+	        try {
+	            String zipFileName = dirPath.concat(".zip");
+	            zos = new ZipOutputStream(new FileOutputStream(zipFileName));
+	 
+	            Files.walkFileTree(sourceDir, new ZipDir(sourceDir));
+	 
+	            zos.close();
+	        } catch (IOException ex) {
+	            System.err.println("I/O Error: " + ex);
+	        }
+	        return 0;
+	    }
+	}
 	private FolderRepository folderRepository;
 	private FileRepository fileRepository;
 	public FolderService(FolderRepository folderRepository, FileRepository fileRepository, FileMapper fileMapper) {// 
@@ -91,6 +154,32 @@ public class FolderService {
 	
 	public List<FileEntity> getFilesOfFolder(Long id) {
 		return folderRepository.getOne(id).getFiles().stream().collect(Collectors.toList());
+	}
+	public ResponseEntity<Resource> downloadFilesByFolderId(Long id) throws IOException {
+		FolderEntity folder = folderRepository.findById(id).get();
+		String zipName = folder.getLocation();
+		HttpHeaders headers = new HttpHeaders();
+        String[] haha = new String[1];
+        haha[0] = Paths.get("./storage", zipName).toString();
+        ZipDir.lame(haha);
+        long someSize = 0 ;
+        File br = new File(Paths.get("./storage", zipName).toString() + ".zip");
+        someSize = br.length();
+        System.out.println(someSize);
+		Path path = Paths.get("./storage", zipName);
+		   InputStreamResource resource;
+		try {
+			resource = new InputStreamResource(new FileInputStream(path.toString() + ".zip"));
+		    return ResponseEntity.ok()
+		            .headers(headers)
+		            .contentLength(someSize)
+		            .contentType(MediaType.parseMediaType("application/x-zip-compressed"))
+		            .body(resource);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public FolderEntity deleteFolder(Long id) {		

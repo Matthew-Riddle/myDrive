@@ -1,8 +1,11 @@
 package com.cooksys.mydrive.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +42,13 @@ public class FolderController {
 	public FolderDto get(@PathVariable Long id) {
 		return folderMapper.toDto(folderService.getFolderById(id));
 	}
+	@CrossOrigin
+	@GetMapping("/download/{id}")
+	public ResponseEntity<Resource> downloadFolder(@PathVariable Long id) throws IOException {
+		return folderService.downloadFilesByFolderId(id);
+	}
+	
+	
 	
 	@CrossOrigin
 	@PostMapping

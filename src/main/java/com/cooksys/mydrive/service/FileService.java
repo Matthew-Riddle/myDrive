@@ -73,7 +73,8 @@ public class FileService {
 		}
 		
 		if(location != null) {
-			FolderEntity asdf = folderRepository.getByLocation(location);	
+			FolderEntity asdf = folderRepository.getByLocation(location);
+			tmp.setFolder(asdf);
 			asdf.addFile(tmp);	
 			fileRepo.save(tmp);
 			folderRepository.save(asdf);

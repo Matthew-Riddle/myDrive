@@ -18,23 +18,41 @@ class ViewFolders extends Component {
           {this.props.folders
             ? this.props.folders.map(
                 folder =>
-                  (folder.deleted
-                    ? ''
-                    : <GridListTile
-                      cols={1}
-                      style={{
-                        width: '110px',
-                        textOverflow: 'ellipsis',
-                        padding: '0px'
-                      }}
-                      >
-                      <Folder
-                        name={folder.name}
-                        id={folder.id}
-                        key={folder.id}
-                        folderHandler={this.props.folderHandler}
-                        />
-                    </GridListTile>)
+                  (this.props.deleted
+                    ? folder.deleted
+                        ? <GridListTile
+                          cols={1}
+                          style={{
+                            width: '110px',
+                            textOverflow: 'ellipsis',
+                            padding: '0px'
+                          }}
+                          >
+                          <Folder
+                            name={folder.name}
+                            id={folder.id}
+                            key={folder.id}
+                            folderHandler={this.props.folderHandler}
+                            />
+                        </GridListTile>
+                        : ''
+                    : folder.deleted
+                        ? ''
+                        : <GridListTile
+                          cols={1}
+                          style={{
+                            width: '110px',
+                            textOverflow: 'ellipsis',
+                            padding: '0px'
+                          }}
+                          >
+                          <Folder
+                            name={folder.name}
+                            id={folder.id}
+                            key={folder.id}
+                            folderHandler={this.props.folderHandler}
+                            />
+                        </GridListTile>)
               )
             : ''}
         </GridList>
