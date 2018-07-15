@@ -24,7 +24,7 @@ const fileReducer = (state = initialState, action) => {
     case actionTypes.CREATE_FILE:
       return {
         ...state,
-        files: action.files
+        files: [...state.files, action.file]
       }
     case actionTypes.DELETE_FILE:
       return {
