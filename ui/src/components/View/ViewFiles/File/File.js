@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react'
+import React, { Component } from 'react'
 import './File.css'
 import { connect } from 'react-redux'
 import * as actionCreators from '../../../../store/actions'

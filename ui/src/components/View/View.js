@@ -13,12 +13,6 @@ class View extends Component {
     this.setState({ currentFolder: name })
   }
   render () {
-    console.log(this.props)
-    console.log(this.props.deleted)
-    if (this.props.deleted === 'deleted') {
-      console.log('deleted')
-    }
-    console.log('ngioerughaeriugae')
     return (
       <div>
         <ViewHeader

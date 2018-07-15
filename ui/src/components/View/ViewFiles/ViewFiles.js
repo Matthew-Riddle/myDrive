@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { GridList, GridListTile } from '@material-ui/core'
 import File from './File/File'
 import './ViewFiles.css'
-import Button from '@material-ui/core/Button'
 
 class ViewFiles extends Component {
   componentDidMount () {
