@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Children } from 'react'
 import './File.css'
 import { connect } from 'react-redux'
 import * as actionCreators from '../../../../store/actions'
@@ -17,8 +17,9 @@ class File extends Component {
       <Button
         variant='text'
         size='small'
-        aria-label='download'
-        className='button'
+        style={{ width: '100%' }}
+        aria-label='fileButton'
+        className='FileCard'
       >
         <Card
           className={`FileCard ${this.props.selected.id === this.props.id ? 'Active' : ''}`}
