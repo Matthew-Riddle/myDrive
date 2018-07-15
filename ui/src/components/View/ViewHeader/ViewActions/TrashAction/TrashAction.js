@@ -7,7 +7,9 @@ import './TrashAction.css'
 
 class TrashAction extends Component {
   handleDeleteClick = () => {
-    this.props.archiveFile(this.props.file.id)
+    this.props.selected.type === 'file'
+      ? this.props.archiveFile(this.props.selected.id)
+      : this.props.archiveFolder(this.props.selected.id)
   }
 
   render () {
@@ -29,11 +31,13 @@ class TrashAction extends Component {
 
 const mapDispatchToProps = dispatch => ({
   archiveFile: id => dispatch(actionCreators.archiveFileAsync(id)),
-  deleteFile: id => dispatch(actionCreators.deleteFileAsync(id))
+  deleteFile: id => dispatch(actionCreators.deleteFileAsync(id)),
+  archiveFolder: id => dispatch(actionCreators.archiveFolderAsync(id)),
+  deleteFolder: id => dispatch(actionCreators.deleteFolderAsync(id))
 })
 
 const mapStateToProps = state => ({
-  file: state.selected
+  selected: state.selected
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrashAction)

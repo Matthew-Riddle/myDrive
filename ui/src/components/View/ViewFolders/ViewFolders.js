@@ -16,18 +16,25 @@ class ViewFolders extends Component {
       <Typography>
         <GridList cols='auto' cellHeight='auto' spacing={0}>
           {this.props.folders
-            ? this.props.folders.map(folder => (
-              <GridListTile
-                cols={1}
-                style={{
-                  width: '110px',
-                  textOverflow: 'ellipsis',
-                  padding: '0px'
-                }}
-                >
-                <Folder name={folder.name} />
-              </GridListTile>
-              ))
+            ? this.props.folders.map(
+                folder =>
+                  (folder.deleted
+                    ? ''
+                    : <GridListTile
+                      cols={1}
+                      style={{
+                        width: '110px',
+                        textOverflow: 'ellipsis',
+                        padding: '0px'
+                      }}
+                      >
+                      <Folder
+                        name={folder.name}
+                        id={folder.id}
+                        key={folder.id}
+                        />
+                    </GridListTile>)
+              )
             : ''}
         </GridList>
       </Typography>

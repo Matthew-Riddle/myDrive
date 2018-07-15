@@ -26,10 +26,18 @@ const folderReducer = (state = initialState, action) => {
         ...state,
         folders: [...state.folders, action.folder]
       }
+    case actionTypes.ARCHIVE_FOLDER:
+      return {
+        ...state,
+        folders: state.folders.map(
+          folder => (folder.id === action.folder.id ? action.folder : folder)
+        )
+      }
     case actionTypes.DELETE_FOLDER:
       return {
         ...state,
-        folders: action.folders
+
+        folders: [...state.folders.filter(folder => folder.id !== action.id)]
       }
     default:
       return state
