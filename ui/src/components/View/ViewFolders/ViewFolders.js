@@ -32,6 +32,7 @@ class ViewFolders extends Component {
                         name={folder.name}
                         id={folder.id}
                         key={folder.id}
+                        folderHandler={this.props.folderHandler}
                         />
                     </GridListTile>)
               )

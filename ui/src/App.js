@@ -13,8 +13,8 @@ class App extends Component {
         <div className='App'>
           <Nav />
           <Switch>
-            <Route path='/' render={() => <View />} />
-            <Route path='/deleted' render={() => <View deleted />} />
+            <Route exact path='/' render={() => <View />} />
+            <Route exact path='/deleted' render={() => <View deleted />} />
           </Switch>
         </div>
       </React.Fragment>

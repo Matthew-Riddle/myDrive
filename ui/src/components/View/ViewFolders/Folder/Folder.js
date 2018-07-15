@@ -10,9 +10,19 @@ class Folder extends Component {
   handleCardClick = () => {
     this.props.getFolderSelected({ id: this.props.id, name: this.props.name })
   }
+  handleFolderDoubleClick = () => {
+    this.props.folderHandler(this.props.name)
+  }
+  // this.props.getFolderSelected({ id: this.props.id, name: this.props.name })
+
   render () {
     return (
-      <Paper className='Folder' elevation={1} onClick={this.handleCardClick}>
+      <Paper
+        className='Folder'
+        elevation={1}
+        onClick={this.handleCardClick}
+        onDoubleClick={this.handleFolderDoubleClick}
+      >
         <FolderIcon className='FolderIcon' />
         <Typography className='FolderName'>{this.props.name}</Typography>
       </Paper>

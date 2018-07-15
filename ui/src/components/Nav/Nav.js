@@ -13,7 +13,7 @@ const Nav = () => (
     <Divider className='NavDivider' />
     <NavButton />
     <Divider className='NavDivider' />
-    <Link name='myDrive' to='/myDrive' exact className='LinkText'>
+    <Link name='myDrive' to='/' exact className='LinkText'>
       <NavLink />
     </Link>
     <Divider light className='NavDivider' />
