@@ -14,11 +14,28 @@ class DownloadAction extends Component {
     if (this.props.file !== prevProps.file && this.props.file.type === 'file') {
       this.getBlob()
     }
+    if (
+      this.props.file !== prevProps.file &&
+      this.props.file.type === 'folder'
+    ) {
+      this.getZip()
+    }
   }
 
   getBlob = () => {
     axios({
       url: `http://localhost:8080/files/download/${this.props.file.id}`,
+      method: 'GET',
+      responseType: 'blob'
+    }).then(response => {
+      this.setState({
+        url: window.URL.createObjectURL(new Blob([response.data]))
+      })
+    })
+  }
+  getZip = () => {
+    axios({
+      url: `http://localhost:8080/folder/download/${this.props.file.id}`,
       method: 'GET',
       responseType: 'blob'
     }).then(response => {
@@ -38,7 +55,11 @@ class DownloadAction extends Component {
             aria-label='download'
             className='button Color'
             href={this.state.url}
-            download={this.props.file.name}
+            download={
+                this.props.file.type === 'folder'
+                  ? `${this.props.file.name}.zip`
+                  : this.props.file.name
+              }
             >
             <DownloadIcon className='DownloadIcon' />
           </Button>
