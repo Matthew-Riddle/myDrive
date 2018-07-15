@@ -6,10 +6,25 @@ import ViewHeader from './ViewHeader/ViewHeader'
 import './View.css'
 
 class View extends Component {
+  state = {
+    currentFolder: null
+  }
+  folderHandler = name => {
+    this.setState({ currentFolder: name })
+  }
   render () {
+    console.log(this.props)
+    console.log(this.props.deleted)
+    if (this.props.deleted === 'deleted') {
+      console.log('deleted')
+    }
+    console.log('ngioerughaeriugae')
     return (
       <div>
-        <ViewHeader />
+        <ViewHeader
+          currentFolder={this.state.currentFolder}
+          folderHandler={this.folderHandler}
+        />
         <div className='view'>
           <Typography
             style={{
@@ -23,7 +38,16 @@ class View extends Component {
             Folders
           </Typography>
           <Divider light style={{ margin: '5px 0px' }} />
-          <ViewFolders />
+          {this.props.deleted
+            ? <ViewFolders
+              deleted
+              folderHandler={this.folderHandler}
+              currentFolder={this.state.currentFolder}
+              />
+            : <ViewFolders
+              folderHandler={this.folderHandler}
+              currentFolder={this.state.currentFolder}
+              />}
           <Divider style={{ margin: '5px 0px' }} />
           <Typography
             style={{
@@ -37,7 +61,9 @@ class View extends Component {
             Files
           </Typography>
           <Divider light style={{ margin: '5px 0px' }} />
-          <ViewFiles />
+          {this.props.deleted
+            ? <ViewFiles deleted currentFolder={this.state.currentFolder} />
+            : <ViewFiles currentFolder={this.state.currentFolder} />}
         </div>
       </div>
     )

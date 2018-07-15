@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
 import ViewActions from './ViewActions/ViewActions'
 
-const ViewHeader = () => (
+const ViewHeader = props => (
   <AppBar
     className='view-header'
     position='fixed'
@@ -20,8 +20,15 @@ const ViewHeader = () => (
     }}
   >
     <Toolbar>
-      <Typography variant='title' color='inherit'>
+      <Typography
+        variant='title'
+        color='inherit'
+        onClick={() => props.folderHandler(null)}
+      >
         My Drive
+        <Typography variant='title' color='inherit'>
+          {props.currentFolder ? `> ${props.currentFolder}` : ''}
+        </Typography>
       </Typography>
     </Toolbar>
     <div style={{ display: 'flex', alignItems: 'center' }}>
