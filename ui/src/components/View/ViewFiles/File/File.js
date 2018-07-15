@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import FileIcon from '@material-ui/icons/InsertDriveFile'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
 class File extends Component {
   handleCardClick = () => {
@@ -13,16 +14,31 @@ class File extends Component {
   }
   render () {
     return (
-      <Card className='FileCard' onClick={this.handleCardClick}>
-        <div className='FileIconContainer'>
-          <FileIcon className='FileIcon' />
-        </div>
-        <CardContent className='FileContentContainer'>
-          <Typography className='FileContent'>
-            {this.props.name}
-          </Typography>
-        </CardContent>
-      </Card>
+      <Button
+        variant='text'
+        size='small'
+        aria-label='download'
+        className='button'
+      >
+        <Card
+          className={`FileCard ${this.props.selected.id === this.props.id ? 'Active' : ''}`}
+          onClick={this.handleCardClick}
+        >
+
+          <div className='FileIconContainer'>
+            <FileIcon className='FileIcon' />
+          </div>
+
+          <CardContent className='FileContentContainer'>
+
+            <Typography className='FileContent'>
+              {this.props.name}
+            </Typography>
+
+          </CardContent>
+
+        </Card>
+      </Button>
     )
   }
 }
@@ -31,4 +47,8 @@ const mapDispatchToProps = dispatch => ({
   getFileSelected: file => dispatch(actionCreators.getFileSelectedAsync(file))
 })
 
-export default connect(null, mapDispatchToProps)(File)
+const mapStateToProps = state => ({
+  selected: state.selected
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(File)
