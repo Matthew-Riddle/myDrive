@@ -1,20 +1,41 @@
 import React from 'react'
-import SvgIcon from '@material-ui/core/SvgIcon'
 import './NavBrand.css'
 import { Avatar } from '@material-ui/core'
-import { Paper } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import UnarchiveIcon from '@material-ui/icons/Unarchive'
+import { withTheme } from '@material-ui/core/styles'
 
-const NavBrand = () => (
-  <Typography>
+const NavBrand = props => {
+  const { theme } = props
+
+  const styles = {
+    avatar: {
+      backgroundColor: theme.palette.primary.main
+    },
+    icon: {
+      color: theme.palette.secondary.main
+    }
+  }
+  console.log(...styles)
+  console.log(theme)
+  return (
     <div className='nav-brand'>
-      <Avatar>
-        <UnarchiveIcon />
+      <Avatar style={styles.avatar}>
+        <UnarchiveIcon style={styles.icon} />
       </Avatar>
-      <p className='nav-brand-title'>MyDrive</p>
+      <Typography
+        style={{
+          marginLeft: '5px',
+          marginTop: 'auto',
+          marginBottom: 'auto',
+          verticalAlign: 'middle',
+          fontWeight: 'bold'
+        }}
+      >
+        MyDrive
+      </Typography>
     </div>
-  </Typography>
-)
+  )
+}
 
-export default NavBrand
+export default withTheme()(NavBrand)

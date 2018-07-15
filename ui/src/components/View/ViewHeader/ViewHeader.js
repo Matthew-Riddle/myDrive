@@ -8,7 +8,6 @@ const ViewHeader = () => (
   <AppBar
     className='view-header'
     position='fixed'
-    color='white'
     style={{
       display: 'flex',
       flexDirection: 'row',
@@ -19,7 +18,7 @@ const ViewHeader = () => (
     }}
   >
     <Toolbar>
-      <Typography variant='title' color='inherit'>
+      <Typography variant='title' color='secondary'>
         My Drive
       </Typography>
     </Toolbar>

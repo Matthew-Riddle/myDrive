@@ -13,7 +13,7 @@ class ViewFiles extends Component {
   render () {
     const fileWidth = 110
     return (
-      <GridList cols='auto' cellHeight='auto' spacing={0}>
+      <GridList cellHeight='auto' spacing={0}>
         {this.props.files &&
           this.props.files.map(file => (
             <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
