@@ -14,7 +14,7 @@ class ViewFiles extends Component {
     const fileWidth = 110
     console.log(this.props.deleted)
     return (
-      <GridList cols='auto' cellHeight='auto' spacing={0}>
+      <GridList cellHeight='auto' spacing={0}>
         {this.props.files &&
           this.props.files.map(file => {
             return this.props.deleted === 'deleted'

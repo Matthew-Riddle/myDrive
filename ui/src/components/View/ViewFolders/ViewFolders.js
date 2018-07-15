@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as actionCreators from '../../../store/actions/folderActions'
 import { connect } from 'react-redux'
-import { GridList, Typography, GridListTile } from '@material-ui/core'
+import { GridList, GridListTile } from '@material-ui/core'
 import './ViewFolders.css'
 
 import Folder from './Folder/Folder'
@@ -13,7 +13,6 @@ class ViewFolders extends Component {
 
   render () {
     return (
-      <Typography>
         <GridList cols='auto' cellHeight='auto' spacing={0}>
           {this.props.folders
             ? this.props.folders.map(
@@ -56,7 +55,6 @@ class ViewFolders extends Component {
               )
             : ''}
         </GridList>
-      </Typography>
     )
   }
 }

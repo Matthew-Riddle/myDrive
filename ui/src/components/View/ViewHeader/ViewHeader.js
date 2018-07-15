@@ -8,7 +8,6 @@ const ViewHeader = props => (
   <AppBar
     className='view-header'
     position='fixed'
-    color='white'
     style={{
       display: 'flex',
       flexDirection: 'row',
