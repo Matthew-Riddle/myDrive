@@ -1,13 +1,13 @@
-import React from 'react'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Modal from '@material-ui/core/Modal'
-import axios from 'axios'
 import { connect } from 'react-redux'
 import * as actionCreators from '../../../store/actions'
+import FolderModal from './FolderModal/FolderModal'
+import FileModal from './FileModal/FileModal'
 import './NavButton.css'
 
 class NavButton extends Component {
@@ -32,6 +32,7 @@ class NavButton extends Component {
   handleFileModalOpen = () => {
     this.setState({
       ...this.state,
+      anchorEl: false,
       fileModalOpen: true
     })
   }
@@ -39,6 +40,7 @@ class NavButton extends Component {
   handleFolderModalOpen = () => {
     this.setState({
       ...this.state,
+      anchorEl: false,
       folderModalOpen: true
     })
   }
@@ -60,7 +62,6 @@ class NavButton extends Component {
   }
 
   handleFileChange = e => {
-    console.log(e.currentTarget.files[0])
     this.setState({ ...this.state, file: e.currentTarget.files[0] })
   }
 
@@ -115,38 +116,18 @@ class NavButton extends Component {
           <MenuItem onClick={this.handleFileModalOpen}>File</MenuItem>
           <MenuItem onClick={this.handleFolderModalOpen}>Folder</MenuItem>
         </Menu>
-        <Modal
-          open={this.state.fileModalOpen}
-          onClose={this.handleFileModalClose}
-        >
-          <form
-            action='localhost:8080/files'
-            method='post'
-            encType='multipart/form-data'
-          >
-            <input
-              type='file'
-              class='inputModal'
-              title='Upload a file'
-              onChange={this.handleFileChange}
-            />
-            <input type='submit' onClick={this.addFile} />
-          </form>
-        </Modal>
-        <Modal
-          open={this.state.folderModalOpen}
-          onClose={this.handleFolderModalClose}
-        >
-          <form action='localhost:8080/folder' method='post'>
-            <input
-              type='text'
-              class='inputModal'
-              title='Input folder name.'
-              onInput={this.handleFolderChange}
-            />
-            <input type='submit' onClick={this.addFolder} />
-          </form>
-        </Modal>
+        <FileModal
+          addFile={this.addFile}
+          fileModalOpen={this.state.fileModalOpen}
+          handleFileChange={this.handleFileChange}
+          handleFileModalClose={this.handleFileModalClose}
+        />
+        <FolderModal
+          addFolder={this.addFolder}
+          folderModalOpen={this.state.folderModalOpen}
+          handleFolderChange={this.handleFolderChange}
+          handleFolderModalClose={this.handleFolderModalClose}
+        />
       </div>
     )
   }
