@@ -24,7 +24,7 @@ const folderReducer = (state = initialState, action) => {
     case actionTypes.CREATE_FOLDER:
       return {
         ...state,
-        folders: [...state.folders, ...action.folders]
+        folders: [...state.folders, action.folder]
       }
     case actionTypes.DELETE_FOLDER:
       return {

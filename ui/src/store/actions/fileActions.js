@@ -44,10 +44,14 @@ const createFile = file => ({
   file
 })
 
-export const createFileAsync = () => dispatch => {
-  axios.get('/files').then(response => {
-    dispatch(createFile(response.data))
-  })
+export const createFileAsync = data => dispatch => {
+  axios
+    .post('/files', data, {
+      headers: { 'content-type': 'multipart/form-data' }
+    })
+    .then(response => {
+      dispatch(createFile(response.data))
+    })
 }
 
 const deleteFile = file => ({
