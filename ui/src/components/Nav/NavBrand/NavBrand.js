@@ -1,8 +1,6 @@
 import React from 'react'
-import SvgIcon from '@material-ui/core/SvgIcon'
 import './NavBrand.css'
 import { Avatar } from '@material-ui/core'
-import { Paper } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import UnarchiveIcon from '@material-ui/icons/Unarchive'
 

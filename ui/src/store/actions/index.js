@@ -27,6 +27,8 @@ export {
 export {
   GET_FILE_SELECTED,
   GET_FOLDER_SELECTED,
+  GET_NONE_SELECTED,
   getFileSelectedAsync,
-  getFolderSelectedAsync
+  getFolderSelectedAsync,
+  getNoneSelectedAsync
 } from './selectActions'

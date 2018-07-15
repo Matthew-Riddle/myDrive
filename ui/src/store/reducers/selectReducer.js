@@ -16,6 +16,8 @@ const selectReducer = (state = initialState, action) => {
         type: 'folder',
         name: action.folder.name
       }
+    case actionTypes.GET_NONE_SELECTED:
+      return {}
     default:
       return state
   }
