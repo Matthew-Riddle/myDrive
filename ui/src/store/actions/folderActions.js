@@ -48,8 +48,8 @@ const createFolder = folder => ({
 export const createFolderAsync = data => dispatch => {
   axios
     .post('/folder', data, { headers: { 'content-type': 'application/json' } })
-    .then(() => {
-      dispatch(createFolder(data))
+    .then(response => {
+      dispatch(createFolder(response.data))
     })
 }
 const archiveFolder = folder => ({
@@ -68,8 +68,8 @@ const deleteFolder = folder => ({
   folder
 })
 
-export const deleteFolderAsync = () => dispatch => {
-  axios.get('/folder/id').then(response => {
+export const deleteFolderAsync = id => dispatch => {
+  axios.delete(`/folder/${id}`).then(response => {
     dispatch(deleteFolder(response.data))
   })
 }

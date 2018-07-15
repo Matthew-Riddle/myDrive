@@ -72,7 +72,7 @@ const deleteFile = id => ({
 })
 
 export const deleteFileAsync = id => dispatch => {
-  axios.get(`/files/${id}`).then(response => {
+  axios.delete(`/files/${id}`).then(response => {
     dispatch(deleteFile(response.data.id))
   })
 }

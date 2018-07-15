@@ -22,12 +22,24 @@ const Nav = props => {
           name='myDrive'
           to='/'
           className='LinkText'
+          activeStyle={{
+            borderLeft: '2px',
+            color: 'pink'
+          }}
           onClick={() => props.folderHandler(null)}
         >
           <NavLink />
         </Link>
         <Divider light className='NavDivider' />
-        <Link name='deleted' to='/deleted' className='LinkText'>
+        <Link
+          name='deleted'
+          to='/deleted'
+          className='LinkText'
+          activeStyle={{
+            borderLeft: '2px',
+            color: 'pink'
+          }}
+        >
           <NavLink delete />
         </Link>
       </Drawer>

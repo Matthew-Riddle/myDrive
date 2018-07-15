@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import axios from '../../../../../axiosInstance'
 
 class DownloadAction extends Component {
-  // TODO: Add Download option for folder
   state = {}
 
   componentDidUpdate (prevProps) {
@@ -33,6 +32,7 @@ class DownloadAction extends Component {
       })
     })
   }
+
   getZip = () => {
     axios({
       url: `http://localhost:8080/folder/download/${this.props.file.id}`,

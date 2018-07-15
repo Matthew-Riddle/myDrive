@@ -11,7 +11,11 @@ import Button from '@material-ui/core/Button'
 class File extends Component {
   handleCardClick = e => {
     e.stopPropagation()
-    this.props.getFileSelected({ id: this.props.id, name: this.props.name })
+    this.props.getFileSelected({
+      id: this.props.id,
+      name: this.props.name,
+      deleted: this.props.deleted
+    })
   }
 
   render () {

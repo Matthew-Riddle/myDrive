@@ -6,24 +6,31 @@ import Button from '@material-ui/core/Button'
 import './TrashAction.css'
 
 class TrashAction extends Component {
-  handleDeleteClick = () => {
-    this.props.selected.type === 'file'
-      ? this.props.archiveFile(this.props.selected.id)
-      : this.props.archiveFolder(this.props.selected.id)
+  handleDeleteClick = e => {
+    e.stopPropagation()
+    this.props.selected.deleted
+      ? this.props.selected.type === 'file'
+          ? this.props.deleteFile(this.props.selected.id)
+          : this.props.deleteFolder(this.props.selected.id)
+      : this.props.selected.type === 'file'
+          ? this.props.archiveFile(this.props.selected.id)
+          : this.props.archiveFolder(this.props.selected.id)
   }
 
   render () {
     return (
       <div className='TrashActionContainer'>
-        <Button
-          size='small'
-          variant='text'
-          aria-label='download'
-          className='button Color'
-          onClick={this.handleDeleteClick}
-        >
-          <DeleteIcon className='TrashActionIcon' />
-        </Button>
+        {this.props.selected.name
+          ? <Button
+            size='small'
+            variant='text'
+            aria-label='download'
+            className='button Color'
+            onClick={this.handleDeleteClick}
+            >
+            <DeleteIcon className='TrashActionIcon' />
+          </Button>
+          : ''}
       </div>
     )
   }
