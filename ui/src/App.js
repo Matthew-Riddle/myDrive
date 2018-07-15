@@ -5,9 +5,20 @@ import { withRouter } from 'react-router-dom'
 import * as actionCreators from './store/actions'
 import View from './components/View/View'
 import Nav from './components/Nav/Nav'
-import { CssBaseline } from '@material-ui/core'
+import {
+  CssBaseline,
+  createMuiTheme,
+  MuiThemeProvider
+} from '@material-ui/core'
+import indigo from '@material-ui/core/colors/indigo'
+import lime from '@material-ui/core/colors/lime'
 import './App.css'
-
+const theme = createMuiTheme({
+  palette: {
+    primary: indigo,
+    secondary: lime
+  }
+})
 class App extends Component {
   componentDidMount () {
     document.addEventListener('keydown', this.handleEscPress, false)
@@ -29,20 +40,18 @@ class App extends Component {
 
   render () {
     return (
-      <React.Fragment>
-        <CssBaseline />
-        <div className='App' onClick={this.handleAppClick}>
-          <Nav />
-          <Switch>
-            <Route
-              exact
-              path='/'
-              render={() => <View deleted='not deleted' />}
-            />
-            <Route path='/deleted' render={() => <View deleted='deleted' />} />
-          </Switch>
-        </div>
-      </React.Fragment>
+      <MuiThemeProvider theme={theme}>
+        <React.Fragment>
+          <CssBaseline />
+          <div className='App'>
+            <Nav />
+            <Switch>
+              <Route path='/deleted' render={() => <View deleted />} />
+            </Switch>
+          </div>
+        </React.Fragment>
+      </MuiThemeProvider>
+              <Route path='/' render={() => <View />} />
     )
   }
 }

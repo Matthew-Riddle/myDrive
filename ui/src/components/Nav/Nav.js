@@ -5,22 +5,29 @@ import Divider from '@material-ui/core/Divider'
 import NavBrand from './NavBrand/NavBrand'
 import NavLink from './NavLink/NavLink'
 import NavButton from './NavButton/NavButton'
+import { withTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import './Nav.css'
 
-const Nav = () => (
-  <Drawer variant='permanent'>
-    <NavBrand />
-    <Divider className='NavDivider' />
-    <NavButton />
-    <Divider className='NavDivider' />
-    <Link name='myDrive' to='/' exact className='LinkText'>
-      <NavLink />
-    </Link>
-    <Divider light className='NavDivider' />
-    <Link name='deleted' to='/deleted' exact className='LinkText'>
-      <NavLink delete />
-    </Link>
-  </Drawer>
-)
+const Nav = props => {
+  const { theme } = props
 
-export default Nav
+  return (
+    <MuiThemeProvider theme={theme}>
+      <Drawer variant='permanent' color='primary'>
+        <NavBrand />
+        <Divider className='NavDivider' />
+        <NavButton />
+        <Divider className='NavDivider' />
+        <Link name='myDrive' to='/myDrive' exact className='LinkText'>
+          <NavLink />
+        </Link>
+        <Divider light className='NavDivider' />
+        <Link name='deleted' to='/deleted' exact className='LinkText'>
+          <NavLink delete />
+        </Link>
+      </Drawer>
+    </MuiThemeProvider>
+  )
+}
+
+export default withTheme()(Nav)
