@@ -4,10 +4,12 @@ export {
   UPDATE_FILE,
   CREATE_FILE,
   DELETE_FILE,
+  ARCHIVE_FILE,
   getFileAsync,
   updateFileAsync,
   createFileAsync,
-  deleteFileAsync
+  deleteFileAsync,
+  archiveFileAsync
 } from './fileActions'
 export {
   GET_FOLDER,
