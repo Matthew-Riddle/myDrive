@@ -1,17 +1,19 @@
 import React from 'react'
 import { Component } from 'react'
-import './NavButton.css'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Modal from '@material-ui/core/Modal'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import * as actionCreators from '../../../store/actions'
+import './NavButton.css'
 
 class NavButton extends Component {
   state = {
     anchorEl: null,
-    modalOpen: false,
+    fileModalOpen: false,
     folderModalOpen: false
   }
 
@@ -20,61 +22,67 @@ class NavButton extends Component {
   }
 
   handleClose = () => {
-    this.setState({ anchorEl: null, modalOpen: false, folderModalOpen: false })
+    this.setState({
+      anchorEl: null,
+      fileModalOpen: false,
+      folderModalOpen: false
+    })
   }
-  handleFileModalClose = () => {
-    this.setState({ ...this.state, modalOpen: true, folderModalOpen: false })
+
+  handleFileModalOpen = () => {
+    this.setState({
+      ...this.state,
+      fileModalOpen: true
+    })
+  }
+
+  handleFolderModalOpen = () => {
+    this.setState({
+      ...this.state,
+      folderModalOpen: true
+    })
   }
 
   handleFolderModalClose = () => {
-    this.setState({ ...this.state, modalOpen: false, folderModalOpen: true })
+    this.setState({
+      ...this.state,
+      fileModalOpen: false,
+      folderModalOpen: false
+    })
   }
 
-  handleModalClose = () => {
-    this.setState({ ...this.state, modalOpen: false, folderModalOpen: false })
+  handleFileModalClose = () => {
+    this.setState({
+      ...this.state,
+      fileModalOpen: false,
+      folderModalOpen: false
+    })
   }
 
   handleFileChange = e => {
-    this.setState({ ...this.state, file: e.currentTarget.files[0] })
     console.log(e.currentTarget.files[0])
-  }
-
-  uploadFile = () => {
-    const formData = new FormData()
-    formData.append('file', this.state.file)
-    console.log(formData)
-    axios({
-      url: 'http://localhost:8080/files/',
-      method: 'POST',
-      headers: {
-        'content-type': 'multipart/form-data'
-      },
-      data: formData
-    }).then(response => console.log(response))
+    this.setState({ ...this.state, file: e.currentTarget.files[0] })
   }
 
   handleFolderChange = e => {
     this.setState({ ...this.state, folder: e.currentTarget.value })
   }
 
-  addFolder = () => {
+  addFile = () => {
     const formData = new FormData()
-    formData.append('folder', this.state.folder)
-    console.log(formData)
-    console.log(this.state.folder)
-    axios({
-      url: 'http://localhost:8080/folder',
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      data: {
-        deleted: true,
-        id: 0,
-        location: '',
-        name: this.state.folder
-      }
-    }).then(response => console.log(response))
+    formData.append('file', this.state.file)
+    this.props.createFile(formData)
+    this.setState({ ...this.state, anchorEl: false, fileModalOpen: false })
+  }
+
+  addFolder = () => {
+    this.props.createFolder({
+      name: this.state.folder,
+      deleted: true,
+      id: 0,
+      location: ''
+    })
+    this.setState({ ...this.state, anchorEl: false, folderModalOpen: false })
   }
 
   render () {
@@ -104,10 +112,13 @@ class NavButton extends Component {
             horizontal: 'right'
           }}
         >
-          <MenuItem onClick={this.handleFileModalClose}>File</MenuItem>
-          <MenuItem onClick={this.handleFolderModalClose}>Folder</MenuItem>
+          <MenuItem onClick={this.handleFileModalOpen}>File</MenuItem>
+          <MenuItem onClick={this.handleFolderModalOpen}>Folder</MenuItem>
         </Menu>
-        <Modal open={this.state.modalOpen} onClose={this.handleModalClose}>
+        <Modal
+          open={this.state.fileModalOpen}
+          onClose={this.handleFileModalClose}
+        >
           <form
             action='localhost:8080/files'
             method='post'
@@ -119,12 +130,12 @@ class NavButton extends Component {
               title='Upload a file'
               onChange={this.handleFileChange}
             />
-            <input type='submit' onClick={this.uploadFile} />
+            <input type='submit' onClick={this.addFile} />
           </form>
         </Modal>
         <Modal
           open={this.state.folderModalOpen}
-          onClose={this.handleModalClose}
+          onClose={this.handleFolderModalClose}
         >
           <form action='localhost:8080/folder' method='post'>
             <input
@@ -140,4 +151,10 @@ class NavButton extends Component {
     )
   }
 }
-export default NavButton
+
+const mapDispatchToProps = dispatch => ({
+  createFile: file => dispatch(actionCreators.createFileAsync(file)),
+  createFolder: folder => dispatch(actionCreators.createFolderAsync(folder))
+})
+
+export default connect(null, mapDispatchToProps)(NavButton)

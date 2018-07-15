@@ -44,10 +44,12 @@ const createFolder = folder => ({
   folder
 })
 
-export const createFolderAsync = () => dispatch => {
-  axios.get('/folder').then(response => {
-    dispatch(createFolder(response.data))
-  })
+export const createFolderAsync = data => dispatch => {
+  axios
+    .post('/folder', data, { headers: { 'content-type': 'application/json' } })
+    .then(() => {
+      dispatch(createFolder(data))
+    })
 }
 
 const deleteFolder = folder => ({
