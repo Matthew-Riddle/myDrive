@@ -5,6 +5,7 @@ export const GET_FILES = 'GET_FILES'
 export const UPDATE_FILE = 'UPDATE_FILE'
 export const CREATE_FILE = 'CREATE_FILE'
 export const DELETE_FILE = 'DELETE_FILE'
+export const ARCHIVE_FILE = 'ARCHIVE_FILE'
 
 const getFile = file => ({
   type: GET_FILE,
@@ -54,13 +55,24 @@ export const createFileAsync = data => dispatch => {
     })
 }
 
-const deleteFile = file => ({
-  type: DELETE_FILE,
+const archiveFile = file => ({
+  type: ARCHIVE_FILE,
   file
 })
 
-export const deleteFileAsync = () => dispatch => {
-  axios.get('/files/{id}').then(response => {
-    dispatch(deleteFile(response.data))
+export const archiveFileAsync = id => dispatch => {
+  axios.delete(`/files/${id}`).then(response => {
+    dispatch(archiveFile(response.data))
+  })
+}
+
+const deleteFile = id => ({
+  type: DELETE_FILE,
+  id
+})
+
+export const deleteFileAsync = id => dispatch => {
+  axios.get(`/files/${id}`).then(response => {
+    dispatch(deleteFile(response.data.id))
   })
 }

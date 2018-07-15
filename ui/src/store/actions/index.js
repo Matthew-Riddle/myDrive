@@ -4,10 +4,12 @@ export {
   UPDATE_FILE,
   CREATE_FILE,
   DELETE_FILE,
+  ARCHIVE_FILE,
   getFileAsync,
   updateFileAsync,
   createFileAsync,
-  deleteFileAsync
+  deleteFileAsync,
+  archiveFileAsync
 } from './fileActions'
 export {
   GET_FOLDER,
@@ -15,9 +17,16 @@ export {
   UPDATE_FOLDER,
   CREATE_FOLDER,
   DELETE_FOLDER,
+  ARCHIVE_FOLDER,
   getFolderAsync,
   updateFolderAsync,
   createFolderAsync,
-  deleteFolderAsync
+  deleteFolderAsync,
+  archiveFolderAsync
 } from './folderActions'
-export { GET_FILE_SELECTED, getFileSelectedAsync } from './selectActions'
+export {
+  GET_FILE_SELECTED,
+  GET_FOLDER_SELECTED,
+  getFileSelectedAsync,
+  getFolderSelectedAsync
+} from './selectActions'

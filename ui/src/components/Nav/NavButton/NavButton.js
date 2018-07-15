@@ -78,7 +78,7 @@ class NavButton extends Component {
   addFolder = () => {
     this.props.createFolder({
       name: this.state.folder,
-      deleted: true,
+      deleted: false,
       id: 0,
       location: ''
     })

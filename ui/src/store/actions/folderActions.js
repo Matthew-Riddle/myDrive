@@ -5,6 +5,7 @@ export const GET_FOLDERS = 'GET_FOLDERS'
 export const UPDATE_FOLDER = 'UPDATE_FOLDER'
 export const CREATE_FOLDER = 'CREATE_FOLDER'
 export const DELETE_FOLDER = 'DELETE_FOLDER'
+export const ARCHIVE_FOLDER = 'ARCHIVE_FOLDER'
 
 const getFolder = folder => ({
   type: GET_FOLDER,
@@ -34,7 +35,7 @@ const updateFolder = folder => ({
 })
 
 export const updateFolderAsync = () => dispatch => {
-  axios.get('/folder/{id}').then(response => {
+  axios.put('/folder/{id}').then(response => {
     dispatch(updateFolder(response.data))
   })
 }
@@ -50,6 +51,16 @@ export const createFolderAsync = data => dispatch => {
     .then(() => {
       dispatch(createFolder(data))
     })
+}
+const archiveFolder = folder => ({
+  type: ARCHIVE_FOLDER,
+  folder
+})
+
+export const archiveFolderAsync = id => dispatch => {
+  axios.delete(`/folder/${id}`).then(response => {
+    dispatch(archiveFolder(response.data))
+  })
 }
 
 const deleteFolder = folder => ({

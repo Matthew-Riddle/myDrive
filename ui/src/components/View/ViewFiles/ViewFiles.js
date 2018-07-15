@@ -17,13 +17,14 @@ class ViewFiles extends Component {
     return (
       <GridList cols='auto' cellHeight='auto' spacing={0}>
         {this.props.files &&
-          this.props.files.map(file => (
-            <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
-
-              <File name={file.name} id={file.id} key={file.id} />
-
-            </GridListTile>
-          ))}
+          this.props.files.map(
+            file =>
+              (file.deleted
+                ? ''
+                : <GridListTile cols={1} style={{ width: `${fileWidth}px` }}>
+                  <File name={file.name} id={file.id} key={file.id} />
+                </GridListTile>)
+          )}
       </GridList>
     )
   }

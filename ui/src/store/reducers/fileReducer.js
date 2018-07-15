@@ -26,10 +26,17 @@ const fileReducer = (state = initialState, action) => {
         ...state,
         files: [...state.files, action.file]
       }
+    case actionTypes.ARCHIVE_FILE:
+      return {
+        ...state,
+        files: state.files.map(
+          file => (file.id === action.file.id ? action.file : file)
+        )
+      }
     case actionTypes.DELETE_FILE:
       return {
         ...state,
-        files: action.files
+        files: [...state.files.filter(file => file.id !== action.id)]
       }
     default:
       return state
