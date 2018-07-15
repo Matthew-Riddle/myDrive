@@ -6,18 +6,12 @@ import ViewHeader from './ViewHeader/ViewHeader'
 import './View.css'
 
 class View extends Component {
-  state = {
-    currentFolder: null
-  }
-  folderHandler = name => {
-    this.setState({ currentFolder: name })
-  }
   render () {
     return (
       <div>
         <ViewHeader
-          currentFolder={this.state.currentFolder}
-          folderHandler={this.folderHandler}
+          currentFolder={this.props.currentFolder}
+          folderHandler={this.props.folderHandler}
         />
         <div className='view'>
           <Typography
@@ -35,12 +29,12 @@ class View extends Component {
           {this.props.deleted
             ? <ViewFolders
               deleted
-              folderHandler={this.folderHandler}
-              currentFolder={this.state.currentFolder}
+              folderHandler={this.props.folderHandler}
+              currentFolder={this.props.currentFolder}
               />
             : <ViewFolders
-              folderHandler={this.folderHandler}
-              currentFolder={this.state.currentFolder}
+              folderHandler={this.props.folderHandler}
+              currentFolder={this.props.currentFolder}
               />}
           <Divider style={{ margin: '5px 0px' }} />
           <Typography
@@ -56,8 +50,8 @@ class View extends Component {
           </Typography>
           <Divider light style={{ margin: '5px 0px' }} />
           {this.props.deleted
-            ? <ViewFiles deleted currentFolder={this.state.currentFolder} />
-            : <ViewFiles currentFolder={this.state.currentFolder} />}
+            ? <ViewFiles deleted currentFolder={this.props.currentFolder} />
+            : <ViewFiles currentFolder={this.props.currentFolder} />}
         </div>
       </div>
     )

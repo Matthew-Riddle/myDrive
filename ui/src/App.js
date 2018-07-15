@@ -20,6 +20,14 @@ const theme = createMuiTheme({
   }
 })
 class App extends Component {
+  state = {
+    currentFolder: null
+  }
+
+  folderHandler = name => {
+    this.setState({ currentFolder: name })
+  }
+
   componentDidMount () {
     document.addEventListener('keydown', this.handleEscPress, false)
   }
@@ -44,10 +52,32 @@ class App extends Component {
         <React.Fragment>
           <CssBaseline />
           <div className='App' onClick={this.handleAppClick}>
-            <Nav />
+            <Nav
+              folderHandler={this.folderHandler}
+              currentFolder={this.state.currentFolder}
+            />
             <Switch>
-              <Route exact path='/' render={() => <View />} />
-              <Route exact path='/deleted' render={() => <View deleted />} />
+              <Route
+                exact
+                path='/'
+                render={() => (
+                  <View
+                    folderHandler={this.folderHandler}
+                    currentFolder={this.state.currentFolder}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path='/deleted'
+                render={() => (
+                  <View
+                    deleted
+                    folderHandler={this.folderHandler}
+                    currentFolder={this.state.currentFolder}
+                  />
+                )}
+              />
             </Switch>
           </div>
         </React.Fragment>

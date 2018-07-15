@@ -18,7 +18,12 @@ const Nav = props => {
         <Divider className='NavDivider' />
         <NavButton />
         <Divider className='NavDivider' />
-        <Link name='myDrive' to='/' className='LinkText'>
+        <Link
+          name='myDrive'
+          to='/'
+          className='LinkText'
+          onClick={() => props.folderHandler(null)}
+        >
           <NavLink />
         </Link>
         <Divider light className='NavDivider' />
