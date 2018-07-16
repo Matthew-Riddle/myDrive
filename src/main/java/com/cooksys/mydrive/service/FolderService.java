@@ -36,10 +36,10 @@ public class FolderService {
 		 
 	    private static ZipOutputStream zos;
 	 
-	    private Path sourceDir;
+	    private static Path sourceDir;
 	 
 	    public ZipDir(Path sourceDir) {
-	        this.sourceDir = sourceDir;
+	    	ZipDir.sourceDir = sourceDir;
 	    }
 	 
 	    @Override
@@ -60,21 +60,19 @@ public class FolderService {
 	        return FileVisitResult.CONTINUE;
 	    }
 	 
-	    public static long lame(String[] args) {
+	    public static ByteArrayOutputStream lame(String[] args) {
 	        String dirPath = args[0];
-	        Path sourceDir = Paths.get(dirPath);
-	 
-	        try {
-	            String zipFileName = dirPath.concat(".zip");
-	            zos = new ZipOutputStream(new FileOutputStream(zipFileName));
-	 
-	            Files.walkFileTree(sourceDir, new ZipDir(sourceDir));
-	 
-	            zos.close();
-	        } catch (IOException ex) {
-	            System.err.println("I/O Error: " + ex);
-	        }
-	        return 0;
+	        ZipDir.sourceDir = Paths.get(dirPath);
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			zos = new ZipOutputStream(byteArrayOutputStream);
+			return byteArrayOutputStream;
+			//Files.walkFileTree(sourceDir, new ZipDir(sourceDir));
+	        //return null;
+	    }
+	    
+	    public static void myThings() throws IOException {
+	    	Files.walkFileTree(ZipDir.sourceDir, new ZipDir(ZipDir.sourceDir));
+	    	zos.close();
 	    }
 	}
 	private FolderRepository folderRepository;
@@ -170,31 +168,30 @@ public class FolderService {
 		return folderRepository.getOne(id).getFiles().stream().collect(Collectors.toList());
 	}
 	
-	public ResponseEntity<Resource> downloadFilesByFolderId(Long id) throws IOException {
+	public ResponseEntity<Resource> downloadFilesByFolderId(Long id){
 		FolderEntity folder = folderRepository.findById(id).get();
 		String zipName = folder.getLocation();
 		HttpHeaders headers = new HttpHeaders();
         String[] haha = new String[1];
         haha[0] = Paths.get("./storage", zipName).toString();
-        ZipDir.lame(haha);
-        long someSize = 0 ;
-        File br = new File(Paths.get("./storage", zipName).toString() + ".zip");
-        someSize = br.length();
-        System.out.println(someSize);
-		Path path = Paths.get("./storage", zipName);
-		   InputStreamResource resource;
-		try {
-			resource = new InputStreamResource(new FileInputStream(path.toString() + ".zip"));
-		    return ResponseEntity.ok()
-		            .headers(headers)
-		            .contentLength(someSize)
-		            .contentType(MediaType.parseMediaType("application/x-zip-compressed"))
-		            .body(resource);
-		} catch (FileNotFoundException e) {
+        ByteArrayOutputStream myMan = ZipDir.lame(haha);
+        try {
+			ZipDir.myThings();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+        byte[] hahar = myMan.toByteArray();
+        long someSize = 0 ;
+        someSize = hahar.length;
+		InputStreamResource resource;
+		resource = new InputStreamResource(new ByteArrayInputStream(hahar));
+		return ResponseEntity.ok()
+		        .headers(headers)
+		        .contentLength(someSize)
+		        .contentType(MediaType.parseMediaType("application/x-zip-compressed"))
+		        .body(resource);
 	}
 	
 	public FolderEntity deleteFolder(Long id) {		
@@ -203,7 +200,6 @@ public class FolderService {
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
 					this.deleteFileById(containedFile.getId());
 			}
-			
 			folderRepository.deleteById(deletedFolder.getId());
 			Path path = Paths.get("./storage", deletedFolder.getLocation());
 			try {
@@ -216,7 +212,6 @@ public class FolderService {
 		}
 		else {
 			deletedFolder.setDeleted(true);
-			System.out.println("wew");
 			System.out.println(deletedFolder.getFiles().size());
 			System.out.println("deleting files of a folder");
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
@@ -256,7 +251,6 @@ public class FolderService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(path.toString());
 		return tmp;//return deleted entry
 	}
 }
