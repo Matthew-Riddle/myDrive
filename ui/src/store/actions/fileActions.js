@@ -77,3 +77,7 @@ export const deleteFileAsync = id => dispatch => {
     dispatch(deleteFile(response.data.id))
   })
 }
+
+export const cleanUpFileAsync = id => dispatch => {
+  dispatch(deleteFile(id))
+}
