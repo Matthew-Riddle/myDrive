@@ -46,14 +46,15 @@
     70% { transform: rotate(-1deg)}
     100% { margin: inherit; background-color: rgb(213, 234, 246); } */
 
-    0% { margin: inherit; background-color: rgb(213, 234, 246) }
-    33% { margin: 2px; background-color: rgb(235, 244, 250) }
-    66% { margin: -2px; background-color: rgb(223, 239, 248) }
-    100% { margin: inherit; background-color: rgb(213, 234, 246) }
+    0% { transform: translate(0px,2px); background-color: rgba(66, 66, 66) }
+    25% { transform: translate(0px,-2px); background-color: rgba(66, 66, 66, 0.822) }
+    50% { transform: translate(0px,2px); background-color: rgb(66, 66, 66) }
+    75% { transform: translate(0px,-2px); background-color: rgb(66, 66, 66, 0.822) }
+    100% { transform: translate(0px, 2px); background-color: rgb(66, 66, 66) }
 }
 
 .Active {
-    background-color: rgb(213, 234, 246) !important;
+    background-color: rgb(250, 102, 7) !important;
     animation-name: pulse;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;

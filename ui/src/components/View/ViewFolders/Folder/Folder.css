@@ -36,17 +36,18 @@
     70% { transform: rotate(-1deg)}
     100% { margin: inherit; background-color: rgb(213, 234, 246); } */
 
-    0% {  background-color: rgb(213, 234, 246);  }
-    33% {  background-color: rgb(235, 244, 250); transform: translate(0px, 3px) }
-    66% {  background-color: rgb(223, 239, 248); }
-    100% {  background-color: rgb(213, 234, 246); }
+    0% { transform: translate(0px,2px); background-color: rgba(66, 66, 66) }
+    25% { transform: translate(0px,-2px); background-color: rgba(66, 66, 66, 0.822) }
+    50% { transform: translate(0px,2px); background-color: rgb(66, 66, 66) }
+    75% { transform: translate(0px,-2px); background-color: rgb(66, 66, 66, 0.822) }
+    100% { transform: translate(0px, 2px); background-color: rgb(66, 66, 66) }
 }
 
 .ActiveFolder {
-    background-color: rgb(213, 234, 246) !important;
+    background-color: rgb(66, 66, 66) !important;
     animation-name: flash;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(.7,2.0,1.0,.7);
+    /* animation-timing-function: cubic-bezier(.7,2.0,1.0,.7); */
     /* animation-direction: alternate; */
 }
