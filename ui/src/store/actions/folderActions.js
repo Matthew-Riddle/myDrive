@@ -34,8 +34,8 @@ const updateFolder = folder => ({
   folder
 })
 
-export const updateFolderAsync = () => dispatch => {
-  axios.put('/folder/{id}').then(response => {
+export const updateFolderAsync = (id, data) => dispatch => {
+  axios.put(`/folder/${id}`, data).then(response => {
     dispatch(updateFolder(response.data))
   })
 }

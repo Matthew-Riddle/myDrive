@@ -9,7 +9,9 @@ const selectReducer = (state = initialState, action) => {
         id: action.file.id,
         type: 'file',
         name: action.file.name,
-        deleted: action.file.deleted
+        deleted: action.file.deleted,
+        fileSize: action.file.fileSize,
+        contentType: action.file.contentType
       }
     case actionTypes.GET_FOLDER_SELECTED:
       return {

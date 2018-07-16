@@ -19,7 +19,11 @@ const folderReducer = (state = initialState, action) => {
     case actionTypes.UPDATE_FOLDER:
       return {
         ...state,
-        folders: action.folders
+        folders: state.folders.map(
+          // TODO: Change this after fixing Java folder update
+          folder =>
+            (folder.id === action.folder.id - 1 ? action.folder : folder)
+        )
       }
     case actionTypes.CREATE_FOLDER:
       return {
@@ -34,8 +38,6 @@ const folderReducer = (state = initialState, action) => {
         )
       }
     case actionTypes.DELETE_FOLDER:
-      console.log(action.folder.id)
-      console.log(state.folders)
       return {
         ...state,
         folders: [

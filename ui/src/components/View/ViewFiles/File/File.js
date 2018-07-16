@@ -14,7 +14,10 @@ class File extends Component {
     this.props.getFileSelected({
       id: this.props.id,
       name: this.props.name,
-      deleted: this.props.deleted
+      location: this.props.location,
+      deleted: this.props.deleted,
+      contentType: this.props.contentType,
+      fileSize: this.props.fileSize
     })
   }
 

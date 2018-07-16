@@ -19,7 +19,9 @@ const fileReducer = (state = initialState, action) => {
     case actionTypes.UPDATE_FILE:
       return {
         ...state,
-        files: action.files
+        files: state.files.map(
+          file => (file.id === action.file.id ? action.file : file)
+        )
       }
     case actionTypes.CREATE_FILE:
       return {

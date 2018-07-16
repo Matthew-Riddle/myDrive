@@ -28,7 +28,10 @@ class ViewFiles extends Component {
                       name={file.name}
                       id={file.id}
                       key={file.id}
+                      location={file.location}
                       deleted={file.deleted}
+                      contentType={file.contentType}
+                      fileSize={file.fileSize}
                       />
                   </GridListTile>
                   : ''
@@ -44,7 +47,10 @@ class ViewFiles extends Component {
                       name={file.name}
                       id={file.id}
                       key={file.id}
+                      location={file.location}
                       deleted={file.deleted}
+                      contentType={file.contentType}
+                      fileSize={file.fileSize}
                       />
                   </GridListTile>
           })}

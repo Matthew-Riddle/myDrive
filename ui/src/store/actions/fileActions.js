@@ -34,8 +34,9 @@ const updateFile = file => ({
   file
 })
 
-export const updateFileAsync = () => dispatch => {
-  axios.get('/files/{id}').then(response => {
+export const updateFileAsync = (id, data) => dispatch => {
+  console.log(id)
+  axios.put(`/files/${id}`, data).then(response => {
     dispatch(updateFile(response.data))
   })
 }
