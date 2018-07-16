@@ -39,5 +39,3 @@ When finishing a feature, bug, etc. through git-flow, the convention is to add `
 * Implements basic CRUD endpoints for /folder and /files via Spring Boot
 
 * Bootstrap front-end with Create-React-App
-
-Just testing out some new flow options for managing the project. This will be deleted soon.

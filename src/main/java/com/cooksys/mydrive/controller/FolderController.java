@@ -1,7 +1,12 @@
 package com.cooksys.mydrive.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,35 +25,47 @@ import com.cooksys.mydrive.service.FolderService;
 public class FolderController {
 	private FolderMapper folderMapper;
 	private FolderService folderService;
-
 	public FolderController(FolderService folderService, FolderMapper folderMapper) {
 		this.folderService = folderService;
 		this.folderMapper = folderMapper;
 	}
 	
+	@CrossOrigin
 	@GetMapping
 	public List<FolderDto> getAll(){
-		return folderService.getFolders();
+		//List<FileEntity> theFiles = updateFiles.stream().map(fileMapper::toFile).collect(Collectors.toList());
+		return folderService.getFolders().stream().map(folderMapper::toDto).collect(Collectors.toList());
 	}
 	
+	@CrossOrigin
 	@GetMapping("{id}")
 	public FolderDto get(@PathVariable Long id) {
-		return folderService.getFolderById(id);
+		return folderMapper.toDto(folderService.getFolderById(id));
+	}
+	@CrossOrigin
+	@GetMapping("/download/{id}")
+	public ResponseEntity<Resource> downloadFolder(@PathVariable Long id) throws IOException {
+		return folderService.downloadFilesByFolderId(id);
 	}
 	
+	
+	
+	@CrossOrigin
 	@PostMapping
 	public FolderDto createNewFolder(@RequestBody FolderDto folder) {
-		return folderService.createFolder(folderMapper.toFolder(folder));
+		return folderMapper.toDto(folderService.createFolder(folderMapper.toFolder(folder)));
 	}
 	
+	@CrossOrigin
 	@PutMapping("{id}")
 	public FolderDto updateFolder(@RequestBody FolderDto changeFolder, @PathVariable Long id) {
-		return folderService.updateFolder(folderMapper.toFolder(changeFolder), id);
+		return folderMapper.toDto(folderService.updateFolder(folderMapper.toFolder(changeFolder), id));
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("{id}")
 	public FolderDto deleteFolder(@PathVariable Long id) {
-		return folderService.deleteFolder(id);
+		return folderMapper.toDto(folderService.deleteFolder(id));
 	}
-
+	
 }

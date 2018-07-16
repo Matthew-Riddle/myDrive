@@ -1,0 +1,12 @@
+.NavBrand {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+}
+
+.NavDivider {
+    margin: 10px 0 !important;
+}
+
+.LinkText {
+    text-decoration: none;
+}

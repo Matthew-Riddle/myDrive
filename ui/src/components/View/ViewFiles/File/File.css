@@ -1,0 +1,62 @@
+.FileCard {
+    display: flex;
+    flex-direction: column;
+    margin: 1px;
+    max-width: 100px;
+}
+
+.FileCard :nth-child(*) {
+    width: 100%;
+}
+
+.FileIconContainer {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.FileIcon {
+    color: grey;
+    font-size: 3em !important;
+}
+
+.FileContentContainer {
+    max-height: 40px;
+    width: 100px;
+    padding: 4px !important;
+    text-align: center;
+}
+
+.FileContent {
+    font-size: 0.65rem !important;    
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes pulse {
+    /* from {background-color: rgb(255, 255, 255)}
+    to {background-color: rgb(213, 234, 246)} */
+
+    /* 0% { margin: inherit; background-color: rgb(213, 234, 246); }
+    33% { margin: 3px; background-color: rgb(235, 244, 250); transform: rotate(1deg)  }
+    40% { transform: rotate(-1deg)}
+    66% { margin: -3px; background-color: rgb(223, 239, 248); transform: rotate(1deg)}
+    70% { transform: rotate(-1deg)}
+    100% { margin: inherit; background-color: rgb(213, 234, 246); } */
+
+    0% { margin: inherit; background-color: rgb(213, 234, 246) }
+    33% { margin: 2px; background-color: rgb(235, 244, 250) }
+    66% { margin: -2px; background-color: rgb(223, 239, 248) }
+    100% { margin: inherit; background-color: rgb(213, 234, 246) }
+}
+
+.Active {
+    background-color: rgb(213, 234, 246) !important;
+    animation-name: pulse;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.7,2.0,1.0,.7);
+    /* animation-direction: alternate; */
+}
+
