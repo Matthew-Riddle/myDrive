@@ -137,19 +137,26 @@ public class FolderService {
 		Path path = Paths.get("./storage", tempFolder.getLocation());
 		File origDir = path.toFile();
 		File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
-		origDir.renameTo(newDir);
+		if(updateFolder.getName() != tempFolder.getName()) {
+			System.out.println("Renaming directory!");
+			origDir.renameTo(newDir);
+			try {
+				FolderService.deleteDirectory(path.toFile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			System.out.println("Not renaming directory!");
+		}
 		updateFolder.setLocation(updateFolder.getName());
 		updateFolder.setFiles(tempFolder.getFiles());
 		for(FileEntity workingFile : updateFolder.getFiles()) {
 			workingFile.setFolder(updateFolder);
 		}
-		try {
-			FolderService.deleteDirectory(path.toFile());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		folderRepository.save(updateFolder);
-		return updateFolder;
+		
+		//folderRepository.save(updateFolder);
+		return folderRepository.save(updateFolder);
 	}
 	
 	public List<FileEntity> getFilesOfFolder(Long id) {
