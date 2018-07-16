@@ -1,0 +1,7 @@
+.nav-brand{
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 10px;
+}

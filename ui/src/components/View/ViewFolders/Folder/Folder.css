@@ -1,0 +1,53 @@
+.Folder {
+    align-items: center;
+    display: flex;
+    max-width: 150px;
+    width: 100%;
+    height: 50px;
+    justify-content: left;
+    margin: 5px;
+}
+
+.FolderButton > span {
+    width: 100% !important;
+}
+
+.FolderIcon {
+    color: grey;
+    padding: 0 3px;
+    font-size: 3em !important;
+}
+
+.FolderName {
+    font-size: 0.65rem !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@keyframes flash {
+    /* from {background-color: rgb(255, 255, 255)}
+    to {background-color: rgb(213, 234, 246)} */
+
+    /* 0% { margin: inherit; background-color: rgb(213, 234, 246); }
+    33% { margin: 3px; background-color: rgb(235, 244, 250); transform: rotate(1deg)  }
+    40% { transform: rotate(-1deg)}
+    66% { margin: -3px; background-color: rgb(223, 239, 248); transform: rotate(1deg)}
+    70% { transform: rotate(-1deg)}
+    100% { margin: inherit; background-color: rgb(213, 234, 246); } */
+
+    0% { transform: translate(0px,2px); background-color: rgba(66, 66, 66) }
+    25% { transform: translate(0px,-2px); background-color: rgba(66, 66, 66, 0.822) }
+    50% { transform: translate(0px,2px); background-color: rgb(66, 66, 66) }
+    75% { transform: translate(0px,-2px); background-color: rgb(66, 66, 66, 0.822) }
+    100% { transform: translate(0px, 2px); background-color: rgb(66, 66, 66) }
+}
+
+.ActiveFolder {
+    background-color: rgb(66, 66, 66) !important;
+    animation-name: flash;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    /* animation-timing-function: cubic-bezier(.7,2.0,1.0,.7); */
+    /* animation-direction: alternate; */
+}
