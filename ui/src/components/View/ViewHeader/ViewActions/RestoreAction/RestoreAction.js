@@ -7,23 +7,21 @@ import Button from '@material-ui/core/Button'
 class RestoreAction extends Component {
   handleRestoreClick = e => {
     e.stopPropagation()
-    this.props.selected.deleted
-      ? this.props.selected.type === 'file'
-          ? this.props.updateFile(this.props.selected.id, {
-            id: this.props.selected.id,
-            location: this.props.selected.location,
-            name: this.props.selected.name,
-            deleted: false,
-            fileSize: this.props.selected.fileSize,
-            contentType: this.props.selected.contentType
-          })
-          : this.props.updateFolder(this.props.selected.id, {
-            id: this.props.selected.id,
-            location: this.props.selected.name,
-            name: this.props.selected.name,
-            deleted: false
-          })
-      : null
+    this.props.selected.deleted && this.props.selected.type === 'file'
+      ? this.props.updateFile(this.props.selected.id, {
+        id: this.props.selected.id,
+        location: this.props.selected.location,
+        name: this.props.selected.name,
+        deleted: false,
+        fileSize: this.props.selected.fileSize,
+        contentType: this.props.selected.contentType
+      })
+      : this.props.updateFolder(this.props.selected.id, {
+        id: this.props.selected.id,
+        location: this.props.selected.name,
+        name: this.props.selected.name,
+        deleted: false
+      })
   }
 
   render () {

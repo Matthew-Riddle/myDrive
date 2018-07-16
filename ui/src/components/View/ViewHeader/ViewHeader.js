@@ -35,7 +35,10 @@ const ViewHeader = props => (
       </Typography>
     </Toolbar>
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <ViewActions />
+      <ViewActions
+        currentFolder={props.currentFolder}
+        folderHandler={props.folderHandler}
+      />
     </div>
   </AppBar>
 )
