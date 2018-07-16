@@ -33,30 +33,23 @@ import com.cooksys.mydrive.repository.FolderRepository;
 @Service
 public class FolderService {
 	public static class ZipDir extends SimpleFileVisitor<Path> {
-		 
 	    private static ZipOutputStream zos;
-	 
 	    private static Path sourceDir;
-	 
 	    public ZipDir(Path sourceDir) {
 	    	ZipDir.sourceDir = sourceDir;
 	    }
-	 
 	    @Override
 	    public FileVisitResult visitFile(Path file,
 	            BasicFileAttributes attributes) {
-	 
 	        try {
 	            Path targetFile = sourceDir.relativize(file);
 	            zos.putNextEntry(new ZipEntry(targetFile.toString()));	 
 	            byte[] bytes = Files.readAllBytes(file);
 	            zos.write(bytes, 0, bytes.length);
 	            zos.closeEntry();
-	 
 	        } catch (IOException ex) {
 	            System.err.println(ex);
 	        }
-	 
 	        return FileVisitResult.CONTINUE;
 	    }
 	 
@@ -66,8 +59,6 @@ public class FolderService {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			zos = new ZipOutputStream(byteArrayOutputStream);
 			return byteArrayOutputStream;
-			//Files.walkFileTree(sourceDir, new ZipDir(sourceDir));
-	        //return null;
 	    }
 	    
 	    public static void myThings() throws IOException {
