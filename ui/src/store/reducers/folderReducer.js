@@ -20,9 +20,8 @@ const folderReducer = (state = initialState, action) => {
       return {
         ...state,
         folders: state.folders.map(
-          // TODO: Change this after fixing Java folder update
-          folder =>
-            (folder.id === action.folder.id - 1 ? action.folder : folder)
+          // TODO: Change this after fixing Java folder update // I think its done
+          folder => (folder.id === action.folder.id ? action.folder : folder)
         )
       }
     case actionTypes.CREATE_FOLDER:
