@@ -48,11 +48,8 @@ public class FolderService {
 	 
 	        try {
 	            Path targetFile = sourceDir.relativize(file);
-	            System.out.println(targetFile.toString());
-	            zos.putNextEntry(new ZipEntry(targetFile.toString()));
-	 
+	            zos.putNextEntry(new ZipEntry(targetFile.toString()));	 
 	            byte[] bytes = Files.readAllBytes(file);
-	            System.out.println(bytes.length);
 	            zos.write(bytes, 0, bytes.length);
 	            zos.closeEntry();
 	 
@@ -139,11 +136,7 @@ public class FolderService {
 		File origDir = path.toFile();
 		File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
 		if(!updateFolder.getName().equals( tempFolder.getName())) {
-			System.out.println("Renaming directory!");
-			System.out.println("from");
-			System.out.println( tempFolder.getName());
-			System.out.println(updateFolder.getName());
-			System.out.println(newDir.toString());
+			
 			origDir.renameTo(newDir);
 			try {
 				FolderService.deleteDirectory(path.toFile());
@@ -163,21 +156,20 @@ public class FolderService {
 		folderRepository.save(tempFolder);
 		for(FileEntity workingFile : greatFiles) {
 			FileEntity realWorking = fileRepository.getOne(workingFile.getId());
+			realWorking.setDeleted(updateFolder.isDeleted());
 			realWorking.setFolder(updateFolder);
-			//updateFolder.addFile(realWorking);
 			newFiles.add(realWorking);
 			fileRepository.save(realWorking);
 		}
 		updateFolder.setFiles(newFiles);
-		folderRepository.save(updateFolder);
-		//folderRepository.deleteById(id);
-		
+		folderRepository.save(updateFolder);		
 		return folderRepository.getOne(updateFolder.getId());
 	}
 	
 	public List<FileEntity> getFilesOfFolder(Long id) {
 		return folderRepository.getOne(id).getFiles().stream().collect(Collectors.toList());
 	}
+	
 	public ResponseEntity<Resource> downloadFilesByFolderId(Long id) throws IOException {
 		FolderEntity folder = folderRepository.findById(id).get();
 		String zipName = folder.getLocation();
@@ -226,9 +218,10 @@ public class FolderService {
 			deletedFolder.setDeleted(true);
 			System.out.println("wew");
 			System.out.println(deletedFolder.getFiles().size());
+			System.out.println("deleting files of a folder");
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
+					System.out.println("Deleting file named " + containedFile.getName());
 					FileEntity actualFile = fileRepository.getOne(containedFile.getId());
-					System.out.println(actualFile.getName());
 					actualFile.setDeleted(true);
 					fileRepository.save(actualFile);			
 			}
