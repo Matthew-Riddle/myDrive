@@ -48,7 +48,6 @@ const styles = {
 
 class FileModal extends Component {
   render () {
-    console.log(this.props.theme)
     return (
       <Modal
         style={{ ...styles.fileModal, zIndex: this.props.theme.zIndex.modal }}
@@ -79,7 +78,7 @@ class FileModal extends Component {
             >
               {this.props.folders &&
                 this.props.folders.map(folder => (
-                  <MenuItem value={folder.name}>
+                  <MenuItem value={folder.name} key={folder.id}>
                     {folder.name}
                   </MenuItem>
                 ))}

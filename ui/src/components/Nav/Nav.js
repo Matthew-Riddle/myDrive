@@ -6,6 +6,7 @@ import NavBrand from './NavBrand/NavBrand'
 import NavLink from './NavLink/NavLink'
 import NavButton from './NavButton/NavButton'
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import { withRouter } from 'react-router-dom'
 import './Nav.css'
 
 const Nav = props => {
@@ -13,7 +14,7 @@ const Nav = props => {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <Drawer variant='permanent' color='primary'>
+      <Drawer variant='permanent' color='primary' className='Navigation'>
         <NavBrand />
         <Divider className='NavDivider' />
         <NavButton />
@@ -21,12 +22,14 @@ const Nav = props => {
         <Link
           name='myDrive'
           to='/'
-          className='LinkText'
+          className={`LinkText ${props.location.pathname === '/' ? 'ActiveLink' : ''}`}
           activeStyle={{
             borderLeft: '2px',
             color: 'pink'
           }}
-          onClick={() => props.folderHandler(null)}
+          onClick={() => {
+            props.folderHandler(null)
+          }}
         >
           <NavLink />
         </Link>
@@ -34,7 +37,7 @@ const Nav = props => {
         <Link
           name='deleted'
           to='/deleted'
-          className='LinkText'
+          className={`LinkText ${props.location.pathname === '/deleted' ? 'ActiveLink' : ''}`}
           activeStyle={{
             borderLeft: '2px',
             color: 'pink'
@@ -47,4 +50,4 @@ const Nav = props => {
   )
 }
 
-export default withTheme()(Nav)
+export default withRouter(withTheme()(Nav))

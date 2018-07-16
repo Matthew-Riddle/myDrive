@@ -35,7 +35,7 @@ class NavButton extends Component {
   handleFileModalOpen = () => {
     this.setState({
       ...this.state,
-      anchorEl: false,
+      anchorEl: null,
       fileModalOpen: true
     })
   }
@@ -43,7 +43,7 @@ class NavButton extends Component {
   handleFolderModalOpen = () => {
     this.setState({
       ...this.state,
-      anchorEl: false,
+      anchorEl: null,
       folderModalOpen: true
     })
   }
@@ -66,7 +66,6 @@ class NavButton extends Component {
   }
 
   handleFileChange = e => {
-    console.log(e.currentTarget.files[0])
     this.setState({ ...this.state, file: e.currentTarget.files[0] })
   }
 
