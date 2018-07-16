@@ -75,7 +75,9 @@ public class FileService {
 		if(location != null) {
 			FolderEntity asdf = folderRepository.getByLocation(location);
 			tmp.setFolder(asdf);
-			asdf.addFile(tmp);	
+			List<FileEntity> theThing = asdf.getFiles();
+			theThing.add(tmp);
+			asdf.setFiles(theThing);	
 			fileRepo.save(tmp);
 			folderRepository.save(asdf);
 		}		
@@ -128,8 +130,14 @@ public class FileService {
 
 		if(tmp.getLocation() != null) {//if the location is null then its in root if its not null then get the folder info that its in
 			FolderEntity folder = folderRepository.getByLocation(tmp.getLocation());//use get by location
+			try {
 			folder.deleteFile(id);//delete the file from the list of files
+			}
+			catch(NullPointerException err) {
+			}
+			if(folder != null) {
 			folderRepository.save(folder);//save it
+			}
 		}
 		
 		Path path = null;

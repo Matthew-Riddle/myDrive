@@ -1,4 +1,5 @@
 package com.cooksys.mydrive.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.io.File;
@@ -133,12 +134,16 @@ public class FolderService {
 	public FolderEntity updateFolder(FolderEntity updateFolder, Long id) {
 		updateFolder.setId(id);
 		FolderEntity tempFolder = folderRepository.getOne(id);
-		folderRepository.deleteById(id);
+		
 		Path path = Paths.get("./storage", tempFolder.getLocation());
 		File origDir = path.toFile();
 		File newDir = new File(origDir.getParent() + "\\" + updateFolder.getName());
-		if(updateFolder.getName() != tempFolder.getName()) {
+		if(!updateFolder.getName().equals( tempFolder.getName())) {
 			System.out.println("Renaming directory!");
+			System.out.println("from");
+			System.out.println( tempFolder.getName());
+			System.out.println(updateFolder.getName());
+			System.out.println(newDir.toString());
 			origDir.renameTo(newDir);
 			try {
 				FolderService.deleteDirectory(path.toFile());
@@ -150,13 +155,24 @@ public class FolderService {
 			System.out.println("Not renaming directory!");
 		}
 		updateFolder.setLocation(updateFolder.getName());
-		updateFolder.setFiles(tempFolder.getFiles());
-		for(FileEntity workingFile : updateFolder.getFiles()) {
-			workingFile.setFolder(updateFolder);
+		List<FileEntity> newFiles = new ArrayList<FileEntity>();
+		updateFolder.setFiles(new ArrayList<FileEntity>());
+		updateFolder = folderRepository.save(updateFolder);
+		List<FileEntity> greatFiles = tempFolder.getFiles();
+		tempFolder.setFiles(new ArrayList<FileEntity>());
+		folderRepository.save(tempFolder);
+		for(FileEntity workingFile : greatFiles) {
+			FileEntity realWorking = fileRepository.getOne(workingFile.getId());
+			realWorking.setFolder(updateFolder);
+			//updateFolder.addFile(realWorking);
+			newFiles.add(realWorking);
+			fileRepository.save(realWorking);
 		}
+		updateFolder.setFiles(newFiles);
+		folderRepository.save(updateFolder);
+		//folderRepository.deleteById(id);
 		
-		//folderRepository.save(updateFolder);
-		return folderRepository.save(updateFolder);
+		return folderRepository.getOne(updateFolder.getId());
 	}
 	
 	public List<FileEntity> getFilesOfFolder(Long id) {
@@ -208,9 +224,13 @@ public class FolderService {
 		}
 		else {
 			deletedFolder.setDeleted(true);
+			System.out.println("wew");
+			System.out.println(deletedFolder.getFiles().size());
 			for(FileEntity containedFile : deletedFolder.getFiles()) {
-					containedFile.setDeleted(true);
-					fileRepository.save(containedFile);			
+					FileEntity actualFile = fileRepository.getOne(containedFile.getId());
+					System.out.println(actualFile.getName());
+					actualFile.setDeleted(true);
+					fileRepository.save(actualFile);			
 			}
 			folderRepository.save(deletedFolder);
 			return deletedFolder;

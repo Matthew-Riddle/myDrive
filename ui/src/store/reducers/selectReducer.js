@@ -9,6 +9,7 @@ const selectReducer = (state = initialState, action) => {
         id: action.file.id,
         type: 'file',
         name: action.file.name,
+        location: action.file.location,
         deleted: action.file.deleted,
         fileSize: action.file.fileSize,
         contentType: action.file.contentType
