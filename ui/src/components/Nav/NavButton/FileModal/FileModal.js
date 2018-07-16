@@ -79,7 +79,7 @@ class FileModal extends Component {
             >
               {this.props.folders &&
                 this.props.folders.map(folder => (
-                  <MenuItem value={folder.name}>
+                  <MenuItem value={folder.name} key={folder.id}>
                     {folder.name}
                   </MenuItem>
                 ))}
