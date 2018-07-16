@@ -32,6 +32,7 @@ class ViewFolders extends Component {
                           name={folder.name}
                           id={folder.id}
                           key={folder.id}
+                          deleted={folder.deleted}
                           folderHandler={this.props.folderHandler}
                           />
                       </GridListTile>
@@ -51,6 +52,7 @@ class ViewFolders extends Component {
                           name={folder.name}
                           id={folder.id}
                           key={folder.id}
+                          deleted={folder.deleted}
                           folderHandler={this.props.folderHandler}
                           />
                       </GridListTile>)

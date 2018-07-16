@@ -9,7 +9,12 @@ import './Folder.css'
 class Folder extends Component {
   handleCardClick = e => {
     e.stopPropagation()
-    this.props.getFolderSelected({ id: this.props.id, name: this.props.name })
+    this.props.getFolderSelected({
+      id: this.props.id,
+      name: this.props.name,
+      deleted: this.props.deleted,
+      type: 'folder'
+    })
   }
   handleFolderDoubleClick = e => {
     e.stopPropagation()

@@ -34,10 +34,13 @@ const folderReducer = (state = initialState, action) => {
         )
       }
     case actionTypes.DELETE_FOLDER:
+      console.log(action.folder.id)
+      console.log(state.folders)
       return {
         ...state,
-
-        folders: [...state.folders.filter(folder => folder.id !== action.id)]
+        folders: [
+          ...state.folders.filter(folder => folder.id !== action.folder.id)
+        ]
       }
     default:
       return state

@@ -24,7 +24,12 @@ class ViewFiles extends Component {
                     style={{ width: `${fileWidth}px` }}
                     className='File'
                     >
-                    <File name={file.name} id={file.id} key={file.id} />
+                    <File
+                      name={file.name}
+                      id={file.id}
+                      key={file.id}
+                      deleted={file.deleted}
+                      />
                   </GridListTile>
                   : ''
               : file.deleted || file.location !== this.props.currentFolder
@@ -35,7 +40,12 @@ class ViewFiles extends Component {
                     style={{ width: `${fileWidth}px` }}
                     className='File'
                     >
-                    <File name={file.name} id={file.id} key={file.id} />
+                    <File
+                      name={file.name}
+                      id={file.id}
+                      key={file.id}
+                      deleted={file.deleted}
+                      />
                   </GridListTile>
           })}
       </GridList>
