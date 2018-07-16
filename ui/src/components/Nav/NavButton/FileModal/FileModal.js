@@ -48,7 +48,6 @@ const styles = {
 
 class FileModal extends Component {
   render () {
-    console.log(this.props.theme)
     return (
       <Modal
         style={{ ...styles.fileModal, zIndex: this.props.theme.zIndex.modal }}
