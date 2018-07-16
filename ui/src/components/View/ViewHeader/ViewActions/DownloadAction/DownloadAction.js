@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button'
 import DownloadIcon from '@material-ui/icons/CloudDownload'
 import { connect } from 'react-redux'
 import axios from '../../../../../axiosInstance'
+import { withTheme } from '@material-ui/core/styles'
 
 class DownloadAction extends Component {
   state = {}
@@ -61,7 +62,10 @@ class DownloadAction extends Component {
                   : this.props.file.name
               }
             >
-            <DownloadIcon className='DownloadIcon' />
+            <DownloadIcon
+              className='DownloadIcon'
+              style={{ color: this.props.theme.palette.background.default }}
+              />
           </Button>
           : ''}
 
@@ -73,4 +77,4 @@ const mapStateToProps = state => ({
   file: state.selected
 })
 
-export default connect(mapStateToProps, null)(DownloadAction)
+export default connect(mapStateToProps, null)(withTheme()(DownloadAction))

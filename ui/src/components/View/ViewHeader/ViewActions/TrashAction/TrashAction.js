@@ -4,6 +4,7 @@ import * as actionCreators from '../../../../../store/actions'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 import './TrashAction.css'
+import { withTheme } from '@material-ui/core/styles'
 
 class TrashAction extends Component {
   handleDeleteClick = e => {
@@ -41,7 +42,10 @@ class TrashAction extends Component {
             className='button Color'
             onClick={this.handleDeleteClick}
             >
-            <DeleteIcon className='TrashActionIcon' />
+            <DeleteIcon
+              className='TrashActionIcon'
+              style={{ color: this.props.theme.palette.background.default }}
+              />
           </Button>
           : ''}
       </div>
@@ -62,4 +66,6 @@ const mapStateToProps = state => ({
   selected: state.selected
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrashAction)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withTheme()(TrashAction)
+)

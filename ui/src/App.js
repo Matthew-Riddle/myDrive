@@ -10,7 +10,6 @@ import {
   createMuiTheme,
   MuiThemeProvider
 } from '@material-ui/core'
-import indigo from '@material-ui/core/colors/indigo'
 import lime from '@material-ui/core/colors/lime'
 import './App.css'
 const theme = createMuiTheme({
