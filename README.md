@@ -34,8 +34,16 @@ When finishing a feature, bug, etc. through git-flow, the convention is to add `
 
 * [Provided MyDrive prototype](https://projects.invisionapp.com/prototype/MyDrive-cjhm3jumn003qjq01qvx47vds)
 
-## Release v0.1.0
+## Release v1.0.0
 
-* Implements basic CRUD endpoints for /folder and /files via Spring Boot
+* Implements base requirements for project
 
-* Bootstrap front-end with Create-React-App
+**Users can:**
+* Create a folder
+* Upload a file (optionally into a folder)
+* Download a file
+* Download a folder as a zip
+* Archive a file
+* Archive a folder
+* Permanently delete a file
+* Permanently delete a folder
