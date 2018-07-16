@@ -17,3 +17,33 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.FolderSizing{
+    width: 100px;
+}
+
+@keyframes flash {
+    /* from {background-color: rgb(255, 255, 255)}
+    to {background-color: rgb(213, 234, 246)} */
+
+    /* 0% { margin: inherit; background-color: rgb(213, 234, 246); }
+    33% { margin: 3px; background-color: rgb(235, 244, 250); transform: rotate(1deg)  }
+    40% { transform: rotate(-1deg)}
+    66% { margin: -3px; background-color: rgb(223, 239, 248); transform: rotate(1deg)}
+    70% { transform: rotate(-1deg)}
+    100% { margin: inherit; background-color: rgb(213, 234, 246); } */
+
+    0% {  background-color: rgb(213, 234, 246);  }
+    33% {  background-color: rgb(235, 244, 250); transform: translate(0px, 3px) }
+    66% {  background-color: rgb(223, 239, 248); }
+    100% {  background-color: rgb(213, 234, 246); }
+}
+
+.ActiveFolder {
+    background-color: rgb(213, 234, 246) !important;
+    animation-name: flash;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(.7,2.0,1.0,.7);
+    /* animation-direction: alternate; */
+}
