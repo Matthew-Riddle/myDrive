@@ -2,11 +2,21 @@ import React, { Component } from 'react'
 import './File.css'
 import { connect } from 'react-redux'
 import * as actionCreators from '../../../../store/actions'
+import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import FileIcon from '@material-ui/icons/InsertDriveFile'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+
+const styles = {
+  button: {
+    width: '100%'
+  },
+  card: {
+    width: '100%'
+  }
+}
 
 class File extends Component {
   handleCardClick = e => {
@@ -26,13 +36,15 @@ class File extends Component {
       <Button
         variant='text'
         size='small'
-        style={{ width: '100%' }}
+        style={styles.button}
         aria-label='fileButton'
         className='FileCard'
+        fullWidth
       >
         <Card
           className={`FileCard ${this.props.selected.id === this.props.id ? 'Active' : ''}`}
           onClick={this.handleCardClick}
+          style={styles.card}
         >
           <div className='FileIconContainer'>
             <FileIcon className='FileIcon' />
@@ -56,4 +68,6 @@ const mapStateToProps = state => ({
   selected: state.selected
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(File)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(File)
+)

@@ -11,7 +11,7 @@ class ViewFiles extends Component {
   }
 
   render () {
-    const fileWidth = 110
+    const fileWidth = 160
     return (
       <GridList cellHeight='auto' spacing={0}>
         {this.props.files &&

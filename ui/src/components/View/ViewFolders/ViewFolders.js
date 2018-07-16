@@ -23,7 +23,7 @@ class ViewFolders extends Component {
                         key={folder.id}
                         cols={1}
                         style={{
-                          width: '110px',
+                          width: '210px',
                           textOverflow: 'ellipsis',
                           padding: '0px'
                         }}
@@ -43,7 +43,7 @@ class ViewFolders extends Component {
                         key={folder.id}
                         cols={1}
                         style={{
-                          width: '110px',
+                          width: '160px',
                           textOverflow: 'ellipsis',
                           padding: '0px'
                         }}
