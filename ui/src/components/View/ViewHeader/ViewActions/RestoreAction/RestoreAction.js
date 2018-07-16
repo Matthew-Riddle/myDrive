@@ -27,7 +27,7 @@ class RestoreAction extends Component {
   render () {
     return (
       <div className='RestoreActionContainer'>
-        {this.props.selected.name
+        {this.props.selected.name && this.props.selected.deleted
           ? <Button
             size='small'
             variant='text'
