@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input'
 import Modal from '@material-ui/core/Modal'
@@ -35,34 +35,41 @@ const styles = {
   }
 }
 
-const FolderModal = props => (
-  <Modal
-    className={props.classes.folderModal}
-    disableAutoFocus
-    disableEnforceFocus
-    open={props.folderModalOpen}
-    onClose={props.handleFolderModalClose}
-  >
-    <div style={styles.modalContent}>
-      <Typography variant='title'>
-        Create a folder
-      </Typography>
-      <div className='inputWrap'>
-        <Input
-          type='text'
-          placeholder='Folder name'
-          onChange={props.handleFolderChange}
-        />
-        <Button
-          variant='contained'
-          style={styles.button}
-          onClick={props.addFolder}
-        >
-          Create
-        </Button>
+const FolderModal = props => {
+  return (
+    <Modal
+      style={{ ...styles.folderModal, zIndex: props.theme.zIndex.modal }}
+      disableAutoFocus
+      disableEnforceFocus
+      open={props.folderModalOpen}
+      onClose={props.handleFolderModalClose}
+    >
+      <div
+        style={{
+          ...styles.modalContent,
+          backgroundColor: props.theme.palette.background.default
+        }}
+      >
+        <Typography variant='title'>
+          Create a folder
+        </Typography>
+        <div className='inputWrap'>
+          <Input
+            type='text'
+            placeholder='Folder name'
+            onChange={props.handleFolderChange}
+          />
+          <Button
+            variant='contained'
+            style={styles.button}
+            onClick={props.addFolder}
+          >
+            Create
+          </Button>
+        </div>
       </div>
-    </div>
-  </Modal>
-)
+    </Modal>
+  )
+}
 
-export default withStyles(styles)(FolderModal)
+export default withTheme()(withStyles(styles)(FolderModal))

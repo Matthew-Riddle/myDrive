@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input'
 import Modal from '@material-ui/core/Modal'
@@ -48,13 +48,19 @@ const styles = {
 
 class FileModal extends Component {
   render () {
+    console.log(this.props.theme)
     return (
       <Modal
-        className={this.props.classes.fileModal}
+        style={{ ...styles.fileModal, zIndex: this.props.theme.zIndex.modal }}
         open={this.props.fileModalOpen}
         onClose={this.props.handleFileModalClose}
       >
-        <div style={styles.modalContent}>
+        <div
+          style={{
+            ...styles.modalContent,
+            backgroundColor: this.props.theme.palette.background.default
+          }}
+        >
           <Typography variant='title'>
             Upload a file
           </Typography>
@@ -96,4 +102,6 @@ const mapStateToProps = state => ({
   folders: state.folders.folders
 })
 
-export default connect(mapStateToProps, null)(withStyles(styles)(FileModal))
+export default connect(mapStateToProps, null)(
+  withTheme()(withStyles(styles)(FileModal))
+)

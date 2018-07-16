@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { connect } from 'react-redux'
+import { withTheme } from '@material-ui/core/styles'
 import * as actionCreators from '../../../store/actions'
 import FolderModal from './FolderModal/FolderModal'
 import FileModal from './FileModal/FileModal'
@@ -16,6 +17,8 @@ class NavButton extends Component {
     folderModalOpen: false,
     fileLocation: ''
   }
+
+  theme = this.props.theme
 
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget })
@@ -152,4 +155,4 @@ const mapDispatchToProps = dispatch => ({
   createFolder: folder => dispatch(actionCreators.createFolderAsync(folder))
 })
 
-export default connect(null, mapDispatchToProps)(NavButton)
+export default connect(null, mapDispatchToProps)(withTheme()(NavButton))
