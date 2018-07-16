@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './File.css'
 import { connect } from 'react-redux'
 import * as actionCreators from '../../../../store/actions'
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles, withTheme } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import FileIcon from '@material-ui/icons/InsertDriveFile'
@@ -11,9 +11,6 @@ import Button from '@material-ui/core/Button'
 
 const styles = {
   button: {
-    width: '100%'
-  },
-  card: {
     width: '100%'
   }
 }
@@ -44,7 +41,10 @@ class File extends Component {
         <Card
           className={`FileCard ${this.props.selected.id === this.props.id ? 'Active' : ''}`}
           onClick={this.handleCardClick}
-          style={styles.card}
+          style={{
+            width: '100%',
+            backgroundColor: this.props.theme.palette.background.paper
+          }}
         >
           <div className='FileIconContainer'>
             <FileIcon className='FileIcon' />
@@ -69,5 +69,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withStyles(styles)(File)
+  withTheme()(withStyles(styles)(File))
 )
