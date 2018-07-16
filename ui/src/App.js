@@ -15,8 +15,17 @@ import lime from '@material-ui/core/colors/lime'
 import './App.css'
 const theme = createMuiTheme({
   palette: {
-    primary: indigo,
-    secondary: lime
+    primary: {
+      light: '#e94c3c',
+      main: '#b00b13',
+      dark: '#790000'
+    },
+    secondary: lime,
+    text: {
+      primary: '#fa6607',
+      secondary: '#000000'
+    },
+    type: 'dark'
   }
 })
 class App extends Component {
@@ -45,7 +54,6 @@ class App extends Component {
   handleAppClick = () => {
     this.props.getNoneSelected()
   }
-
   render () {
     return (
       <MuiThemeProvider theme={theme}>

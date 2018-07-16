@@ -8,6 +8,7 @@ const ViewHeader = props => (
   <AppBar
     className='view-header'
     position='fixed'
+    color='primary'
     style={{
       display: 'flex',
       flexDirection: 'row',
@@ -21,14 +22,14 @@ const ViewHeader = props => (
     <Toolbar>
       <Typography
         variant='title'
-        color='inherit'
+        color='textSecondary'
         onClick={() => props.folderHandler(null)}
       >
         My Drive{` `}
       </Typography>
       <Typography
         variant='title'
-        color='inherit'
+        color='textSecondary'
         style={{ paddingLeft: '4px' }}
       >
         {props.currentFolder ? `> ${props.currentFolder}` : ''}

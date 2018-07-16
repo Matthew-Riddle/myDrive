@@ -37,7 +37,7 @@ class RestoreAction extends Component {
             className='button Color'
             onClick={this.handleRestoreClick}
             >
-            <UndoIcon className='UndoActionIcon' style={{ color: 'grey' }} />
+            <UndoIcon className='UndoActionIcon' />
           </Button>
           : ''}
       </div>

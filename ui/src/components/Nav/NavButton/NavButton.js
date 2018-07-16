@@ -4,11 +4,17 @@ import AddIcon from '@material-ui/icons/Add'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { connect } from 'react-redux'
-import { withTheme } from '@material-ui/core/styles'
+import { withTheme, withStyles } from '@material-ui/core/styles'
 import * as actionCreators from '../../../store/actions'
 import FolderModal from './FolderModal/FolderModal'
 import FileModal from './FileModal/FileModal'
 import './NavButton.css'
+
+const styles = {
+  addButton: {
+    backgroundColor: '#00FF00'
+  }
+}
 
 class NavButton extends Component {
   state = {
@@ -110,7 +116,10 @@ class NavButton extends Component {
           aria-owns={anchorEl ? 'simple-menu' : null}
           aria-haspopup='true'
           onClick={this.handleClick}
-          className='button'
+          style={{
+            ...styles.addButton,
+            backgroundColor: this.props.theme.palette.primary.light
+          }}
           fullWidth
         >
           <AddIcon className='addIcon' />
@@ -154,4 +163,6 @@ const mapDispatchToProps = dispatch => ({
   createFolder: folder => dispatch(actionCreators.createFolderAsync(folder))
 })
 
-export default connect(null, mapDispatchToProps)(withTheme()(NavButton))
+export default connect(null, mapDispatchToProps)(
+  withTheme()(withStyles(styles)(NavButton))
+)
