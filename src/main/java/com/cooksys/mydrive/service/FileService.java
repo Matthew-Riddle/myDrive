@@ -105,35 +105,8 @@ public class FileService {
 	}
 	
 	public FileDto updateFileById(FileDto file, Long id) {
-		FileEntity newFile = mapper.toFile(file);//get the new file info
-		FileEntity oldFile = fileRepo.findById(id).get();//get the old file info
-
-		newFile.setId(id);//set the things that need to be constant with a given file
-		newFile.setContentType(oldFile.getContentType());
-		newFile.setFileSize(oldFile.getFileSize());
-//		newFile.setFolder(null);
-		
-		
-		if(newFile.getName() != oldFile.getName()) {//if you are renaming
-			Path from = Paths.get(oldFile.getLocation() != null ? oldFile.getLocation() : "./storage", oldFile.getName());//get the old file path
-			Path to = Paths.get(oldFile.getLocation() != null ? oldFile.getLocation() : "./storage", newFile.getName());//get the new file path
-			
-			File fromFile = new File(from.toString());//set the file to be renamed
-			Boolean asdf = fromFile.renameTo( new File(to.toString()));
-			
-			if(asdf){//rename the file )
-			
-			return mapper.toDto(fileRepo.save(newFile));
-			}
-			else {
-				return null;//name already in use
-			}
-			
-		}
-		
-
-		
-		return mapper.toDto(fileRepo.save(newFile));
+		file.setId(id);
+		return mapper.toDto(fileRepo.save(mapper.toFile(file)));	
 	}
 	
 	public FileDto deleteFileById(Long id) {//returns null if failed returns deleted entry if successfull
