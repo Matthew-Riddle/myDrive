@@ -9,7 +9,8 @@ export {
   updateFileAsync,
   createFileAsync,
   deleteFileAsync,
-  archiveFileAsync
+  archiveFileAsync,
+  cleanUpFileAsync
 } from './fileActions'
 export {
   GET_FOLDER,
