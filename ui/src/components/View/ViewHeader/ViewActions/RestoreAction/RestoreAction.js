@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../../../../../store/actions'
 import UndoIcon from '@material-ui/icons/Undo'
 import Button from '@material-ui/core/Button'
+import color
+  from '../../../../../../node_modules/@material-ui/core/colors/yellow'
 
 class RestoreAction extends Component {
   handleRestoreClick = e => {
@@ -35,7 +37,7 @@ class RestoreAction extends Component {
             className='button Color'
             onClick={this.handleRestoreClick}
             >
-            <UndoIcon className='UndoActionIcon' />
+            <UndoIcon className='UndoActionIcon' style={{ color: 'grey' }} />
           </Button>
           : ''}
       </div>
