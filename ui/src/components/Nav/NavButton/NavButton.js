@@ -13,7 +13,8 @@ class NavButton extends Component {
   state = {
     anchorEl: null,
     fileModalOpen: false,
-    folderModalOpen: false
+    folderModalOpen: false,
+    fileLocation: ''
   }
 
   handleClick = event => {
@@ -56,12 +57,18 @@ class NavButton extends Component {
     this.setState({
       ...this.state,
       fileModalOpen: false,
-      folderModalOpen: false
+      folderModalOpen: false,
+      folderLocation: ''
     })
   }
 
   handleFileChange = e => {
+    console.log(e.currentTarget.files[0])
     this.setState({ ...this.state, file: e.currentTarget.files[0] })
+  }
+
+  handleFileLocationChange = e => {
+    this.setState({ ...this.state, folderLocation: e.target.value })
   }
 
   handleFolderChange = e => {
@@ -71,8 +78,13 @@ class NavButton extends Component {
   addFile = () => {
     const formData = new FormData()
     formData.append('file', this.state.file)
-    this.props.createFile(formData)
-    this.setState({ ...this.state, anchorEl: false, fileModalOpen: false })
+    this.props.createFile(formData, this.state.folderLocation)
+    this.setState({
+      ...this.state,
+      anchorEl: false,
+      fileModalOpen: false,
+      folderLocation: ''
+    })
   }
 
   addFolder = () => {
@@ -119,7 +131,9 @@ class NavButton extends Component {
           addFile={this.addFile}
           fileModalOpen={this.state.fileModalOpen}
           handleFileChange={this.handleFileChange}
+          handleFileLocationChange={this.handleFileLocationChange}
           handleFileModalClose={this.handleFileModalClose}
+          fileLocation={this.state.fileLocation}
         />
         <FolderModal
           addFolder={this.addFolder}
@@ -133,7 +147,8 @@ class NavButton extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createFile: file => dispatch(actionCreators.createFileAsync(file)),
+  createFile: (file, location) =>
+    dispatch(actionCreators.createFileAsync(file, location)),
   createFolder: folder => dispatch(actionCreators.createFolderAsync(folder))
 })
 

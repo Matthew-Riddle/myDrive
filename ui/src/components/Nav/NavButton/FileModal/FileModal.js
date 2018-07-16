@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input'
 import Modal from '@material-ui/core/Modal'
 import Typography from '@material-ui/core/Typography'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { connect } from 'react-redux'
 
 const styles = {
   fileModal: {
@@ -43,35 +46,54 @@ const styles = {
   }
 }
 
-const FileModal = props => (
-  <Modal
-    className={props.classes.fileModal}
-    open={props.fileModalOpen}
-    onClose={props.handleFileModalClose}
-  >
-    <div style={styles.modalContent}>
-      <Typography variant='title'>
-        Upload a file
-      </Typography>
-      <div style={styles.inputWrap}>
-        <Input
-          disableUnderline
-          id='fileInput'
-          onChange={props.handleFileChange}
-          style={styles.input}
-          title='Upload a file'
-          type='file'
-        />
-        <Button
-          variant='contained'
-          style={styles.button}
-          onClick={props.addFile}
-        >
-          Upload
-        </Button>
-      </div>
-    </div>
-  </Modal>
-)
+class FileModal extends Component {
+  render () {
+    return (
+      <Modal
+        className={this.props.classes.fileModal}
+        open={this.props.fileModalOpen}
+        onClose={this.props.handleFileModalClose}
+      >
+        <div style={styles.modalContent}>
+          <Typography variant='title'>
+            Upload a file
+          </Typography>
+          <div style={styles.inputWrap}>
+            <Input
+              disableUnderline
+              id='fileInput'
+              onChange={this.props.handleFileChange}
+              style={styles.input}
+              title='Upload a file'
+              type='file'
+            />
+            <Select
+              value={this.props.fileLocation}
+              onChange={this.props.handleFileLocationChange}
+            >
+              {this.props.folders &&
+                this.props.folders.map(folder => (
+                  <MenuItem value={folder.name}>
+                    {folder.name}
+                  </MenuItem>
+                ))}
+            </Select>
+            <Button
+              variant='contained'
+              style={styles.button}
+              onClick={this.props.addFile}
+            >
+              Upload
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    )
+  }
+}
 
-export default withStyles(styles)(FileModal)
+const mapStateToProps = state => ({
+  folders: state.folders.folders
+})
+
+export default connect(mapStateToProps, null)(withStyles(styles)(FileModal))

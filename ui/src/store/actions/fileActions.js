@@ -46,9 +46,9 @@ const createFile = file => ({
   file
 })
 
-export const createFileAsync = data => dispatch => {
+export const createFileAsync = (data, location) => dispatch => {
   axios
-    .post('/files', data, {
+    .post(`/files${location ? `?location=${location}` : ''}`, data, {
       headers: { 'content-type': 'multipart/form-data' }
     })
     .then(response => {
