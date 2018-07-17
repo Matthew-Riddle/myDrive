@@ -31,7 +31,7 @@ const styles = {
     height: '200px',
     outline: 'none',
     justifyContent: 'space-evenly',
-    width: '400px'
+    width: '500px'
   },
   inputWrap: {
     alignItems: 'center',
@@ -43,10 +43,18 @@ const styles = {
   },
   button: {
     marginLeft: '10px'
+  },
+  select: {
+    width: '100px'
   }
 }
 
 class FileModal extends Component {
+  state = { folder: 'Folder' }
+  handleSelectChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+    this.props.handleFileLocationChange(event)
+  }
   render () {
     return (
       <Modal
@@ -73,8 +81,12 @@ class FileModal extends Component {
               type='file'
             />
             <Select
-              value={this.props.fileLocation}
-              onChange={this.props.handleFileLocationChange}
+              value={this.state.folder}
+              onChange={this.handleSelectChange}
+              inputProps={{ name: 'folder', id: 'folder-select' }}
+              name='folder'
+              renderValue={value => `${value}`}
+              style={styles.select}
             >
               {this.props.folders &&
                 this.props.folders.map(folder => (
