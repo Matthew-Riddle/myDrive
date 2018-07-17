@@ -17,7 +17,7 @@ class ViewFiles extends Component {
         {this.props.files &&
           this.props.files.map(file => {
             return this.props.deleted
-              ? file.deleted
+              ? file.deleted && file.location === this.props.currentFolder
                   ? <GridListTile
                     key={file.id}
                     cols={1}

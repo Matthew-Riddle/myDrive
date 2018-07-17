@@ -64,8 +64,10 @@ public class FolderService {
 	    	zos.close();
 	    }
 	}
+	
 	private FolderRepository folderRepository;
 	private FileRepository fileRepository;
+	
 	public FolderService(FolderRepository folderRepository, FileRepository fileRepository, FileMapper fileMapper) {// 
 		this.folderRepository = folderRepository;
 		this.fileRepository = fileRepository;
@@ -88,7 +90,7 @@ public class FolderService {
 		return folderRepository.getOne(reID);
 	}
 	
-	public List<FolderEntity> getFolders() { //.map(folderMapper::toDto)
+	public List<FolderEntity> getFolders() {
 		return folderRepository.findAll().stream().collect(Collectors.toList());
 	}
 	
