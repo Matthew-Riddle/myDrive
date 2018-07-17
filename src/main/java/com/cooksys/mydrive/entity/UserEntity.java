@@ -2,48 +2,27 @@ package com.cooksys.mydrive.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class FileEntity {
+public class UserEntity {
+	
+	
 
 	@Id
 	@GeneratedValue
 	private Long id;
-	@ManyToOne
-	private FolderEntity folder;
-	private String location;
-	private String name;
-	private boolean deleted;
+	
+	@Column(unique=true)
+	private String userName;
+	private String password;
 	
 	@OneToMany
 	private List<PermissionEntity> permissions;
-	
-
-
-	private long fileSize;
-	private String contentType;
-
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
-	
-	public String getContentType() {
-		return contentType;
-	}
-	
-	public long getFileSize() {
-		return fileSize;
-	}
-
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
-	
 
 	public Long getId() {
 		return id;
@@ -53,36 +32,20 @@ public class FileEntity {
 		this.id = id;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getName() {
-		return name;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public FolderEntity getFolder() {
-		return folder;
-	}
-
-	public void setFolder(FolderEntity folder) {
-		this.folder = folder;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public List<PermissionEntity> getPermissions() {
@@ -92,12 +55,14 @@ public class FileEntity {
 	public void setPermissions(List<PermissionEntity> permissions) {
 		this.permissions = permissions;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 
@@ -109,13 +74,27 @@ public class FileEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FileEntity other = (FileEntity) obj;
+		UserEntity other = (UserEntity) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
 		return true;
 	}
+	
+
+
+	
 	
 }
