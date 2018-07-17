@@ -34,16 +34,12 @@ When finishing a feature, bug, etc. through git-flow, the convention is to add `
 
 * [Provided MyDrive prototype](https://projects.invisionapp.com/prototype/MyDrive-cjhm3jumn003qjq01qvx47vds)
 
-## Release v1.0.0
+## Release v1.0.1
 
-* Implements base requirements for project
+**Adds**
+* Light and dark theme toggling
 
-**Users can:**
-* Create a folder
-* Upload a file (optionally into a folder)
-* Download a file
-* Download a folder as a zip
-* Archive a file
-* Archive a folder
-* Permanently delete a file
-* Permanently delete a folder
+**Fixes**
+* Cascading archival of files when archiving a folder
+* Updating of ViewHeader when switching route to Trash
+* FileModal's Select component not displaying the selected folder.
