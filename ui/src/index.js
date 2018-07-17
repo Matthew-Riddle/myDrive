@@ -8,7 +8,7 @@ import fileReducer from './store/reducers/fileReducer'
 import folderReducer from './store/reducers/folderReducer'
 import selectReducer from './store/reducers/selectReducer'
 import './index.css'
-import App from './App'
+import ThemeWrapper from './ThemeWrapper'
 
 const rootReducer = combineReducers({
   files: fileReducer,
@@ -22,7 +22,7 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter><App /></BrowserRouter>
+    <BrowserRouter><ThemeWrapper /></BrowserRouter>
   </Provider>,
   document.getElementById('root')
 )

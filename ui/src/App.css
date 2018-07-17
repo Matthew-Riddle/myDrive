@@ -1,8 +1,5 @@
 .App {
   text-align: center;
-  transition-property: background-color, color;
-  transition-duration: all 5s;
-
 }
 
 .App-header {
@@ -10,16 +7,4 @@
   height: 150px;
   padding: 20px;
   color: white;
-}
-
-@keyframes fade {
-  0%{ opacity: 0;}
-  100%{ opacity: 1;}
-}
-
-.Transition {
-  animation-name: fade;
-  animation-duration: 5s;
-  animation-iteration-count: 1;
-  animation-timing-function: cubic-bezier(.7,2.0,1.0,.7);
 }
