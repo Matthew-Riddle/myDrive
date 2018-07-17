@@ -1,35 +1,18 @@
-import React, { Component } from 'react'
+import React, { Component, Children } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as actionCreators from './store/actions'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import View from './components/View/View'
 import Nav from './components/Nav/Nav'
-import {
-  CssBaseline,
-  createMuiTheme,
-  MuiThemeProvider
-} from '@material-ui/core'
-import lime from '@material-ui/core/colors/lime'
+import { CssBaseline, MuiThemeProvider, Fade } from '@material-ui/core'
+import { createMuiTheme } from '@material-ui/core/styles'
 import './App.css'
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#e94c3c',
-      main: '#b00b13',
-      dark: '#790000'
-    },
-    secondary: lime,
-    text: {
-      primary: '#fa6607',
-      secondary: '#000000'
-    },
-    type: 'dark'
-  }
-})
 class App extends Component {
   state = {
-    currentFolder: null
+    currentFolder: null,
+    lightTheme: false
   }
 
   folderHandler = name => {
@@ -53,41 +36,63 @@ class App extends Component {
   handleAppClick = () => {
     this.props.getNoneSelected()
   }
+
+  themeToggle = () => {
+    this.setState(prevState => ({
+      lightTheme: !prevState.lightTheme
+    }))
+  }
+
   render () {
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          light: '#e94c3c',
+          main: '#b00b13',
+          dark: '#790000'
+        },
+        text: {
+          primary: '#fa6607',
+          secondary: '#000000'
+        },
+        type: this.state.lightTheme ? 'light' : 'dark'
+      }
+    })
+    console.log(theme)
     return (
       <MuiThemeProvider theme={theme}>
-        <React.Fragment>
-          <CssBaseline />
-          <div className='App' onClick={this.handleAppClick}>
-            <Nav
-              folderHandler={this.folderHandler}
-              currentFolder={this.state.currentFolder}
+        <CssBaseline />
+        <div className='App' onClick={this.handleAppClick}>
+          <Nav
+            folderHandler={this.folderHandler}
+            currentFolder={this.state.currentFolder}
+            themeToggle={this.themeToggle}
+            id='themeToggle'
+          />
+          <Switch>
+            <Route
+              exact
+              path='/'
+              render={() => (
+                <View
+                  folderHandler={this.folderHandler}
+                  currentFolder={this.state.currentFolder}
+                />
+              )}
             />
-            <Switch>
-              <Route
-                exact
-                path='/'
-                render={() => (
-                  <View
-                    folderHandler={this.folderHandler}
-                    currentFolder={this.state.currentFolder}
-                  />
-                )}
-              />
-              <Route
-                exact
-                path='/deleted'
-                render={() => (
-                  <View
-                    deleted
-                    folderHandler={this.folderHandler}
-                    currentFolder={this.state.currentFolder}
-                  />
-                )}
-              />
-            </Switch>
-          </div>
-        </React.Fragment>
+            <Route
+              exact
+              path='/deleted'
+              render={() => (
+                <View
+                  deleted
+                  folderHandler={this.folderHandler}
+                  currentFolder={this.state.currentFolder}
+                />
+              )}
+            />
+          </Switch>
+        </div>
       </MuiThemeProvider>
     )
   }
