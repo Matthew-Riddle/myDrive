@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as actionCreators from '../../../store/actions/fileActions'
 import { connect } from 'react-redux'
-import { GridList, GridListTile } from '@material-ui/core'
+import { GridList, GridListTile, Typography } from '@material-ui/core'
 import File from './File/File'
 import './ViewFiles.css'
 
@@ -34,9 +34,17 @@ class ViewFiles extends Component {
                       fileSize={file.fileSize}
                       />
                   </GridListTile>
-                  : ''
+                  : <Typography
+                    style={{ paddingLeft: '5px', textAlign: 'left' }}
+                    >
+                      No files exist!
+                    </Typography>
               : file.deleted || file.location !== this.props.currentFolder
-                  ? ''
+                  ? <Typography
+                    style={{ paddingLeft: '5px', textAlign: 'left' }}
+                    >
+                      No files exist!
+                    </Typography>
                   : <GridListTile
                     key={file.id}
                     cols={1}

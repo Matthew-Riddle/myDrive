@@ -39,9 +39,17 @@ class ViewFolders extends Component {
                               folderHandler={this.props.folderHandler}
                               />
                           </GridListTile>
-                          : ''
+                          : <Typography
+                            style={{ paddingLeft: '5px', textAlign: 'left' }}
+                            >
+                              No subfolders exist!
+                            </Typography>
                       : folder.deleted
-                          ? ''
+                          ? <Typography
+                            style={{ paddingLeft: '5px', textAlign: 'left' }}
+                            >
+                              No subfolders exist!
+                            </Typography>
                           : <GridListTile
                             key={folder.id}
                             cols={1}
