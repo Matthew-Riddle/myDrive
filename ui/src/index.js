@@ -7,8 +7,8 @@ import { applyMiddleware, combineReducers, createStore, compose } from 'redux'
 import fileReducer from './store/reducers/fileReducer'
 import folderReducer from './store/reducers/folderReducer'
 import selectReducer from './store/reducers/selectReducer'
-import App from './App'
 import './index.css'
+import ThemeWrapper from './ThemeWrapper'
 
 const rootReducer = combineReducers({
   files: fileReducer,
@@ -21,6 +21,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  <Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>,
+  <Provider store={store}>
+    <BrowserRouter><ThemeWrapper /></BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 )
