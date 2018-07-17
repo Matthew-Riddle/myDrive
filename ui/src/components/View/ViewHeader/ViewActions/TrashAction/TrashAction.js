@@ -22,6 +22,9 @@ class TrashAction extends Component {
     this.props.archiveFolder(this.props.selected.id)
     this.props.currentFolder === this.props.selected.name &&
       this.props.folderHandler(null)
+    this.props.files
+      .filter(file => file.location === this.props.selected.name)
+      .forEach(file => this.props.archiveFile(file.id))
   }
 
   handleDeleteFolder = () => {

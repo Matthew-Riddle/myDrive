@@ -1,21 +1,19 @@
 package com.cooksys.mydrive.service;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.*;
-import java.nio.file.*;
-import java.util.zip.*;
-import java.io.*;
-import java.nio.file.*;
-import java.util.zip.*;
-import java.nio.file.attribute.*;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -33,30 +31,23 @@ import com.cooksys.mydrive.repository.FolderRepository;
 @Service
 public class FolderService {
 	public static class ZipDir extends SimpleFileVisitor<Path> {
-		 
 	    private static ZipOutputStream zos;
-	 
 	    private static Path sourceDir;
-	 
 	    public ZipDir(Path sourceDir) {
 	    	ZipDir.sourceDir = sourceDir;
 	    }
-	 
 	    @Override
 	    public FileVisitResult visitFile(Path file,
 	            BasicFileAttributes attributes) {
-	 
 	        try {
 	            Path targetFile = sourceDir.relativize(file);
 	            zos.putNextEntry(new ZipEntry(targetFile.toString()));	 
 	            byte[] bytes = Files.readAllBytes(file);
 	            zos.write(bytes, 0, bytes.length);
 	            zos.closeEntry();
-	 
 	        } catch (IOException ex) {
 	            System.err.println(ex);
 	        }
-	 
 	        return FileVisitResult.CONTINUE;
 	    }
 	 
@@ -66,8 +57,6 @@ public class FolderService {
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			zos = new ZipOutputStream(byteArrayOutputStream);
 			return byteArrayOutputStream;
-			//Files.walkFileTree(sourceDir, new ZipDir(sourceDir));
-	        //return null;
 	    }
 	    
 	    public static void myThings() throws IOException {
@@ -75,8 +64,10 @@ public class FolderService {
 	    	zos.close();
 	    }
 	}
+	
 	private FolderRepository folderRepository;
 	private FileRepository fileRepository;
+	
 	public FolderService(FolderRepository folderRepository, FileRepository fileRepository, FileMapper fileMapper) {// 
 		this.folderRepository = folderRepository;
 		this.fileRepository = fileRepository;
@@ -99,7 +90,7 @@ public class FolderService {
 		return folderRepository.getOne(reID);
 	}
 	
-	public List<FolderEntity> getFolders() { //.map(folderMapper::toDto)
+	public List<FolderEntity> getFolders() {
 		return folderRepository.findAll().stream().collect(Collectors.toList());
 	}
 	

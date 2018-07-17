@@ -3,7 +3,6 @@ package com.cooksys.mydrive.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,6 +24,11 @@ public class FolderEntity {
 	
 	@OneToMany(mappedBy = "folder", fetch = FetchType.EAGER)
 	private List<FileEntity> files;
+	
+	@OneToMany
+	private List<PermissionEntity> permissions;
+	
+	
 
 	public FolderEntity(){
 		this.files = new ArrayList<FileEntity>();
@@ -81,6 +85,27 @@ public class FolderEntity {
 				return;
 			}
 		}
+	}
+	
+	public void addPermission(PermissionEntity per) {
+		permissions.add(per);
+	}
+	
+	public void deletePermission(Long id) {
+		for(int i = 0; i < permissions.size(); i++) {
+			if(id == permissions.get(i).getId()) {
+				permissions.remove(i);
+				return;
+			}
+		}
+	}
+	
+	public List<PermissionEntity> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<PermissionEntity> permissions) {
+		this.permissions = permissions;
 	}
 
 	@Override

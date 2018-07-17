@@ -17,12 +17,21 @@ class RestoreAction extends Component {
         fileSize: this.props.selected.fileSize,
         contentType: this.props.selected.contentType
       })
-      : this.props.updateFolder(this.props.selected.id, {
-        id: this.props.selected.id,
-        location: this.props.selected.name,
-        name: this.props.selected.name,
-        deleted: false
-      })
+      : this.handleFolderRestore()
+  }
+  handleFolderRestore = () => {
+    this.props.updateFolder(this.props.selected.id, {
+      id: this.props.selected.id,
+      location: this.props.selected.name,
+      name: this.props.selected.name,
+      deleted: false
+    })
+
+    this.props.files
+      .filter(file => file.location === this.props.selected.name)
+      .forEach(file =>
+        this.props.updateFile(file.id, { ...file, deleted: false })
+      )
   }
 
   render () {
@@ -54,7 +63,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  selected: state.selected
+  selected: state.selected,
+  files: state.files.files
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
