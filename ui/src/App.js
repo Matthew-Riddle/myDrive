@@ -67,7 +67,6 @@ class App extends Component {
         type: this.state.lightTheme ? 'light' : 'dark'
       }
     })
-    console.log(theme)
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
