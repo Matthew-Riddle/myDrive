@@ -7,6 +7,7 @@ import com.cooksys.mydrive.entity.UserEntity;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+	
 	UserDto toDto(UserEntity entity);
 	UserEntity toUser(UserDto dto);
 }

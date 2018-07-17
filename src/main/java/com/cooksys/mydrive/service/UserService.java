@@ -61,4 +61,11 @@ public class UserService {
 	
 		return id;
 	}
+
+	public Boolean logIn(String userName, String password) {
+		if(userRepository.findByUserName(userName).getPassword() == password)
+			return true;
+		else
+			return false;
+	}
 }
