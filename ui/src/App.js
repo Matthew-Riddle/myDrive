@@ -51,6 +51,11 @@ class App extends Component {
           main: '#b00b13',
           dark: '#790000'
         },
+        secondary: {
+          light: this.state.lightTheme ? '#9E9E9E' : '#F5F5F5',
+          main: this.state.lightTheme ? '#616161' : '#E0E0E0',
+          dark: this.state.lightTheme ? '#212121' : '#9E9E9E'
+        },
         text: {
           primary: '#fa6607',
           secondary: '#000000'
