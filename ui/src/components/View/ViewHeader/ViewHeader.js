@@ -25,7 +25,8 @@ const ViewHeader = props => (
         color='textSecondary'
         onClick={() => props.folderHandler(null)}
       >
-        My Drive{` `}
+        {props.deleted ? 'Trash' : 'My Drive'}
+        {` `}
       </Typography>
       <Typography
         variant='title'
