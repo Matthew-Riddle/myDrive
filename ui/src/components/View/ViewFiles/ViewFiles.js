@@ -15,26 +15,11 @@ class ViewFiles extends Component {
     return (
       <GridList cellHeight='auto' spacing={0}>
         {this.props.files &&
-<<<<<<< HEAD
           this.props.files.map(
             file =>
               (this.props.deleted
                 ? file.deleted && file.location === this.props.currentFolder
                     ? <GridListTile
-=======
-          this.props.files.map(file => {
-            return this.props.deleted
-              ? file.deleted && file.location === this.props.currentFolder
-                  ? <GridListTile
-                    key={file.id}
-                    cols={1}
-                    style={{ width: `${fileWidth}px` }}
-                    className='File'
-                    >
-                    <File
-                      name={file.name}
-                      id={file.id}
->>>>>>> 24f43f0... Adds navigation functionality to delete view
                       key={file.id}
                       cols={1}
                       style={{ width: `${fileWidth}px` }}
