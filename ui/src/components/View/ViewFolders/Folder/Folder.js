@@ -31,7 +31,6 @@ class Folder extends Component {
   }
 
   render () {
-    console.log(this.props.theme)
     return (
       <Paper
         className='Folder'

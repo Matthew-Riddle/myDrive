@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as actionCreators from '../../../store/actions/fileActions'
 import { connect } from 'react-redux'
-import { GridList, GridListTile, Typography } from '@material-ui/core'
+import { GridList, GridListTile } from '@material-ui/core'
 import File from './File/File'
 import './ViewFiles.css'
 
