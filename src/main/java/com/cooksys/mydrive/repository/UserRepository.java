@@ -7,4 +7,6 @@ import com.cooksys.mydrive.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long>{
 
+	UserEntity findByUserName(String userName);
+
 }
