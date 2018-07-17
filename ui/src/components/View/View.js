@@ -9,10 +9,17 @@ class View extends Component {
   render () {
     return (
       <div>
-        <ViewHeader
-          currentFolder={this.props.currentFolder}
-          folderHandler={this.props.folderHandler}
-        />
+        {this.props.deleted
+          ? <ViewHeader
+            deleted
+            currentFolder={this.props.currentFolder}
+            folderHandler={this.props.folderHandler}
+            />
+          : <ViewHeader
+            currentFolder={this.props.currentFolder}
+            folderHandler={this.props.folderHandler}
+            />}
+
         <div className='view'>
           <Typography
             style={{
