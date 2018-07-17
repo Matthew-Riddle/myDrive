@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, Children } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as actionCreators from './store/actions'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import View from './components/View/View'
 import Nav from './components/Nav/Nav'
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import { CssBaseline, MuiThemeProvider, Fade } from '@material-ui/core'
+import { createMuiTheme } from '@material-ui/core/styles'
 import './App.css'
 class App extends Component {
   state = {
@@ -35,23 +37,37 @@ class App extends Component {
     this.props.getNoneSelected()
   }
 
-  isLight = () => this.state.lightTheme === true
-
   themeToggle = () => {
-    this.setState({
-      lightTheme: !this.isLight()
-    })
+    this.setState(prevState => ({
+      lightTheme: !prevState.lightTheme
+    }))
   }
 
   render () {
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          light: '#e94c3c',
+          main: '#b00b13',
+          dark: '#790000'
+        },
+        text: {
+          primary: '#fa6607',
+          secondary: '#000000'
+        },
+        type: this.state.lightTheme ? 'light' : 'dark'
+      }
+    })
+    console.log(theme)
     return (
-      <MuiThemeProvider theme={this.props.theme}>
+      <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <div className='App' onClick={this.handleAppClick}>
           <Nav
             folderHandler={this.folderHandler}
             currentFolder={this.state.currentFolder}
-            themeToggle={this.props.themeToggle}
+            themeToggle={this.themeToggle}
+            id='themeToggle'
           />
           <Switch>
             <Route
