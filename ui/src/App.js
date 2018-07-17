@@ -5,7 +5,11 @@ import { withRouter } from 'react-router-dom'
 import * as actionCreators from './store/actions'
 import View from './components/View/View'
 import Nav from './components/Nav/Nav'
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import {
+  CssBaseline,
+  MuiThemeProvider,
+  createMuiTheme
+} from '@material-ui/core'
 import './App.css'
 class App extends Component {
   state = {
@@ -44,14 +48,34 @@ class App extends Component {
   }
 
   render () {
+    const theme = createMuiTheme({
+      palette: {
+        primary: {
+          light: '#e94c3c',
+          main: '#b00b13',
+          dark: '#790000'
+        },
+        secondary: {
+          light: this.state.lightTheme ? '#9E9E9E' : '#F5F5F5',
+          main: this.state.lightTheme ? '#616161' : '#E0E0E0',
+          dark: this.state.lightTheme ? '#212121' : '#9E9E9E'
+        },
+        text: {
+          primary: '#fa6607',
+          secondary: '#000000'
+        },
+        type: this.state.lightTheme ? 'light' : 'dark'
+      }
+    })
+    console.log(theme)
     return (
-      <MuiThemeProvider theme={this.props.theme}>
+      <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <div className='App' onClick={this.handleAppClick}>
           <Nav
             folderHandler={this.folderHandler}
             currentFolder={this.state.currentFolder}
-            themeToggle={this.props.themeToggle}
+            themeToggle={this.themeToggle}
           />
           <Switch>
             <Route

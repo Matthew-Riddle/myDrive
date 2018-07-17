@@ -9,6 +9,7 @@ import NavTheme from './NavTheme/NavTheme'
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import { withRouter } from 'react-router-dom'
 import './Nav.css'
+import { Typography } from '../../../node_modules/@material-ui/core'
 
 const Nav = props => {
   return (
@@ -35,7 +36,9 @@ const Nav = props => {
       >
         <NavLink delete />
       </Link>
-      <NavTheme themeToggle={props.themeToggle} />
+      <Typography style={{ fontWeight: 'bold' }}>
+        DARK<NavTheme themeToggle={props.themeToggle} />LIGHT
+      </Typography>
     </Drawer>
   )
 }

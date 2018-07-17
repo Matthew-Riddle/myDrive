@@ -14,6 +14,7 @@ class NavTheme extends Component {
         icon={<Brightness2 />}
         checkedIcon={<Brightness7 />}
         onChange={this.props.themeToggle}
+        color='secondary'
       />
     )
   }
