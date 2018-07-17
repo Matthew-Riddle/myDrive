@@ -26,7 +26,7 @@ class ViewFolders extends Component {
                             key={folder.id}
                             cols={1}
                             style={{
-                              width: '210px',
+                              width: '160px',
                               textOverflow: 'ellipsis',
                               padding: '0px'
                             }}
