@@ -15,53 +15,46 @@ class ViewFiles extends Component {
     return (
       <GridList cellHeight='auto' spacing={0}>
         {this.props.files &&
-          this.props.files.map(file => {
-            return this.props.deleted
-              ? file.deleted && file.location === this.props.currentFolder
-                  ? <GridListTile
-                    key={file.id}
-                    cols={1}
-                    style={{ width: `${fileWidth}px` }}
-                    className='File'
-                    >
-                    <File
-                      name={file.name}
-                      id={file.id}
+          this.props.files.map(
+            file =>
+              (this.props.deleted
+                ? file.deleted && file.location === this.props.currentFolder
+                    ? <GridListTile
                       key={file.id}
-                      location={file.location}
-                      deleted={file.deleted}
-                      contentType={file.contentType}
-                      fileSize={file.fileSize}
-                      />
-                  </GridListTile>
-                  : <Typography
-                    style={{ paddingLeft: '5px', textAlign: 'left' }}
-                    >
-                      No files exist!
-                    </Typography>
-              : file.deleted || file.location !== this.props.currentFolder
-                  ? <Typography
-                    style={{ paddingLeft: '5px', textAlign: 'left' }}
-                    >
-                      No files exist!
-                    </Typography>
-                  : <GridListTile
-                    key={file.id}
-                    cols={1}
-                    style={{ width: `${fileWidth}px` }}
-                    className='File'
-                    >
-                    <File
-                      name={file.name}
-                      id={file.id}
+                      cols={1}
+                      style={{ width: `${fileWidth}px` }}
+                      className='File'
+                      >
+                      <File
+                        name={file.name}
+                        id={file.id}
+                        key={file.id}
+                        location={file.location}
+                        deleted={file.deleted}
+                        contentType={file.contentType}
+                        fileSize={file.fileSize}
+                        />
+                    </GridListTile>
+                    : ''
+                : file.deleted || file.location !== this.props.currentFolder
+                    ? ''
+                    : <GridListTile
                       key={file.id}
-                      location={file.location}
-                      deleted={file.deleted}
-                      contentType={file.contentType}
-                      fileSize={file.fileSize}
-                      />
-                  </GridListTile>
-          })}
+                      cols={1}
+                      style={{ width: `${fileWidth}px` }}
+                      className='File'
+                      >
+                      <File
+                        name={file.name}
+                        id={file.id}
+                        key={file.id}
+                        location={file.location}
+                        deleted={file.deleted}
+                        contentType={file.contentType}
+                        fileSize={file.fileSize}
+                        />
+                    </GridListTile>)
+          )}
       </GridList>
     )
   }
