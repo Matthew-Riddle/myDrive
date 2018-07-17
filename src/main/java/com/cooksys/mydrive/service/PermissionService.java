@@ -1,8 +1,11 @@
 package com.cooksys.mydrive.service;
 
+import org.springframework.stereotype.Service;
+
 import com.cooksys.mydrive.dto.PermissionDto;
 import com.cooksys.mydrive.entity.FileEntity;
 import com.cooksys.mydrive.entity.FolderEntity;
+import com.cooksys.mydrive.entity.PermissionEntity;
 import com.cooksys.mydrive.entity.UserEntity;
 import com.cooksys.mydrive.mapper.FileMapper;
 import com.cooksys.mydrive.mapper.PermissionMapper;
@@ -12,6 +15,7 @@ import com.cooksys.mydrive.repository.FolderRepository;
 import com.cooksys.mydrive.repository.PermissinoRepository;
 import com.cooksys.mydrive.repository.UserRepository;
 
+@Service
 public class PermissionService {
 
 	PermissinoRepository perRepo;
@@ -40,8 +44,21 @@ public class PermissionService {
 		FileEntity file = fileRepo.findById(perm.getFileId()).get();
 		FolderEntity folder = folderRepository.findById(perm.getFolderId()).get();
 		UserEntity user = userRepo.findById(perm.getUserId()).get();
+		PermissionEntity permisssion = new PermissionEntity();
+		permisssion.setFile(file);
+		permisssion.setFolder(folder);
+		permisssion.setUser(user);
+		permisssion.setId(null);
 		
-		return perm.getId();
+		
+		
+		return perRepo.save(permisssion).getId();
+		
+	}
+	
+	public Long deletePerm(Long id) {
+		perRepo.deleteById(id);		
+		return id;
 		
 	}
 }
