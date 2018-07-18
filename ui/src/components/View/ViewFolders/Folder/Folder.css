@@ -13,7 +13,6 @@
 }
 
 .FolderIcon {
-    color: grey;
     padding: 0 3px;
     font-size: 3em !important;
 }
@@ -36,15 +35,14 @@
     70% { transform: rotate(-1deg)}
     100% { margin: inherit; background-color: rgb(213, 234, 246); } */
 
-    0% { transform: translate(0px,2px); background-color: rgba(66, 66, 66) }
-    25% { transform: translate(0px,-2px); background-color: rgba(66, 66, 66, 0.822) }
-    50% { transform: translate(0px,2px); background-color: rgb(66, 66, 66) }
-    75% { transform: translate(0px,-2px); background-color: rgb(66, 66, 66, 0.822) }
-    100% { transform: translate(0px, 2px); background-color: rgb(66, 66, 66) }
+    0% { transform: translate(0px,2px); opacity: 1}
+    25% { transform: translate(0px,-2px); opacity: 0.822 }
+    50% { transform: translate(0px,2px); opacity: 1 }
+    75% { transform: translate(0px,-2px); opacity: 0.822 }
+    100% { transform: translate(0px, 2px); opacity: 1 }
 }
 
 .ActiveFolder {
-    background-color: rgb(66, 66, 66) !important;
     animation-name: flash;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;

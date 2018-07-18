@@ -51,19 +51,24 @@ class App extends Component {
     const theme = createMuiTheme({
       palette: {
         primary: {
-          light: '#e94c3c',
-          main: '#b00b13',
-          dark: '#790000'
+          light: this.state.lightTheme ? '#cfcfcf' : '#e94c3c',
+          main: this.state.lightTheme ? '#9E9E9E' : '#b00b13',
+          dark: this.state.lightTheme ? '#707070' : '#790000'
         },
         secondary: {
           light: this.state.lightTheme ? '#9E9E9E' : '#F5F5F5',
           main: this.state.lightTheme ? '#616161' : '#E0E0E0',
-          dark: this.state.lightTheme ? '#212121' : '#9E9E9E'
+          dark: this.state.lightTheme ? '#9E9E9E' : '#212121'
         },
         text: {
           primary: '#fa6607',
           secondary: '#000000'
         },
+        background: {
+          alternate: this.state.lightTheme ? '#ffffff' : '#383838',
+          paper: this.state.lightTheme ? '#e0e0e0' : '#424242'
+        },
+        navBrand: this.state.lightTheme ? '#fa6607' : '#303030',
         type: this.state.lightTheme ? 'light' : 'dark'
       }
     })

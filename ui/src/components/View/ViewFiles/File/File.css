@@ -17,7 +17,6 @@
 }
 
 .FileIcon {
-    color: grey;
     font-size: 3em !important;
 }
 
@@ -46,15 +45,14 @@
     70% { transform: rotate(-1deg)}
     100% { margin: inherit; background-color: rgb(213, 234, 246); } */
 
-    0% { transform: translate(0px,2px); background-color: rgba(66, 66, 66) }
-    25% { transform: translate(0px,-2px); background-color: rgba(66, 66, 66, 0.822) }
-    50% { transform: translate(0px,2px); background-color: rgb(66, 66, 66) }
-    75% { transform: translate(0px,-2px); background-color: rgb(66, 66, 66, 0.822) }
-    100% { transform: translate(0px, 2px); background-color: rgb(66, 66, 66) }
+    0% { transform: translate(0px,2px); opacity: 1; }
+    25% { transform: translate(0px,-2px); opacity: 0.822 }
+    50% { transform: translate(0px,2px); opacity: l }
+    75% { transform: translate(0px,-2px); opacity: 0.822 }
+    100% { transform: translate(0px, 2px); opacity: 1 }
 }
 
 .Active {
-    background-color: rgb(250, 102, 7) !important;
     animation-name: pulse;
     animation-duration: 1.5s;
     animation-iteration-count: infinite;

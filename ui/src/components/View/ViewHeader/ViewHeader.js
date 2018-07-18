@@ -1,5 +1,6 @@
 import React from 'react'
 import './ViewHeader.css'
+import { withTheme } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
 import ViewActions from './ViewActions/ViewActions'
@@ -24,6 +25,11 @@ const ViewHeader = props => (
         variant='title'
         color='textSecondary'
         onClick={() => props.folderHandler(null)}
+        style={{
+          cursor: 'pointer',
+          fontWeight: 'bold',
+          color: props.theme.palette.background.default
+        }}
       >
         {props.deleted ? 'Trash' : 'My Drive'}
         {` `}
@@ -31,7 +37,11 @@ const ViewHeader = props => (
       <Typography
         variant='title'
         color='textSecondary'
-        style={{ paddingLeft: '4px' }}
+        style={{
+          paddingLeft: '4px',
+          fontWeight: 'bold',
+          color: props.theme.palette.background.default
+        }}
       >
         {props.currentFolder ? `> ${props.currentFolder}` : ''}
       </Typography>
@@ -45,4 +55,4 @@ const ViewHeader = props => (
   </AppBar>
 )
 
-export default ViewHeader
+export default withTheme()(ViewHeader)

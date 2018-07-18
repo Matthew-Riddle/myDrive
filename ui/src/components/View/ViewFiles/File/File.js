@@ -43,11 +43,16 @@ class File extends Component {
           onClick={this.handleCardClick}
           style={{
             width: '100%',
-            backgroundColor: this.props.theme.palette.background.paper
+            backgroundColor: this.props.selected.id === this.props.id
+              ? this.props.theme.palette.background.paper
+              : this.props.theme.palette.background.alternate
           }}
         >
           <div className='FileIconContainer'>
-            <FileIcon className='FileIcon' />
+            <FileIcon
+              className='FileIcon'
+              style={{ color: this.props.theme.palette.secondary.dark }}
+            />
           </div>
           <CardContent className='FileContentContainer'>
             <Typography className='FileContent'>
