@@ -13,7 +13,7 @@ const NavBrand = props => {
       backgroundColor: theme.palette.primary.main
     },
     icon: {
-      color: theme.palette.background.default
+      color: theme.palette.navBrand
     }
   }
   return (
