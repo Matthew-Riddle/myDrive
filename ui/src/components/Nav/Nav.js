@@ -37,6 +37,9 @@ const Nav = props => {
         className={`LinkText ${props.location.pathname === '/deleted' ? 'ActiveLink' : ''}
         ${props.location.pathname === '/deleted' && props.theme.palette.type === 'light' ? 'ActiveLinkLight' : ''}
         `}
+        onClick={() => {
+          props.folderHandler(null)
+        }}
       >
         <NavLink delete />
       </Link>

@@ -44,12 +44,17 @@ class Folder extends Component {
           size='small'
           style={{
             width: '100%',
-            backgroundColor: this.props.theme.palette.background.paper
+            backgroundColor: this.props.selected.id === this.props.id
+              ? this.props.theme.palette.background.paper
+              : this.props.theme.palette.background.alternate
           }}
           aria-label='folderButton'
           className={`FolderButton ${this.props.selected.id === this.props.id ? 'ActiveFolder' : ''}`}
         >
-          <FolderIcon className={`FolderIcon`} />
+          <FolderIcon
+            className={`FolderIcon`}
+            style={{ color: this.props.theme.palette.secondary.dark }}
+          />
           <Typography className={`FolderName FolderSizing`}>
             {this.props.name}
           </Typography>{' '}
